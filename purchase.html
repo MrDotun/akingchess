@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxury Shop | AKINGCHESS</title>
+    <title>Luxury Shop | AKING CHESS</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
         :root { 
@@ -16,7 +16,7 @@
 
         body { margin: 0; font-family: 'Poppins', sans-serif; background: #fdfdfd; color: var(--deep-dark); overflow-x: hidden; }
 
-        /* HEADER - REDEFINED FOR EVEN FIT */
+        /* HEADER - ADJUSTED FOR AKING CHESS */
         .shop-header { 
             background: linear-gradient(rgba(2,44,34,0.9), rgba(2,44,34,0.95)), url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=2000');
             background-size: cover; 
@@ -29,10 +29,10 @@
         
         .shop-header h1 { 
             font-family: 'Cinzel', serif; 
-            font-size: clamp(1.8rem, 10vw, 3.5rem); /* Responsive sizing to fit any screen */
+            font-size: clamp(1.8rem, 10vw, 3.5rem); 
             color: var(--gold); 
             margin: 0; 
-            letter-spacing: 2px; 
+            letter-spacing: 4px; /* Increased slightly for the new spacing */
             text-transform: uppercase;
             width: 100%;
             display: block;
@@ -78,7 +78,6 @@
         .product-info h3 { font-family: 'Cinzel', serif; margin: 0 0 12px 0; color: var(--emerald); font-size: 1.4rem; }
         .product-info p { font-size: 0.9rem; color: #666; margin-bottom: 25px; line-height: 1.6; }
 
-        /* BUTTONS */
         .btn-add { 
             width: 100%; background: var(--emerald); color: var(--gold);
             border: none; padding: 16px; border-radius: 12px; font-weight: 700;
@@ -110,7 +109,7 @@
 <body>
 
 <div class="shop-header">
-    <h1>AKINGCHESS</h1>
+    <h1>AKING CHESS</h1>
     <p>Luxury Equipment for the Modern Grandmaster</p>
 </div>
 
@@ -213,10 +212,9 @@
         cart.push({ name, price });
         updateUI();
         
-        // Haptic-style feedback on button
         const btn = event.currentTarget;
         const originalText = btn.innerHTML;
-        btn.innerHTML = "Added to Cart! ✅";
+        btn.innerHTML = "Added! ✅";
         btn.style.background = "var(--gold)";
         btn.style.color = "var(--deep-dark)";
         
@@ -236,7 +234,7 @@
     function checkout() {
         if (cart.length === 0) return alert("Please add items to your cart first!");
         
-        let message = "Hello AKINGCHESS! I'd like to order:%0A";
+        let message = "Hello AKING CHESS! I'd like to order:%0A";
         cart.forEach(i => message += `- ${i.name} (₦${i.price.toLocaleString()})%0A`);
         const total = cart.reduce((sum, item) => sum + item.price, 0);
         message += `%0A*TOTAL: ₦${total.toLocaleString()}*`;
