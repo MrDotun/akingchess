@@ -21,8 +21,8 @@
         
         /* Timer Styles */
         .timer-container { display: flex; justify-content: space-between; margin-bottom: 15px; font-family: 'Cinzel'; font-size: 1.2rem; }
-        .timer { background: var(--dark); padding: 5px 15px; border: 2px solid var(--gold); border-radius: 5px; min-width: 80px; }
-        .active-timer { background: var(--gold); color: var(--dark); }
+        .timer { background: var(--dark); padding: 5px 15px; border: 2px solid var(--gold); border-radius: 5px; min-width: 100px; transition: 0.3s; }
+        .active-timer { background: var(--gold) !important; color: var(--dark) !important; border-color: white; transform: scale(1.05); }
     </style>
 </head>
 <body>
@@ -74,7 +74,6 @@
     var $chat = $('#master-talk');
     var selectedSquare = null;
 
-    // Timer Variables
     var whiteTime = 0, blackTime = 0;
     var timerInterval = null;
 
@@ -99,20 +98,24 @@
         $('#black-timer').text("Black: " + formatTime(blackTime));
         
         $('.timer').removeClass('active-timer');
-        if (game.turn() === 'w') $('#white-timer').addClass('active-timer');
-        else $('#black-timer').addClass('active-timer');
+        if (game.turn() === 'w') {
+            $('#white-timer').addClass('active-timer');
+        } else {
+            $('#black-timer').addClass('active-timer');
+        }
     }
 
     function startTimer() {
         if (timerInterval) clearInterval(timerInterval);
         timerInterval = setInterval(() => {
             if (!gameStarted || game.game_over()) return;
+            
             if (game.turn() === 'w') {
                 whiteTime--;
-                if (whiteTime <= 0) handleGameOver("Time Out! Black wins.");
+                if (whiteTime <= 0) handleGameOver("White out of time!");
             } else {
                 blackTime--;
-                if (blackTime <= 0) handleGameOver("Time Out! White wins.");
+                if (blackTime <= 0) handleGameOver("Black out of time!");
             }
             updateTimerDisplay();
         }, 1000);
@@ -147,8 +150,12 @@
             selectedSquare = null;
             removeHighlights();
             board.position(game.fen());
+            
+            // CRITICAL: Force the turn display to switch immediately
             updateTimerDisplay();
-            window.setTimeout(makeAkingMove, 100); // Reduced delay for fast AI
+            
+            // AI plays instantly
+            window.setTimeout(makeAkingMove, 100);
         }
     }
 
@@ -180,7 +187,10 @@
         
         game.move(move);
         board.position(game.fen());
+        
+        // CRITICAL: Switch back to player timer highlight immediately
         updateTimerDisplay();
+        
         masterComments(move);
         if (game.game_over()) handleGameOver();
     }
@@ -199,8 +209,10 @@
     }
 
     function startGame() {
+        if (timerInterval) clearInterval(timerInterval);
+        
         var nameInput = prompt("Your name, future Grandmaster?");
-        if (nameInput) playerName = nameInput;
+        playerName = nameInput ? nameInput : "Player One";
 
         userColor = $('#playerColor').val();
         var mins = parseInt($('#timeControl').val());
@@ -217,7 +229,7 @@
         $chat.text("Game started! Show me your best moves, " + playerName + "!");
 
         if (userColor === 'b') {
-            window.setTimeout(makeAkingMove, 200);
+            window.setTimeout(makeAkingMove, 100);
         }
     }
 
