@@ -6,33 +6,51 @@
     <title>A-KING CHESS | Academy of Grandmasters</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --green: #064e3b; --gold: #fbbf24; --light-green: #0a6c52; }
-        body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: var(--green); color: white; overflow-x: hidden; }
+        :root { 
+            --deep-green: #064e3b; 
+            --light-green: #10b981; /* Lighter emerald for top section */
+            --gold: #fbbf24; 
+            --dark-background: #022c22;
+        }
+        
+        body, html { 
+            margin: 0; padding: 0; 
+            font-family: 'Poppins', sans-serif; 
+            background: var(--deep-green); 
+            color: white; 
+            overflow-x: hidden; 
+        }
 
         /* HEADER NAV */
-        nav { background: #022c22; border-bottom: 5px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
+        nav { 
+            background: var(--dark-background); 
+            border-bottom: 4px solid var(--gold); 
+            position: sticky; top: 0; z-index: 1000; 
+        }
         nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
         nav ul li { flex: 1; text-align: center; }
-        nav ul li a { display: block; padding: 20px 0; color: white; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
+        nav ul li a { 
+            display: block; padding: 18px 0; color: white; 
+            text-decoration: none; font-weight: 700; 
+            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; 
+        }
 
-        /* THE CAROUSEL & HERO SECTION */
+        /* LIGHTER TOP HERO SECTION */
         .hero { 
             position: relative; 
-            height: 60vh; /* Adjusted height */
+            height: 75vh; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             overflow: hidden;
-            /* Lighter background theme for the top section */
-            background: linear-gradient(to bottom, var(--light-green), var(--green));
+            background: var(--light-green); /* Lighter theme base */
         }
 
-        .slideshow {
+        /* CAROUSEL IMAGES - African Kids Playing Chess */
+        .carousel-container {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 1;
         }
 
@@ -42,51 +60,88 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            animation: fadeAnimation 12s infinite;
+            filter: brightness(0.85);
+            animation: carouselFade 15s infinite ease-in-out;
         }
 
-        /* IMAGE 1: Black kids playing chess in a tournament hall */
-        .slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1588702547919-29c852224317?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); animation-delay: 0s; }
-        /* IMAGE 2: Focused shot of two Black kids playing */
-        .slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1588702547924-1576386465e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); animation-delay: 4s; }
-        /* IMAGE 3: Another tournament scene */
-        .slide:nth-child(3) { background-image: url('https://plus.unsplash.com/premium_photo-1661775756813-534669020140?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'); animation-delay: 8s; }
-
-        @keyframes fadeAnimation {
-            0%, 10% { opacity: 0; }
-            20%, 40% { opacity: 1; }
-            50%, 100% { opacity: 0; }
+        /* Using high-quality tournament images of African children playing chess */
+        .slide:nth-child(1) { 
+            background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=2000'); 
+            animation-delay: 0s; 
+        }
+        .slide:nth-child(2) { 
+            background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?auto=format&fit=crop&q=80&w=2000'); 
+            animation-delay: 5s; 
+        }
+        .slide:nth-child(3) { 
+            background-image: url('https://images.unsplash.com/photo-1528819622765-d6bcf132f793?auto=format&fit=crop&q=80&w=2000'); 
+            animation-delay: 10s; 
         }
 
-        /* Overlay to ensure text is readable */
+        @keyframes carouselFade {
+            0%, 20% { opacity: 0; }
+            30%, 50% { opacity: 1; }
+            60%, 100% { opacity: 0; }
+        }
+
+        /* LIGHT OVERLAY FOR CAROUSEL READABILITY */
         .hero::after {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(6, 78, 59, 0.6); /* Semi-transparent green overlay */
+            background: linear-gradient(rgba(16, 185, 129, 0.4), rgba(6, 78, 59, 0.8));
             z-index: 2;
         }
 
-        /* TEXT DESIGN */
-        .hero-content { z-index: 10; text-align: center; padding: 0 20px; position: relative; }
-        
-        /* Adjusted H1 to fit the page */
-        h1 { 
-            font-family: 'Cinzel', serif; 
-            /* Use clamp for responsive font sizing that fits the page */
-            font-size: clamp(3rem, 10vw, 6rem); 
-            margin: 0; 
-            letter-spacing: 5px; 
-            color: var(--gold); 
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            line-height: 1.2;
+        /* AESTHETIC TEXT DESIGN */
+        .hero-content { 
+            z-index: 10; text-align: center; padding: 0 20px; 
+            max-width: 90%;
         }
         
-        .sub { letter-spacing: 3px; text-transform: uppercase; font-weight: 300; margin-top: 10px; margin-bottom: 30px; font-size: 1rem; }
+        .king-logo {
+            font-size: 4rem; color: var(--gold); margin-bottom: 0px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        h1 { 
+            font-family: 'Cinzel', serif; 
+            font-size: clamp(2.5rem, 8vw, 5rem); 
+            margin: 0; 
+            letter-spacing: 6px; 
+            color: var(--gold);
+            text-shadow: 2px 4px 10px rgba(0,0,0,0.4);
+            white-space: nowrap;
+        }
+
+        .sub { 
+            letter-spacing: 4px; text-transform: uppercase; 
+            font-weight: 300; margin-top: 10px; margin-bottom: 30px; 
+            font-size: clamp(0.8rem, 2vw, 1.2rem); 
+        }
 
         /* ACTION CARDS */
-        .container { max-width: 1200px; margin: -50px auto 50px; padding: 0 20px; position: relative; z-index: 20; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: #022c22; padding: 40px; border: 2px solid var(--gold); text-align: center; border-radius: 5px; }
-        .btn { background: var(--gold); color: #022c22; padding: 15px 35px; text-decoration: none; font-weight: bold; border-radius: 50px; display: inline-block; margin-top: 20px; text-transform: uppercase; font-size: 0.85rem; }
+        .container { max-width: 1200px; margin: -60px auto 50px; padding: 0 20px; position: relative; z-index: 20; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { 
+            background: var(--dark-background); 
+            padding: 45px 30px; 
+            border: 2px solid var(--gold); 
+            text-align: center; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: translateY(-10px); }
+        .card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin: 0 0 15px 0; font-size: 1.6rem; }
+        
+        .btn { 
+            background: var(--gold); color: #022c22; 
+            padding: 15px 35px; text-decoration: none; 
+            font-weight: bold; border-radius: 50px; 
+            display: inline-block; margin-top: 20px; 
+            text-transform: uppercase; font-size: 0.85rem; 
+            transition: 0.3s;
+        }
+        .btn:hover { background: white; transform: scale(1.05); }
     </style>
 </head>
 <body>
@@ -101,13 +156,15 @@
 </nav>
 
 <section class="hero">
-    <div class="slideshow">
+    <div class="carousel-container">
         <div class="slide"></div>
         <div class="slide"></div>
         <div class="slide"></div>
     </div>
+    
     <div class="hero-content">
-        <h1>A-KING CHESS</h1>
+        <div class="king-logo">♚</div>
+        <h1>A - KING CHESS</h1>
         <p class="sub">Academy of Grandmasters</p>
         <a href="https://wa.me/2348108020946" class="btn">Message Akan Udoh</a>
     </div>
@@ -116,22 +173,22 @@
 <div class="container">
     <div class="grid">
         <div class="card">
-            <h3 style="font-family: 'Cinzel'; color: var(--gold); margin: 0;">Training</h3>
+            <h3>Training</h3>
             <p>Join the Lichess classroom for Nigerian students.</p>
             <a href="lichess.html" class="btn">Enter Class</a>
         </div>
         <div class="card">
-            <h3 style="font-family: 'Cinzel'; color: var(--gold); margin: 0;">Workbooks</h3>
+            <h3>Workbooks</h3>
             <p>Interactive chess assignments for Grades 1-6.</p>
             <a href="lessons.html" class="btn">Start Lessons</a>
         </div>
         <div class="card">
-            <h3 style="font-family: 'Cinzel'; color: var(--gold); margin: 0;">Shop</h3>
+            <h3>Shop</h3>
             <p>Quality boards and sets for school tournaments.</p>
             <a href="purchase.html" class="btn">Order Now</a>
         </div>
         <div class="card">
-            <h3 style="font-family: 'Cinzel'; color: var(--gold); margin: 0;">Play</h3>
+            <h3>Play</h3>
             <p>Challenge the A-KING CHESS computer engine.</p>
             <a href="play.html" class="btn">Play Now</a>
         </div>
