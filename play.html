@@ -13,6 +13,10 @@
         nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; }
         .game-container { max-width: 500px; margin: 20px auto; padding: 10px; }
         #myBoard { width: 100%; border: 5px solid var(--gold); border-radius: 5px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        /* Highlighting for selected square */
+        .highlight-square { box-shadow: inset 0 0 3px 3px rgba(251, 191, 36, 0.8); }
+        
         .chat-box { background: var(--dark); border: 2px solid var(--gold); margin-top: 20px; padding: 15px; border-radius: 8px; min-height: 80px; }
         #master-talk { font-style: italic; color: var(--gold); font-size: 1.1rem; line-height: 1.4; }
         .controls { margin: 20px 0; display: flex; justify-content: center; gap: 10px; }
@@ -55,32 +59,65 @@
     var game = new Chess();
     var playerName = "";
     var $chat = $('#master-talk');
+    var selectedSquare = null;
 
-    // Strategic Piece Values
     var pieceValues = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 900 };
 
-    function onDragStart (source, piece) {
-        if (game.game_over() || piece.search(/^b/) !== -1) return false;
+    function removeHighlights() {
+        $('#myBoard .square-55d63').removeClass('highlight-square');
+    }
+
+    function onSquareClick(square) {
+        if (game.game_over()) return;
+
+        // If no square is currently selected
+        if (selectedSquare === null) {
+            var piece = game.get(square);
+            // Only select if it's the player's piece (White)
+            if (piece && piece.color === 'w') {
+                selectedSquare = square;
+                removeHighlights();
+                $('#myBoard .square-' + square).addClass('highlight-square');
+            }
+            return;
+        }
+
+        // Try to move from the previously selected square to the new one
+        var move = game.move({
+            from: selectedSquare,
+            to: square,
+            promotion: 'q'
+        });
+
+        if (move === null) {
+            // If click is invalid, check if user clicked another of their own pieces instead
+            var piece = game.get(square);
+            if (piece && piece.color === 'w') {
+                selectedSquare = square;
+                removeHighlights();
+                $('#myBoard .square-' + square).addClass('highlight-square');
+            } else {
+                selectedSquare = null;
+                removeHighlights();
+            }
+        } else {
+            // Successful Move
+            selectedSquare = null;
+            removeHighlights();
+            board.position(game.fen());
+            window.setTimeout(makeAkingMove, 500);
+        }
     }
 
     function evaluateMove(move) {
         var score = 0;
-        
-        // 1. Prioritize taking higher value pieces
         if (move.captured) {
             score += (pieceValues[move.captured] * 15);
         }
-
-        // 2. High Value Protection: Bonus for keeping Rooks and Queens safe
         if (move.piece === 'q') score += 5;
         if (move.piece === 'r') score += 4;
-        
-        // 3. Castling is a massive priority for the Master
         if (move.san === 'O-O' || move.san === 'O-O-O') score += 25;
-        
-        // 4. Rook Development: Bonus for moving rooks to open files or connecting them
         if (move.piece === 'r' && move.to[1] === '8') score += 3;
-
         return score;
     }
 
@@ -88,7 +125,6 @@
         var possibleMoves = game.moves({ verbose: true });
         if (possibleMoves.length === 0) return handleGameOver();
 
-        // Sort moves by our new "Greedy Defense" logic
         possibleMoves.sort((a, b) => evaluateMove(b) - evaluateMove(a));
         
         var move = possibleMoves[0];
@@ -96,12 +132,6 @@
         board.position(game.fen());
         masterComments(move);
         if (game.game_over()) handleGameOver();
-    }
-
-    function onDrop (source, target) {
-        var move = game.move({ from: source, to: target, promotion: 'q' });
-        if (move === null) return 'snapback';
-        window.setTimeout(makeAkingMove, 500);
     }
 
     function masterComments(move) {
@@ -132,17 +162,22 @@
         if (!playerName) playerName = "Player One";
         game.reset();
         board.start();
-        $chat.text("Alright " + playerName + ", let's see if you can handle my heavy Rooks!");
+        $chat.text("Alright " + playerName + ", click a piece to begin!");
     }
 
     var config = {
-        draggable: true,
         position: 'start',
-        onDragStart: onDragStart,
-        onDrop: onDrop,
+        draggable: false, // Disables drag so click works better
         pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png'
     };
     board = Chessboard('myBoard', config);
+
+    // Event listener for clicks on squares
+    $('#myBoard').on('click', '.square-55d63', function () {
+        var square = $(this).attr('data-square');
+        onSquareClick(square);
+    });
+
 </script>
 
 </body>
