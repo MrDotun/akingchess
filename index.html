@@ -3,136 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AKINGCHESS | Master The Board</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>AKINGCHESS | Academy of Grandmasters</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bold-green: #064e3b; /* Deep Academy Green */
-            --accent-gold: #fbbf24;  /* Bright Trophy Gold */
-            --pure-white: #ffffff;
-            --dark-block: #022c22;  /* Darker Block Green */
+            --deep-green: #064e3b; 
+            --gold: #fbbf24; 
+            --white: #ffffff;
         }
 
-        body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background-color: var(--bold-green); color: var(--pure-white); overflow-x: hidden; }
+        body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background-color: var(--deep-green); color: var(--white); overflow-x: hidden; }
 
-        /* HEAVY BLOCK NAVIGATION */
+        /* BOLD BLOCK NAVIGATION */
         nav {
-            background-color: var(--dark-block);
-            border-bottom: 6px solid var(--accent-gold);
+            background-color: #022c22;
+            border-bottom: 5px solid var(--gold);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
-
         nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
-        
-        nav ul li { flex: 1; border-right: 1px solid rgba(255,255,255,0.1); }
-
+        nav ul li { flex: 1; text-align: center; }
         nav ul li a {
             display: block;
-            padding: 25px 0;
-            color: var(--pure-white);
+            padding: 22px 0;
+            color: var(--white);
             text-decoration: none;
-            font-weight: 900;
-            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
             text-transform: uppercase;
-            text-align: center;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             letter-spacing: 2px;
             transition: 0.3s;
         }
+        nav ul li a:hover { background: var(--gold); color: #022c22; }
 
-        nav ul li a:hover { background-color: var(--accent-gold); color: var(--dark-block); }
-
-        /* HERO SECTION WITH IMAGE CAROUSEL */
+        /* IMAGE CAROUSEL HERO */
         .hero {
             position: relative;
             height: 85vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
+            overflow: hidden;
         }
 
-        .carousel-bg {
+        .carousel-container {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-size: cover;
-            background-position: center;
-            animation: slideShow 15s infinite;
+            width: 100%;
+            height: 100%;
             z-index: -2;
         }
 
-        /* Overlay */
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+            animation: rotateImages 15s infinite;
+        }
+
+        /* Using photos of kids and chess scenes */
+        .slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?q=80&w=2070'); animation-delay: 0s; }
+        .slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?q=80&w=2058'); animation-delay: 5s; }
+        .slide:nth-child(3) { background-image: url('https://plus.unsplash.com/premium_photo-1663045260159-0021c272765d?q=80&w=2070'); animation-delay: 10s; }
+
+        @keyframes rotateImages {
+            0%, 20% { opacity: 1; }
+            33%, 100% { opacity: 0; }
+        }
+
         .hero::after {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(6, 78, 59, 0.85), rgba(2, 44, 34, 0.95)); 
+            background: linear-gradient(rgba(6, 78, 59, 0.7), rgba(2, 44, 34, 0.9));
             z-index: -1;
         }
 
-        @keyframes slideShow {
-            0% { background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?q=80&w=2070'); }
-            33% { background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?q=80&w=2058'); }
-            66% { background-image: url('https://images.unsplash.com/photo-1528819622765-d6bcf132f793?q=80&w=2070'); }
-            100% { background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?q=80&w=2070'); }
-        }
-
-        .crown-logo {
-            font-size: 6rem;
-            color: var(--accent-gold);
-            line-height: 1;
-            margin-bottom: 10px;
-            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.4));
-        }
-
-        .hero-content h1 { 
-            font-family: 'Montserrat', sans-serif; 
-            font-size: clamp(3.5rem, 12vw, 6rem); 
+        /* BEAUTIFUL LETTERING */
+        .hero-content { text-align: center; padding: 20px; }
+        .crown { font-size: 4.5rem; color: var(--gold); margin-bottom: 10px; }
+        h1 { 
+            font-family: 'Cinzel', serif; 
+            font-size: clamp(3rem, 10vw, 5.5rem); 
             margin: 0; 
-            font-weight: 900;
-            letter-spacing: -3px;
-            color: var(--pure-white);
+            letter-spacing: 5px;
+            text-shadow: 2px 4px 10px rgba(0,0,0,0.5);
+        }
+        .subtitle { 
+            font-size: 1.2rem; 
+            letter-spacing: 4px; 
+            text-transform: uppercase; 
+            margin-top: 10px; 
+            font-weight: 300;
         }
 
-        /* FEATURE GRID */
-        .container { max-width: 1200px; margin: -100px auto 60px; padding: 0 20px; position: relative; z-index: 10; }
-        
+        /* CONTENT BLOCKS */
+        .container { max-width: 1200px; margin: -60px auto 60px; padding: 0 20px; position: relative; z-index: 10; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
-        
         .card { 
-            background: var(--dark-block);
-            padding: 50px 30px;
-            border-radius: 4px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-            border: 2px solid var(--accent-gold);
+            background: #022c22;
+            padding: 45px 30px;
+            border: 2px solid var(--gold);
             text-align: center;
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
-
-        .card:hover { transform: translateY(-15px); background: #065f46; }
-
-        .card h3 { font-family: 'Montserrat', sans-serif; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; }
-
-        .btn-bold {
-            display: block;
-            background: var(--accent-gold);
-            color: var(--dark-block);
-            padding: 20px;
+        .card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 15px; font-size: 1.5rem; }
+        .btn {
+            display: inline-block;
+            background: var(--gold);
+            color: #022c22;
+            padding: 15px 40px;
             text-decoration: none;
-            font-weight: 900;
-            margin-top: 25px;
+            font-weight: 700;
+            margin-top: 20px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            border-radius: 2px;
-            transition: 0.3s;
+            border-radius: 50px;
         }
 
-        .btn-bold:hover { background: var(--pure-white); color: var(--bold-green); }
-
-        footer { background: var(--dark-block); padding: 80px 20px; text-align: center; border-top: 10px solid var(--accent-gold); }
-        .footer-wa { color: var(--accent-gold); font-size: 1.8rem; text-decoration: none; font-weight: 900; }
+        footer { background: #011812; padding: 60px 20px; text-align: center; border-top: 5px solid var(--gold); }
     </style>
 </head>
 <body>
@@ -148,41 +140,42 @@
 </nav>
 
 <section class="hero">
-    <div class="carousel-bg"></div>
+    <div class="carousel-container">
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+    </div>
     <div class="hero-content">
-        <div class="crown-logo">♔</div>
+        <div class="crown">♔</div>
         <h1>AKINGCHESS</h1>
-        <p style="font-size: 1.5rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px;">Academy of Grandmasters</p>
-        <a href="https://wa.me/2348108020946" class="btn-bold" style="display:inline-block; padding: 15px 50px; border-radius: 50px; width: auto;">Message Akan Udoh</a>
+        <p class="subtitle">Academy of Grandmasters</p>
+        <a href="https://wa.me/2348108020946" class="btn" style="margin-top: 30px;">Chat with Akan Udoh</a>
     </div>
 </section>
 
 <div class="container">
     <div class="grid">
         <div class="card">
-            <h3>Lichess Training</h3>
-            <p>Access the official AKINGCHESS classroom. Engage in tournaments and master your assignments online.</p>
-            <a href="lichess.html" class="btn-bold">Enter Class</a>
-        </div>
-        <div class="card" style="border-width: 4px;">
-            <h3>Pro Shop</h3>
-            <p>Order tournament-grade chess sets, demo boards, and bags. Discounted rates for school students.</p>
-            <a href="https://wa.me/2348108020946?text=I%20want%20to%20order%20AKINGCHESS%20materials" class="btn-bold">Buy Now</a>
+            <h3>Training Portal</h3>
+            <p>Direct entry to our Lichess classroom. View assignments and join tournament lobbies.</p>
+            <a href="lichess.html" class="btn">Enter Class</a>
         </div>
         <div class="card">
-            <h3>Play Engine</h3>
-            <p>Practice your openings and middle-game tactics against our calibrated chess bot.</p>
-            <a href="play.html" class="btn-bold">Play Now</a>
+            <h3>Chess Shop</h3>
+            <p>Premium demo boards and weighted chess sets. Direct Nigerian shipping available.</p>
+            <a href="https://wa.me/2348108020946?text=I%20want%20to%20order%20materials" class="btn">Shop Now</a>
+        </div>
+        <div class="card">
+            <h3>Play AI</h3>
+            <p>Practice against our specialized chess engine. Sharpen your skills any time.</p>
+            <a href="play.html" class="btn">Play Now</a>
         </div>
     </div>
 </div>
 
 <footer>
-    <div class="crown-logo" style="font-size: 3rem;">♔</div>
-    <h2 style="font-family: 'Montserrat'; letter-spacing: 4px;">AKINGCHESS</h2>
-    <p>Empowering Nigeria's next generation of strategic leaders.</p>
-    <a href="https://wa.me/2348108020946" class="footer-wa">+234 810 802 0946</a>
-    <p style="margin-top: 40px; font-size: 0.75rem; opacity: 0.5; letter-spacing: 1px;">&copy; 2026 AKINGCHESS ACADEMY. ALL RIGHTS RESERVED.</p>
+    <h2 style="font-family: 'Cinzel'; color: var(--gold);">AKINGCHESS NIGERIA</h2>
+    <p>Contact: +234 810 802 0946</p>
 </footer>
 
 </body>
