@@ -1,171 +1,155 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chess Lessons | AKINGCHESS</title>
+    <title>AKING Lessons | Grandmaster Path</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --green: #064e3b; --gold: #fbbf24; --dark: #022c22; --light: #f3f4f6; }
-        body { font-family: 'Poppins', sans-serif; background: var(--light); margin: 0; padding-bottom: 50px; }
+        :root { --green: #064e3b; --gold: #fbbf24; --dark: #022c22; --white: #ffffff; }
+        body { font-family: 'Poppins', sans-serif; background: var(--green); color: var(--white); margin: 0; padding-bottom: 50px; }
         
-        nav { background: var(--dark); border-bottom: 5px solid var(--gold); padding: 15px; text-align: center; }
-        nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; }
+        .container { max-width: 800px; margin: 30px auto; padding: 25px; background: var(--white); color: #333; border-radius: 20px; border: 4px solid var(--gold); }
+        h1, h2 { font-family: 'Cinzel'; color: var(--green); text-align: center; margin-top: 0; }
+        
+        /* Navigation Array */
+        .grade-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+        .lesson-nav { display: flex; justify-content: center; gap: 8px; margin-bottom: 30px; }
+        
+        .btn { padding: 10px 15px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-grade { background: var(--dark); color: var(--gold); }
+        .btn-lesson { background: #ddd; color: #333; }
+        .active { background: var(--gold) !important; color: var(--dark) !important; transform: scale(1.1); }
 
-        .container { max-width: 800px; margin: 20px auto; padding: 20px; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1, h2 { font-family: 'Cinzel'; color: var(--green); text-align: center; }
+        /* The Board */
+        .board-visual { width: 320px; height: 320px; margin: 0 auto 20px; border: 6px solid var(--dark); border-radius: 8px; background-size: cover; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
         
-        /* NAVIGATION ARRAY */
-        .selector-box { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; background: #eee; padding: 15px; border-radius: 10px; }
-        .nav-btn { background: var(--dark); color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.3s; }
-        .nav-btn:hover { background: var(--gold); color: var(--dark); }
-        .active-btn { background: var(--gold); color: var(--dark); }
+        .lesson-text { background: #fdf6e3; padding: 20px; border-radius: 10px; border-left: 6px solid var(--green); line-height: 1.6; font-size: 1.1rem; }
 
-        /* THE CHESS BOARD */
-        .board-container { width: 320px; height: 320px; margin: 20px auto; background: url('https://upload.wikimedia.org/wikipedia/commons/d/d5/Chess_Board_Annotated.svg'); background-size: cover; border: 8px solid var(--dark); border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        /* Assignment Styles */
+        .quiz-container { display: none; margin-top: 20px; padding: 20px; background: #f0f0f0; border-radius: 15px; border: 2px dashed var(--green); }
+        .opt-btn { display: block; width: 100%; padding: 15px; margin: 10px 0; border: 2px solid #ccc; border-radius: 10px; cursor: pointer; font-size: 1rem; text-align: left; background: white; transition: 0.2s; }
+        .correct { background: #d4edda !important; border-color: #28a745 !important; }
+        .wrong { background: #f8d7da !important; border-color: #dc3545 !important; }
 
-        #lesson-content { line-height: 1.6; color: #444; margin-bottom: 30px; padding: 20px; border-left: 5px solid var(--gold); background: #fffdf0; border-radius: 0 10px 10px 0; }
-        
-        /* QUIZ BOX */
-        .quiz-box { display: none; padding: 20px; background: #f9f9f9; border-radius: 10px; border: 3px dashed var(--green); }
-        .option { display: block; width: 100%; padding: 15px; margin: 10px 0; background: white; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; text-align: left; font-size: 1rem; font-family: 'Poppins'; transition: 0.2s; }
-        
-        .correct { background: #dcfce7 !important; border-color: #22c55e !important; color: #166534; font-weight: bold; }
-        .wrong { background: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b; }
-
-        /* SUBMIT TO MR AKAN BUTTON */
-        .btn-submit { display: none; width: 100%; background: #25D366; color: white; border: none; padding: 20px; border-radius: 10px; font-size: 1.2rem; font-weight: 800; cursor: pointer; margin-top: 20px; text-transform: uppercase; box-shadow: 0 4px 0 #128C7E; transition: 0.2s; }
-        .btn-submit:active { transform: translateY(4px); box-shadow: none; }
-        
-        .score-display { font-weight: bold; font-size: 1.3rem; text-align: center; margin: 15px 0; }
+        .submit-wa { display: none; width: 100%; background: #25D366; color: white; padding: 20px; border: none; border-radius: 10px; font-weight: bold; font-size: 1.2rem; cursor: pointer; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="play.html">Play AI</a>
-    <a href="purchase.html">Shop</a>
-</nav>
-
 <div class="container">
-    <h1>Aking Academy Lessons</h1>
+    <h1>AKING Academy</h1>
     
-    <div class="selector-box">
-        <select id="gradeSelect" class="nav-btn" onchange="loadLesson()">
-            <option value="1">Grade 1</option>
-            <option value="2">Grade 2</option>
-            <option value="3">Grade 3</option>
-            <option value="4">Grade 4</option>
-            <option value="5">Grade 5</option>
-            <option value="6">Grade 6</option>
-        </select>
-        <button class="nav-btn active-btn" onclick="setLesson(1, this)">Lesson 1</button>
-        <button class="nav-btn" onclick="setLesson(2, this)">Lesson 2</button>
-        <button class="nav-btn" onclick="setLesson(3, this)">Lesson 3</button>
-        <button class="nav-btn" onclick="setLesson(4, this)">Lesson 4</button>
-        <button class="nav-btn" onclick="setLesson(5, this)">Lesson 5</button>
+    <div class="grade-nav">
+        <button class="btn btn-grade active" onclick="changeGrade(1, this)">Grade 1</button>
+        <button class="btn btn-grade" onclick="changeGrade(2, this)">Grade 2</button>
+        <button class="btn btn-grade" onclick="changeGrade(3, this)">Grade 3</button>
+        <button class="btn btn-grade" onclick="changeGrade(4, this)">Grade 4</button>
+        <button class="btn btn-grade" onclick="changeGrade(5, this)">Grade 5</button>
+        <button class="btn btn-grade" onclick="changeGrade(6, this)">Grade 6</button>
     </div>
 
-    <div id="lesson-area">
-        <h2 id="lesson-title">Lesson Title</h2>
-        <div class="board-container"></div>
-        <div id="lesson-content"></div>
-        <button class="nav-btn" style="width: 100%; padding: 18px; font-size: 1.1rem;" onclick="showAssignment()">Start Assignment</button>
+    <div class="lesson-nav">
+        <button class="btn btn-lesson active" onclick="changeLesson(1, this)">L1</button>
+        <button class="btn btn-lesson" onclick="changeLesson(2, this)">L2</button>
+        <button class="btn btn-lesson" onclick="changeLesson(3, this)">L3</button>
+        <button class="btn btn-lesson" onclick="changeLesson(4, this)">L4</button>
+        <button class="btn btn-lesson" onclick="changeLesson(5, this)">L5</button>
     </div>
 
-    <div id="quiz-area" class="quiz-box">
-        <h2 style="color: var(--dark)">Assignment Time!</h2>
-        <p id="question-text" style="font-weight: 600; font-size: 1.1rem;"></p>
-        <div id="options-container"></div>
-        <div id="feedback" class="score-display"></div>
-        
-        <button id="submitBtn" class="btn-submit" onclick="submitToAkan()">
-            Submit Assignment to Mr. Akan 📲
-        </button>
+    <div id="lesson-view">
+        <h2 id="title">The King</h2>
+        <div id="board" class="board-visual" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/d/d5/Chess_Board_Annotated.svg');"></div>
+        <div class="lesson-text" id="text">Loading lesson...</div>
+        <button class="btn" style="background: var(--green); color: var(--gold); width: 100%; margin-top: 20px; padding: 15px;" onclick="startAssignment()">Take Assignment</button>
+    </div>
+
+    <div id="quiz-view" class="quiz-container">
+        <h2>Assignment</h2>
+        <p id="question" style="font-weight: bold;"></p>
+        <div id="options"></div>
+        <div id="result" style="text-align:center; font-weight:bold; margin-top:15px;"></div>
+        <button id="waBtn" class="submit-wa" onclick="submitToAkan()">Submit to Mr. Akan 📲</button>
     </div>
 </div>
 
 <script>
-    let currentGrade = 1;
-    let currentLessonNum = 1;
-    let studentScore = 0;
+    let grade = 1;
+    let lessonNum = 1;
+    let lastScore = 0;
 
-    const lessonsData = {
-        "1-1": { title: "Meet the King", text: "The King is the most important piece. He moves only 1 square in any direction. If the King is trapped, the game is over!", q: "How many squares can the King move at a time?", a: ["1 Square", "3 Squares", "Across the whole board"], correct: "1 Square" },
-        "1-2": { title: "The Pawn Soldiers", text: "Pawns are like brave soldiers. They move forward but capture diagonally! They can never move backwards.", q: "Can a Pawn move backwards?", a: ["No, never!", "Yes, sometimes", "Only to save the King"], correct: "No, never!" },
-        "4-1": { title: "The Scholar's Mate Trap", text: "Beware of the f7 square! This is the weakest point near the King because only the King defends it. Always develop your pieces to protect it!", q: "Which square is the weakest in the beginning of the game?", a: ["f7", "e4", "h8"], correct: "f7" }
-        // Note: You can add all 30 lessons here following this format
+    const data = {
+        "1-1": { t: "The King", b: "board_king.png", txt: "The King is the leader! He moves only 1 square in any direction. Protect him at all costs.", q: "How many squares can a King move?", c: "1 Square", o: ["1 Square", "3 Squares", "10 Squares"] },
+        "1-2": { t: "The Pawn", b: "board_pawn.png", txt: "Pawns move forward 1 step, but capture diagonally! They are brave soldiers.", q: "How do Pawns capture?", c: "Diagonally", o: ["Straight", "Diagonally", "Backwards"] },
+        "4-1": { t: "Scholar's Mate", b: "board_f7.png", txt: "The f7 square is very weak! Only the King defends it. If a Queen reaches f7, it could be Checkmate.", q: "Which square is the weakest in the opening?", c: "f7", o: ["f7", "e4", "a1"] },
+        // ... more lessons follow same format
     };
 
-    function setLesson(num, btn) {
-        currentLessonNum = num;
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-btn'));
-        btn.classList.add('active-btn');
-        loadLesson();
+    function changeGrade(g, btn) {
+        grade = g;
+        document.querySelectorAll('.btn-grade').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        updateUI();
     }
 
-    function loadLesson() {
-        currentGrade = document.getElementById('gradeSelect').value;
-        let key = `${currentGrade}-${currentLessonNum}`;
-        let data = lessonsData[key] || { title: "Lesson Ready Soon", text: "Mr. Akan is setting up this board. Check back in a moment!", q: "Are you ready to learn?", a: ["Yes", "Sure", "Okay"], correct: "Yes" };
+    function changeLesson(l, btn) {
+        lessonNum = l;
+        document.querySelectorAll('.btn-lesson').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        updateUI();
+    }
+
+    function updateUI() {
+        const key = `${grade}-${lessonNum}`;
+        const item = data[key] || { t: "Coming Soon", txt: "Mr. Akan is preparing this lesson!", q: "Are you ready?", c: "Yes", o: ["Yes", "No"] };
         
-        document.getElementById('lesson-title').innerText = `Grade ${currentGrade}: ${data.title}`;
-        document.getElementById('lesson-content').innerText = data.text;
-        document.getElementById('quiz-area').style.display = 'none';
-        document.getElementById('lesson-area').style.display = 'block';
+        document.getElementById('title').innerText = item.t;
+        document.getElementById('text').innerText = item.txt;
+        document.getElementById('lesson-view').style.display = 'block';
+        document.getElementById('quiz-view').style.display = 'none';
     }
 
-    function showAssignment() {
-        let key = `${currentGrade}-${currentLessonNum}`;
-        let data = lessonsData[key];
-        document.getElementById('lesson-area').style.display = 'none';
-        document.getElementById('quiz-area').style.display = 'block';
-        document.getElementById('question-text').innerText = data.q;
-        document.getElementById('feedback').innerText = "";
-        document.getElementById('submitBtn').style.display = 'none';
-
-        // Shuffle Options
-        let shuffled = data.a.sort(() => Math.random() - 0.5);
-        let container = document.getElementById('options-container');
+    function startAssignment() {
+        const item = data[`${grade}-${lessonNum}`];
+        document.getElementById('lesson-view').style.display = 'none';
+        document.getElementById('quiz-view').style.display = 'block';
+        document.getElementById('question').innerText = item.q;
+        document.getElementById('waBtn').style.display = 'none';
+        document.getElementById('result').innerText = "";
+        
+        const opts = [...item.o].sort(() => Math.random() - 0.5);
+        const container = document.getElementById('options');
         container.innerHTML = "";
-
-        shuffled.forEach(opt => {
-            let btn = document.createElement('button');
-            btn.className = 'option';
-            btn.innerText = opt;
-            btn.onclick = () => checkAnswer(opt, data.correct, btn);
-            container.appendChild(btn);
+        
+        opts.forEach(o => {
+            const b = document.createElement('button');
+            b.className = 'opt-btn';
+            b.innerText = o;
+            b.onclick = () => {
+                document.querySelectorAll('.opt-btn').forEach(btn => btn.onclick = null);
+                if(o === item.c) {
+                    b.classList.add('correct');
+                    document.getElementById('result').innerText = "Correct! Well Done.";
+                    lastScore = 100;
+                } else {
+                    b.classList.add('wrong');
+                    document.getElementById('result').innerText = "Wrong! Answer: " + item.c;
+                    lastScore = 0;
+                }
+                document.getElementById('waBtn').style.display = 'block';
+            };
+            container.appendChild(b);
         });
     }
 
-    function checkAnswer(choice, correct, btn) {
-        document.querySelectorAll('.option').forEach(b => b.onclick = null);
-
-        if (choice === correct) {
-            btn.classList.add('correct');
-            document.getElementById('feedback').innerHTML = "🌟 PERFECT! 🌟<br>You are a Chess Master!";
-            studentScore = 100;
-        } else {
-            btn.classList.add('wrong');
-            document.getElementById('feedback').innerHTML = "Nice try! The correct answer was: <br><b>" + correct + "</b>";
-            studentScore = 0;
-        }
-        document.getElementById('submitBtn').style.display = 'block';
-    }
-
     function submitToAkan() {
-        let name = prompt("What is your name, champion?");
-        if (!name) name = "A Student";
-        
-        let message = `Hello Mr. Akan!%0A%0AI have finished my Chess Assignment.%0A%0A*Name:* ${name}%0A*Grade:* ${currentGrade}%0A*Lesson:* ${currentLessonNum}%0A*Score:* ${studentScore}/100`;
-        
-        window.open(`https://wa.me/2348108020946?text=${message}`, '_blank');
+        const name = prompt("Enter Child's Name:");
+        if(!name) return;
+        const msg = `AKING REPORT%0AName: ${name}%0AGrade: ${grade}%0ALesson: ${lessonNum}%0AScore: ${lastScore}/100`;
+        window.open(`https://wa.me/2348108020946?text=${msg}`);
     }
 
-    window.onload = loadLesson;
+    updateUI();
 </script>
-
 </body>
 </html>
