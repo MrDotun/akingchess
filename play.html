@@ -18,6 +18,11 @@
         #master-talk { font-style: italic; color: var(--gold); font-size: 1.1rem; line-height: 1.4; }
         .controls { margin: 20px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
         button, select { background: var(--gold); border: none; padding: 12px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; font-family: 'Poppins'; }
+        
+        /* Timer Styles */
+        .timer-container { display: flex; justify-content: space-between; margin-bottom: 15px; font-family: 'Cinzel'; font-size: 1.2rem; }
+        .timer { background: var(--dark); padding: 5px 15px; border: 2px solid var(--gold); border-radius: 5px; min-width: 80px; }
+        .active-timer { background: var(--gold); color: var(--dark); }
     </style>
 </head>
 <body>
@@ -44,6 +49,11 @@
         <button onclick="startGame()">Start Challenge</button>
     </div>
 
+    <div class="timer-container">
+        <div id="white-timer" class="timer">White: --:--</div>
+        <div id="black-timer" class="timer">Black: --:--</div>
+    </div>
+
     <div id="myBoard"></div>
     
     <div class="chat-box">
@@ -59,48 +69,60 @@
     var board = null;
     var game = new Chess();
     var playerName = "Player One";
-    var userColor = 'w'; // Default player color
+    var userColor = 'w';
+    var gameStarted = false;
     var $chat = $('#master-talk');
     var selectedSquare = null;
 
-    var pieceValues = { p: 10, n: 32, b: 33, r: 50, q: 90, k: 900 };
+    // Timer Variables
+    var whiteTime = 0, blackTime = 0;
+    var timerInterval = null;
 
+    var pieceValues = { p: 10, n: 32, b: 33, r: 50, q: 90, k: 900 };
     var pst = {
-        n: [
-            [-5,-4,-3,-3,-3,-3,-4,-5],
-            [-4,-2, 0, 0, 0, 0,-2,-4],
-            [-3, 0, 1, 1.5, 1.5, 1, 0,-3],
-            [-3, 0.5, 1.5, 2, 2, 1.5, 0.5,-3],
-            [-3, 0, 1.5, 2, 2, 1.5, 0,-3],
-            [-3, 0.5, 1, 1.5, 1.5, 1, 0.5,-3],
-            [-4,-2, 0, 0.5, 0.5, 0,-2,-4],
-            [-5,-4,-3,-3,-3,-3,-4,-5]
-        ],
-        k: [
-            [2, 3, 1, 0, 0, 1, 3, 2],
-            [2, 2, 0, 0, 0, 0, 2, 2],
-            [-1,-2,-2,-2,-2,-2,-2,-1],
-            [-2,-3,-3,-4,-4,-3,-3,-2],
-            [-3,-4,-4,-5,-5,-4,-4,-3],
-            [-3,-4,-4,-5,-5,-4,-4,-3],
-            [-3,-4,-4,-5,-5,-4,-4,-3],
-            [-3,-4,-4,-5,-5,-4,-4,-3]
-        ]
+        n: [[-5,-4,-3,-3,-3,-3,-4,-5],[-4,-2,0,0,0,0,-2,-4],[-3,0,1,1.5,1.5,1,0,-3],[-3,0.5,1.5,2,2,1.5,0.5,-3],[-3,0,1.5,2,2,1.5,0,-3],[-3,0.5,1,1.5,1.5,1,0.5,-3],[-4,-2,0,0.5,0.5,0,-2,-4],[-5,-4,-3,-3,-3,-3,-4,-5]],
+        k: [[2,3,1,0,0,1,3,2],[2,2,0,0,0,0,2,2],[-1,-2,-2,-2,-2,-2,-2,-1],[-2,-3,-3,-4,-4,-3,-3,-2],[-3,-4,-4,-5,-5,-4,-4,-3],[-3,-4,-4,-5,-5,-4,-4,-3],[-3,-4,-4,-5,-5,-4,-4,-3],[-3,-4,-4,-5,-5,-4,-4,-3]]
     };
 
     function removeHighlights() {
         $('#myBoard .square-55d63').removeClass('highlight-square');
     }
 
-    function onSquareClick(square) {
-        if (game.game_over()) return;
+    function formatTime(seconds) {
+        let min = Math.floor(seconds / 60);
+        let sec = seconds % 60;
+        return (min < 10 ? "0" + min : min) + ":" + (sec < 10 ? "0" + sec : sec);
+    }
+
+    function updateTimerDisplay() {
+        $('#white-timer').text("White: " + formatTime(whiteTime));
+        $('#black-timer').text("Black: " + formatTime(blackTime));
         
-        // Ensure it is the player's turn
-        if (game.turn() !== userColor) return;
+        $('.timer').removeClass('active-timer');
+        if (game.turn() === 'w') $('#white-timer').addClass('active-timer');
+        else $('#black-timer').addClass('active-timer');
+    }
+
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            if (!gameStarted || game.game_over()) return;
+            if (game.turn() === 'w') {
+                whiteTime--;
+                if (whiteTime <= 0) handleGameOver("Time Out! Black wins.");
+            } else {
+                blackTime--;
+                if (blackTime <= 0) handleGameOver("Time Out! White wins.");
+            }
+            updateTimerDisplay();
+        }, 1000);
+    }
+
+    function onSquareClick(square) {
+        if (!gameStarted || game.game_over() || game.turn() !== userColor) return;
 
         if (selectedSquare === null) {
             var piece = game.get(square);
-            // Only select the player's pieces
             if (piece && piece.color === userColor) {
                 selectedSquare = square;
                 removeHighlights();
@@ -125,81 +147,54 @@
             selectedSquare = null;
             removeHighlights();
             board.position(game.fen());
-            window.setTimeout(makeAkingMove, 500);
+            updateTimerDisplay();
+            window.setTimeout(makeAkingMove, 100); // Reduced delay for fast AI
         }
     }
 
     function getPSTScore(piece, square) {
         var file = square.charCodeAt(0) - 97;
         var rank = 8 - parseInt(square[1]);
-        if (pst[piece]) {
-            return pst[piece][rank][file];
-        }
-        return 0;
+        return pst[piece] ? pst[piece][rank][file] : 0;
     }
 
     function evaluateMove(move) {
         var score = 0;
         var moveObj = game.move(move);
-        
-        if (moveObj.captured) {
-            score += (pieceValues[moveObj.captured] * 10);
-        }
-
+        if (moveObj.captured) score += (pieceValues[moveObj.captured] * 10);
         if (moveObj.san === 'O-O' || moveObj.san === 'O-O-O') score += 40;
-        
-        var square = moveObj.to;
-        // AI checks if player (userColor) can attack the square
-        if (game.attackers(userColor, square).length > 0) {
-            score -= pieceValues[moveObj.piece];
-        }
-        
+        if (game.attackers(userColor, moveObj.to).length > 0) score -= pieceValues[moveObj.piece];
         score += getPSTScore(moveObj.piece, moveObj.to);
-
         if (game.in_check()) score += 15;
-
         game.undo();
         return score;
     }
 
-    function makeAkingMove () {
+    function makeAkingMove() {
+        if (game.game_over()) return;
         var possibleMoves = game.moves({ verbose: true });
         if (possibleMoves.length === 0) return handleGameOver();
 
         possibleMoves.sort((a, b) => evaluateMove(b) - evaluateMove(a));
-        
-        var move = (Math.random() > 0.9 && possibleMoves.length > 1) ? possibleMoves[1] : possibleMoves[0];
+        var move = (Math.random() > 0.95 && possibleMoves.length > 1) ? possibleMoves[1] : possibleMoves[0];
         
         game.move(move);
         board.position(game.fen());
+        updateTimerDisplay();
         masterComments(move);
         if (game.game_over()) handleGameOver();
     }
 
     function masterComments(move) {
-        var lines = [
-            "My defense is impenetrable!",
-            "I'm focusing on development, " + playerName + ".",
-            "You left that piece undefended. Big mistake!",
-            "Check my positioning. I'm taking the center.",
-            "Castling early is the mark of a Master."
-        ];
-        
-        if (game.in_check()) {
-            $chat.text("CHECK! I'm coming for your King!");
-        } else if (Math.random() > 0.7) {
-            $chat.text(lines[Math.floor(Math.random() * lines.length)]);
-        }
+        var lines = ["My defense is impenetrable!", "I'm taking the center.", "Big mistake!", "Castling is the mark of a Master."];
+        if (game.in_check()) $chat.text("CHECK!");
+        else if (Math.random() > 0.8) $chat.text(lines[Math.floor(Math.random() * lines.length)]);
     }
 
-    function handleGameOver() {
-        // Updated checkmate logic to be more generic
-        var result = "";
-        if (game.in_checkmate()) {
-            result = (game.turn() === userColor ? "I WON!" : "YOU WON!");
-        } else {
-            result = "DRAW!";
-        }
+    function handleGameOver(reason) {
+        gameStarted = false;
+        clearInterval(timerInterval);
+        var result = reason || (game.in_checkmate() ? (game.turn() === userColor ? "I WON!" : "YOU WON!") : "DRAW!");
         alert("GAME OVER: " + result);
     }
 
@@ -207,18 +202,22 @@
         var nameInput = prompt("Your name, future Grandmaster?");
         if (nameInput) playerName = nameInput;
 
-        // Set player color based on dropdown
         userColor = $('#playerColor').val();
+        var mins = parseInt($('#timeControl').val());
+        whiteTime = blackTime = mins * 60;
         
         game.reset();
         board.orientation(userColor === 'w' ? 'white' : 'black');
         board.start();
+        
+        gameStarted = true;
+        updateTimerDisplay();
+        startTimer();
 
-        $chat.text("Ready " + playerName + "? Show me your best moves!");
+        $chat.text("Game started! Show me your best moves, " + playerName + "!");
 
-        // If player chose black, AI makes the first move
         if (userColor === 'b') {
-            window.setTimeout(makeAkingMove, 500);
+            window.setTimeout(makeAkingMove, 200);
         }
     }
 
@@ -229,8 +228,7 @@
     });
 
     $('#myBoard').on('click', '.square-55d63', function () {
-        var square = $(this).attr('data-square');
-        onSquareClick(square);
+        onSquareClick($(this).attr('data-square'));
     });
 </script>
 
