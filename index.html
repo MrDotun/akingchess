@@ -6,125 +6,64 @@
     <title>AKINGCHESS | Academy of Grandmasters</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --deep-green: #064e3b; 
-            --gold: #fbbf24; 
-            --white: #ffffff;
-        }
+        :root { --green: #064e3b; --gold: #fbbf24; }
+        body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: var(--green); color: white; }
 
-        body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background-color: var(--deep-green); color: var(--white); overflow-x: hidden; }
-
-        /* BOLD BLOCK NAVIGATION */
-        nav {
-            background-color: #022c22;
-            border-bottom: 5px solid var(--gold);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+        /* HEADER NAV */
+        nav { background: #022c22; border-bottom: 5px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
         nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
         nav ul li { flex: 1; text-align: center; }
-        nav ul li a {
-            display: block;
-            padding: 22px 0;
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            transition: 0.3s;
-        }
-        nav ul li a:hover { background: var(--gold); color: #022c22; }
+        nav ul li a { display: block; padding: 20px 0; color: white; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
 
-        /* IMAGE CAROUSEL HERO */
-        .hero {
-            position: relative;
-            height: 85vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .carousel-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
-
+        /* THE CAROUSEL */
+        .hero { position: relative; height: 80vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        
         .slide {
             position: absolute;
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             background-size: cover;
             background-position: center;
             opacity: 0;
-            transition: opacity 2s ease-in-out;
-            animation: rotateImages 15s infinite;
+            animation: fadeAnimation 12s infinite;
         }
 
-        /* Using photos of kids and chess scenes */
-        .slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?q=80&w=2070'); animation-delay: 0s; }
-        .slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?q=80&w=2058'); animation-delay: 5s; }
-        .slide:nth-child(3) { background-image: url('https://plus.unsplash.com/premium_photo-1663045260159-0021c272765d?q=80&w=2070'); animation-delay: 10s; }
+        /* IMAGE 1: African kids playing chess */
+        .slide:nth-child(1) { 
+            background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=2000'); 
+            animation-delay: 0s; 
+        }
+        /* IMAGE 2: Close up of a move */
+        .slide:nth-child(2) { 
+            background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?auto=format&fit=crop&q=80&w=2000'); 
+            animation-delay: 4s; 
+        }
+        /* IMAGE 3: Focus and Strategy */
+        .slide:nth-child(3) { 
+            background-image: url('https://images.unsplash.com/photo-1523398003113-cd264a1d31d5?auto=format&fit=crop&q=80&w=2000'); 
+            animation-delay: 8s; 
+        }
 
-        @keyframes rotateImages {
-            0%, 20% { opacity: 1; }
-            33%, 100% { opacity: 0; }
+        @keyframes fadeAnimation {
+            0%, 10% { opacity: 0; }
+            20%, 40% { opacity: 1; }
+            50%, 100% { opacity: 0; }
         }
 
         .hero::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(6, 78, 59, 0.7), rgba(2, 44, 34, 0.9));
-            z-index: -1;
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(6, 78, 59, 0.75); z-index: -1;
         }
 
-        /* BEAUTIFUL LETTERING */
-        .hero-content { text-align: center; padding: 20px; }
-        .crown { font-size: 4.5rem; color: var(--gold); margin-bottom: 10px; }
-        h1 { 
-            font-family: 'Cinzel', serif; 
-            font-size: clamp(3rem, 10vw, 5.5rem); 
-            margin: 0; 
-            letter-spacing: 5px;
-            text-shadow: 2px 4px 10px rgba(0,0,0,0.5);
-        }
-        .subtitle { 
-            font-size: 1.2rem; 
-            letter-spacing: 4px; 
-            text-transform: uppercase; 
-            margin-top: 10px; 
-            font-weight: 300;
-        }
+        /* TEXT DESIGN */
+        .hero-content { z-index: 10; text-align: center; }
+        h1 { font-family: 'Cinzel', serif; font-size: 4rem; margin: 0; letter-spacing: 6px; color: var(--gold); }
+        .sub { letter-spacing: 4px; text-transform: uppercase; font-weight: 300; margin-bottom: 20px; }
 
-        /* CONTENT BLOCKS */
-        .container { max-width: 1200px; margin: -60px auto 60px; padding: 0 20px; position: relative; z-index: 10; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
-        .card { 
-            background: #022c22;
-            padding: 45px 30px;
-            border: 2px solid var(--gold);
-            text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-        .card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 15px; font-size: 1.5rem; }
-        .btn {
-            display: inline-block;
-            background: var(--gold);
-            color: #022c22;
-            padding: 15px 40px;
-            text-decoration: none;
-            font-weight: 700;
-            margin-top: 20px;
-            text-transform: uppercase;
-            border-radius: 50px;
-        }
-
-        footer { background: #011812; padding: 60px 20px; text-align: center; border-top: 5px solid var(--gold); }
+        /* ACTION CARDS */
+        .container { max-width: 1200px; margin: -50px auto 50px; padding: 0 20px; position: relative; z-index: 20; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: #022c22; padding: 40px; border: 2px solid var(--gold); text-align: center; border-radius: 5px; }
+        .btn { background: var(--gold); color: #022c22; padding: 15px 30px; text-decoration: none; font-weight: bold; border-radius: 50px; display: inline-block; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -135,48 +74,40 @@
         <li><a href="about.html">About</a></li>
         <li><a href="lessons.html">Lessons</a></li>
         <li><a href="play.html">Play</a></li>
-        <li><a href="purchase.html">Shop</a></li>
     </ul>
 </nav>
 
 <section class="hero">
-    <div class="carousel-container">
-        <div class="slide"></div>
-        <div class="slide"></div>
-        <div class="slide"></div>
-    </div>
+    <div class="slide"></div>
+    <div class="slide"></div>
+    <div class="slide"></div>
     <div class="hero-content">
-        <div class="crown">♔</div>
+        <div style="font-size: 4rem; color: var(--gold);">♔</div>
         <h1>AKINGCHESS</h1>
-        <p class="subtitle">Academy of Grandmasters</p>
-        <a href="https://wa.me/2348108020946" class="btn" style="margin-top: 30px;">Chat with Akan Udoh</a>
+        <p class="sub">Academy of Grandmasters</p>
+        <a href="https://wa.me/2348108020946" class="btn">Message Akan Udoh</a>
     </div>
 </section>
 
 <div class="container">
     <div class="grid">
         <div class="card">
-            <h3>Training Portal</h3>
-            <p>Direct entry to our Lichess classroom. View assignments and join tournament lobbies.</p>
+            <h3 style="font-family: 'Cinzel'; color: var(--gold);">Training</h3>
+            <p>Join the Lichess classroom for Nigerian students.</p>
             <a href="lichess.html" class="btn">Enter Class</a>
         </div>
         <div class="card">
-            <h3>Chess Shop</h3>
-            <p>Premium demo boards and weighted chess sets. Direct Nigerian shipping available.</p>
-            <a href="https://wa.me/2348108020946?text=I%20want%20to%20order%20materials" class="btn">Shop Now</a>
+            <h3 style="font-family: 'Cinzel'; color: var(--gold);">Shop</h3>
+            <p>Quality boards and sets for school tournaments.</p>
+            <a href="https://wa.me/2348108020946" class="btn">Order Now</a>
         </div>
         <div class="card">
-            <h3>Play AI</h3>
-            <p>Practice against our specialized chess engine. Sharpen your skills any time.</p>
+            <h3 style="font-family: 'Cinzel'; color: var(--gold);">Play</h3>
+            <p>Challenge the AKINGCHESS computer engine.</p>
             <a href="play.html" class="btn">Play Now</a>
         </div>
     </div>
 </div>
-
-<footer>
-    <h2 style="font-family: 'Cinzel'; color: var(--gold);">AKINGCHESS NIGERIA</h2>
-    <p>Contact: +234 810 802 0946</p>
-</footer>
 
 </body>
 </html>
