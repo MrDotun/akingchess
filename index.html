@@ -3,20 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AKINGCHESS | Academy of Grandmasters</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>A-KING CHESS | Academy of Grandmasters</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --green: #064e3b; --gold: #fbbf24; }
-        body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: var(--green); color: white; overflow-x: hidden; }
+        :root { 
+            --green: #064e3b; 
+            --gold: #fbbf24; 
+            --dark-green: #022c22;
+        }
+        
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Poppins', sans-serif; 
+            background: var(--green); 
+            color: white; 
+            overflow-x: hidden; 
+        }
 
         /* HEADER NAV */
-        nav { background: #022c22; border-bottom: 5px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
-        nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
+        nav { 
+            background: var(--dark-green); 
+            border-bottom: 3px solid var(--gold); 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            margin: 0; 
+            padding: 0; 
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
         nav ul li { flex: 1; text-align: center; }
-        nav ul li a { display: block; padding: 20px 0; color: white; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
+        
+        nav ul li a { 
+            display: block; 
+            padding: 20px 0; 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            font-size: 0.8rem; 
+            letter-spacing: 2px; 
+            transition: 0.3s;
+        }
+        
+        nav ul li a:hover { color: var(--gold); background: rgba(255,255,255,0.05); }
 
         /* THE CAROUSEL */
-        .hero { position: relative; height: 80vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .hero { 
+            position: relative; 
+            height: 85vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden; 
+        }
         
         .slide {
             position: absolute;
@@ -24,44 +72,133 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            animation: fadeAnimation 12s infinite;
+            animation: fadeAnimation 15s infinite;
         }
 
-        /* IMAGE 1: African kids playing chess */
-        .slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=2000'); animation-delay: 0s; }
-        /* IMAGE 2: Close up of a move */
-        .slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?auto=format&fit=crop&q=80&w=2000'); animation-delay: 4s; }
-        /* IMAGE 3: Focus and Strategy */
-        .slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1523398003113-cd264a1d31d5?auto=format&fit=crop&q=80&w=2000'); animation-delay: 8s; }
+        /* New Carousel Images: Children in Tournaments */
+        .slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1596426720516-e41416e7a2b0?q=80&w=2000&auto=format&fit=crop'); animation-delay: 0s; }
+        .slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1528819622765-d6bcf132f793?q=80&w=2000&auto=format&fit=crop'); animation-delay: 5s; }
+        .slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1605637254508-8e6d97e78119?q=80&w=2000&auto=format&fit=crop'); animation-delay: 10s; }
 
         @keyframes fadeAnimation {
-            0%, 10% { opacity: 0; }
-            20%, 40% { opacity: 1; }
-            50%, 100% { opacity: 0; }
+            0%, 25% { opacity: 1; transform: scale(1.05); }
+            33.33%, 100% { opacity: 0; transform: scale(1); }
         }
 
+        /* Dark overlay for readability */
         .hero::after {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(6, 78, 59, 0.75); z-index: -1;
+            background: linear-gradient(rgba(2, 44, 34, 0.6), rgba(6, 78, 59, 0.85)); 
+            z-index: 5;
         }
 
-        /* TEXT DESIGN */
-        .hero-content { z-index: 10; text-align: center; padding: 0 10px; }
-        h1 { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 8vw, 4.5rem); margin: 0; letter-spacing: 4px; color: var(--gold); }
-        .sub { letter-spacing: 3px; text-transform: uppercase; font-weight: 300; margin-top: 5px; margin-bottom: 20px; font-size: 0.9rem; }
+        /* AESTHETIC TEXT DESIGN */
+        .hero-content { 
+            z-index: 10; 
+            text-align: center; 
+            padding: 0 20px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* The New Aesthetic King Logo */
+        .king-logo {
+            font-size: 5rem;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: -10px;
+            text-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+            font-family: 'Cinzel', serif;
+        }
+
+        /* A-KING CHESS Typography */
+        h1 { 
+            font-family: 'Cinzel', serif; 
+            font-size: clamp(3rem, 10vw, 6rem); 
+            margin: 0; 
+            color: var(--gold); 
+            font-weight: 900;
+            text-shadow: 2px 4px 8px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px; /* Creates the space between words */
+        }
+        
+        .dash {
+            color: white;
+            font-weight: 400;
+        }
+
+        .sub { 
+            letter-spacing: 6px; 
+            text-transform: uppercase; 
+            font-weight: 300; 
+            margin-top: 5px; 
+            margin-bottom: 30px; 
+            font-size: clamp(0.9rem, 3vw, 1.2rem); 
+            color: #e2e8f0;
+        }
 
         /* ACTION CARDS */
-        .container { max-width: 1200px; margin: -50px auto 50px; padding: 0 20px; position: relative; z-index: 20; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: #022c22; padding: 40px; border: 2px solid var(--gold); text-align: center; border-radius: 5px; }
-        .btn { background: var(--gold); color: #022c22; padding: 15px 35px; text-decoration: none; font-weight: bold; border-radius: 50px; display: inline-block; margin-top: 20px; text-transform: uppercase; font-size: 0.85rem; }
+        .container { max-width: 1200px; margin: -60px auto 50px; padding: 0 20px; position: relative; z-index: 20; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        
+        .card { 
+            background: rgba(2, 44, 34, 0.95); 
+            padding: 40px 25px; 
+            border: 1px solid rgba(251, 191, 36, 0.3); 
+            text-align: center; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            transition: 0.4s;
+        }
+        
+        .card:hover { transform: translateY(-10px); border-color: var(--gold); }
+        
+        .btn { 
+            background: var(--gold); color: var(--dark-green); 
+            padding: 12px 30px; text-decoration: none; 
+            font-weight: 800; border-radius: 50px; 
+            display: inline-block; margin-top: 20px; 
+            text-transform: uppercase; font-size: 0.85rem; 
+            letter-spacing: 1px; transition: 0.3s;
+        }
+        .btn:hover { background: white; box-shadow: 0 0 15px rgba(251, 191, 36, 0.5); }
+
+        /* SHOP POPUP */
+        .popup-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8); backdrop-filter: blur(5px);
+            display: none; justify-content: center; align-items: center; z-index: 3000;
+            opacity: 0; transition: opacity 0.3s;
+        }
+        
+        .popup-content {
+            background: var(--dark-green); border: 2px solid var(--gold);
+            padding: 40px; border-radius: 20px; text-align: center;
+            max-width: 400px; width: 90%; position: relative;
+            transform: translateY(20px); transition: transform 0.3s;
+        }
+        
+        .close-popup {
+            position: absolute; top: 15px; right: 20px;
+            color: white; font-size: 1.5rem; cursor: pointer; opacity: 0.7;
+        }
+        
+        .close-popup:hover { opacity: 1; color: var(--gold); }
+        
+        .popup-img { width: 100px; height: 100px; margin: 0 auto 20px; font-size: 4rem; display: flex; align-items: center; justify-content: center; }
+
     </style>
 </head>
 <body>
 
 <nav>
     <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html" style="color: var(--gold);">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="lessons.html">Lessons</a></li>
         <li><a href="play.html">Play</a></li>
@@ -72,9 +209,15 @@
     <div class="slide"></div>
     <div class="slide"></div>
     <div class="slide"></div>
+    
     <div class="hero-content">
-        <div style="font-size: 3.5rem; color: var(--gold); line-height: 1;">♔</div>
-        <h1>AKINGCHESS</h1>
+        <div class="king-logo">♚</div>
+        <h1>
+            <span>A</span>
+            <span class="dash">-</span>
+            <span>KING</span>
+            <span>CHESS</span>
+        </h1>
         <p class="sub">Academy of Grandmasters</p>
         <a href="https://wa.me/2348108020946" class="btn">Message Akan Udoh</a>
     </div>
@@ -83,27 +226,58 @@
 <div class="container">
     <div class="grid">
         <div class="card">
-            <h3 style="font-family: 'Cinzel'; color: var(--gold); margin: 0;">Training</h3>
-            <p>Join the Lichess classroom for Nigerian students.</p>
+            <h3 style="font-family: 'Cinzel'; color: var(--gold); margin: 0; font-size: 1.5rem;">Training</h3>
+            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">Join the Lichess classroom for Nigerian students.</p>
             <a href="lichess.html" class="btn">Enter Class</a>
         </div>
         <div class="card">
-            <h3 style="font-family: 'Cinzel'; color: var(--gold); margin: 0;">Workbooks</h3>
-            <p>Interactive chess assignments for Grades 1-6.</p>
+            <h3 style="font-family: 'Cinzel'; color: var(--gold); margin: 0; font-size: 1.5rem;">Workbooks</h3>
+            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">Interactive chess assignments for Grades 1-6.</p>
             <a href="lessons.html" class="btn">Start Lessons</a>
         </div>
         <div class="card">
-            <h3 style="font-family: 'Cinzel'; color: var(--gold); margin: 0;">Shop</h3>
-            <p>Quality boards and sets for school tournaments.</p>
-            <a href="purchase.html" class="btn">Order Now</a>
+            <h3 style="font-family: 'Cinzel'; color: var(--gold); margin: 0; font-size: 1.5rem;">Shop</h3>
+            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">Quality boards and sets for school tournaments.</p>
+            <a href="purchase.html" class="btn">View Store</a>
         </div>
         <div class="card">
-            <h3 style="font-family: 'Cinzel'; color: var(--gold); margin: 0;">Play</h3>
-            <p>Challenge the AKINGCHESS computer engine.</p>
+            <h3 style="font-family: 'Cinzel'; color: var(--gold); margin: 0; font-size: 1.5rem;">Play</h3>
+            <p style="font-size: 0.9rem; opacity: 0.8; margin-top: 10px;">Challenge the A-KING CHESS computer engine.</p>
             <a href="play.html" class="btn">Play Now</a>
         </div>
     </div>
 </div>
+
+<div class="popup-overlay" id="shopPopup">
+    <div class="popup-content" id="popupInner">
+        <span class="close-popup" onclick="closePopup()">✖</span>
+        <div class="popup-img">♕</div>
+        <h2 style="font-family: 'Cinzel'; color: var(--gold); margin-top: 0;">Elevate Your Game</h2>
+        <p style="font-size: 0.9rem; margin-bottom: 25px;">Equip your academy with premium, tournament-grade chess sets and beautiful wooden boards.</p>
+        <a href="purchase.html" class="btn" style="width: 80%; box-sizing: border-box;">Shop Luxury Gear</a>
+    </div>
+</div>
+
+<script>
+    // Show popup after 3 seconds of landing on the page
+    setTimeout(() => {
+        const popup = document.getElementById('shopPopup');
+        const inner = document.getElementById('popupInner');
+        popup.style.display = 'flex';
+        
+        // Trigger reflow for animation
+        void popup.offsetWidth; 
+        
+        popup.style.opacity = '1';
+        inner.style.transform = 'translateY(0)';
+    }, 3000);
+
+    function closePopup() {
+        const popup = document.getElementById('shopPopup');
+        popup.style.opacity = '0';
+        setTimeout(() => popup.style.display = 'none', 300);
+    }
+</script>
 
 </body>
 </html>
