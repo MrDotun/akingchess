@@ -2,21 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AKING Chess Master - Royal Arena</title>
+    
     <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+    
     <style>
-        body { background: #1a1a1a; color: #d4af37; font-family: 'Segoe UI', Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; }
-        #setup-screen { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.9); z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .setup-box { background: #2c3e50; padding: 30px; border: 3px solid #d4af37; border-radius: 15px; text-align: center; }
-        #board { width: 450px; border: 8px solid #333; border-radius: 5px; }
-        .game-container { display: flex; gap: 20px; align-items: flex-start; margin-top: 20px; }
-        .side-panel { width: 250px; background: #222; padding: 15px; border-radius: 10px; border: 1px solid #444; }
-        .clock { font-family: monospace; font-size: 2em; background: #000; color: #ff3e3e; padding: 10px; margin: 10px 0; border-radius: 5px; text-align: center; border: 2px solid #333; }
-        .active-clock { border-color: #d4af37; color: #00ff00; }
-        .chat-box { height: 100px; overflow-y: auto; background: #111; padding: 10px; border-radius: 5px; font-style: italic; color: #fff; margin: 10px 0; border: 1px solid #d4af37; }
-        button { background: #d4af37; color: #000; border: none; padding: 10px 15px; font-weight: bold; border-radius: 5px; cursor: pointer; margin: 5px; transition: 0.2s; }
-        button:hover { background: #fff; }
+        body { background: #1a1a1a; color: #d4af37; font-family: 'Segoe UI', Arial, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; overflow-x: hidden; }
+        
+        /* FIX: Setup screen now has absolute priority */
+        #setup-screen { 
+            position: fixed; top:0; left:0; width:100%; height:100%; 
+            background: rgba(0,0,0,0.95); z-index: 9999; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+        }
+        
+        .setup-box { background: #2c3e50; padding: 40px; border: 4px solid #d4af37; border-radius: 20px; text-align: center; box-shadow: 0 0 30px #000; }
+        #board { width: 90vw; max-width: 450px; border: 5px solid #333; border-radius: 5px; }
+        
+        .game-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; padding: 20px; }
+        .side-panel { width: 300px; background: #222; padding: 15px; border-radius: 10px; border: 1px solid #444; }
+        
+        .clock { font-family: monospace; font-size: 2.2em; background: #000; color: #ff3e3e; padding: 10px; margin: 10px 0; border-radius: 5px; text-align: center; border: 2px solid #333; }
+        .active-clock { border-color: #d4af37; color: #00ff00; box-shadow: 0 0 10px #00ff0033; }
+        
+        .chat-box { height: 80px; overflow-y: auto; background: #111; padding: 10px; border-radius: 5px; font-style: italic; color: #fff; margin: 10px 0; border: 1px solid #d4af37; font-size: 0.9em; }
+        
+        button { background: #d4af37; color: #000; border: none; padding: 15px 25px; font-weight: bold; border-radius: 8px; cursor: pointer; margin: 10px; font-size: 1.1em; }
+        button:hover { background: #fff; transform: translateY(-2px); }
         .btn-danger { background: #e74c3c; color: white; }
     </style>
 </head>
@@ -24,16 +37,17 @@
 
     <div id="setup-screen">
         <div class="setup-box">
-            <h1>👑 Enter the Arena</h1>
-            <p>Choose your side:</p>
-            <button onclick="startGame('w')">White (Go First)</button>
-            <button onclick="startGame('b')">Black (Go Second)</button>
-            <p>Time Control:</p>
-            <select id="time-select" style="padding: 10px;">
+            <h1 style="color:#fff">👑 AKING'S ARENA</h1>
+            <p style="color:#aaa">Select your army:</p>
+            <button onclick="startGame('w')">⚪ WHITE (First)</button>
+            <button onclick="startGame('b')">⚫ BLACK (Second)</button>
+            <p style="color:#aaa">Time Limit:</p>
+            <select id="time-select" style="padding: 12px; border-radius: 5px; width: 100%; margin-bottom: 20px;">
                 <option value="5">5 Minutes (Blitz)</option>
                 <option value="10" selected>10 Minutes (Rapid)</option>
                 <option value="30">30 Minutes (Classical)</option>
             </select>
+            <p style="font-size: 0.7em; color: #666;">Can't click? Tap anywhere on the dark background to force start.</p>
         </div>
     </div>
 
@@ -43,20 +57,19 @@
         <div id="board"></div>
         
         <div class="side-panel">
-            <div id="name-king">AKING</div>
+            <div style="color: #fff; font-weight: bold;">Opponent: AKING</div>
             <div id="clock-b" class="clock">10:00</div>
             
-            <div class="chat-box" id="chat">"Prepare to face the King!"</div>
+            <div class="chat-box" id="chat">"Prepare for a royal lesson in strategy!"</div>
             
             <div id="clock-w" class="clock">10:00</div>
-            <div id="name-player">You</div>
+            <div style="color: #fff; font-weight: bold;">Player: You</div>
             
-            <hr border="1" color="#444">
-            <div style="display: flex; flex-wrap: wrap;">
-                <button class="btn-danger" onclick="resign()">Resign</button>
-                <button onclick="offerDraw()">Offer Draw</button>
+            <div style="margin-top: 20px; display: flex; justify-content: space-between;">
+                <button class="btn-danger" style="flex:1" onclick="resign()">Resign</button>
+                <button style="flex:1" onclick="offerDraw()">Draw?</button>
             </div>
-            <div id="status" style="margin-top:10px; font-weight: bold;"></div>
+            <div id="status" style="margin-top:10px; text-align: center;"></div>
         </div>
     </div>
 
@@ -73,45 +86,42 @@
         var timeLeft = { w: 600, b: 600 };
         
         const remarks = [
-            "Interesting... but my Grandma castles faster than that!",
-            "Is that a move or a mistake? I can't tell.",
-            "I'm protecting my Queen like she's made of gold!",
-            "You'll have to do better to get past my Royal Guard.",
-            "A bold move! Unfortunately, I am bolder.",
-            "I've seen pawns with more courage than that.",
-            "Nice try, but my King is currently sipping tea in safety.",
-            "Are you trying to win, or just moving pieces for exercise?",
-            "My Rooks are hungry today. Be careful!",
-            "That move felt a bit... suspicious.",
-            "I've calculated 4 million ways to beat you. That wasn't one of them.",
-            "Oh, you're approaching me? Instead of running away?",
-            "I'll give you a hint: Check your back rank!",
-            "My pieces work together like a fine-tuned orchestra.",
-            "You move like a Knight with a broken leg.",
-            "Wait, was that your plan? Really?",
-            "I'm not just a computer, I'm a Chess Legend.",
-            "Careful! Your Queen looks a bit lonely over there.",
-            "I castle early because I value my Royal hair.",
-            "Check! (Or it will be soon, trust me)."
+            "A move like that? I castled before you were born!",
+            "My Queen is currently shopping for a new crown while you struggle.",
+            "King safety first! I'm tucked in tight like a royal baby.",
+            "I've seen pawns with better vision than you.",
+            "Nice try, but I protected that piece 5 moves ago.",
+            "Is it hot in here, or is your King just sweating?",
+            "My Rooks are basically dragons. Watch out!",
+            "You call that a fork? I call it a spoon.",
+            "Calculated. To the billionth decimal point.",
+            "I'm not just a Master, I'm the Whole Chess Board."
         ];
 
+        // ENGINE SETUP
         aking.postMessage('uci');
         aking.postMessage('setoption name Skill Level value 20');
         aking.postMessage('setoption name Hash value 512');
+        aking.postMessage('setoption name Threads value 4');
 
         function startGame(color) {
             playerColor = color;
             let mins = document.getElementById('time-select').value;
             timeLeft.w = mins * 60;
             timeLeft.b = mins * 60;
+            
             updateClocks();
-            document.getElementById('setup-screen').style.display = 'none';
+            $('#setup-screen').fadeOut(300);
             
             board = ChessBoard('board', {
                 draggable: true,
                 position: 'start',
                 orientation: color === 'w' ? 'white' : 'black',
-                onDragStart: onDragStart,
+                onDragStart: (s, p) => {
+                    if (game.game_over()) return false;
+                    if ((playerColor === 'w' && p.search(/^b/) !== -1) || 
+                        (playerColor === 'b' && p.search(/^w/) !== -1)) return false;
+                },
                 onDrop: onDrop,
                 pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png'
             });
@@ -119,6 +129,11 @@
             startTimer();
             if (playerColor === 'b') window.setTimeout(makeAKINGMove, 500);
         }
+
+        // Backup Force-Start
+        $('#setup-screen').on('click', function(e) {
+            if (e.target.id === "setup-screen") startGame('w');
+        });
 
         function startTimer() {
             if (timer) clearInterval(timer);
@@ -132,66 +147,45 @@
 
         function updateClocks() {
             const format = (s) => Math.floor(s/60) + ":" + (s%60).toString().padStart(2,'0');
-            document.getElementById('clock-w').innerHTML = format(timeLeft.w);
-            document.getElementById('clock-b').innerHTML = format(timeLeft.b);
-            document.getElementById('clock-w').className = game.turn() === 'w' ? 'clock active-clock' : 'clock';
-            document.getElementById('clock-b').className = game.turn() === 'b' ? 'clock active-clock' : 'clock';
-        }
-
-        function onDragStart(s, piece) {
-            if (game.game_over() || (playerColor === 'w' && piece.search(/^b/) !== -1) || (playerColor === 'b' && piece.search(/^w/) !== -1)) return false;
+            $('#clock-w').text(format(timeLeft.w)).toggleClass('active-clock', game.turn() === 'w');
+            $('#clock-b').text(format(timeLeft.b)).toggleClass('active-clock', game.turn() === 'b');
         }
 
         function onDrop(source, target) {
             var move = game.move({ from: source, to: target, promotion: 'q' });
             if (move === null) return 'snapback';
             
-            addRemark();
-            window.setTimeout(makeAKINGMove, 100);
+            let r = remarks[Math.floor(Math.random() * remarks.length)];
+            $('#chat').html(`<strong>AKING:</strong> "${r}"`);
+            
+            window.setTimeout(makeAKINGMove, 150);
         }
 
         function makeAKINGMove() {
-            if (game.game_over()) { updateStatus(); return; }
+            if (game.game_over()) return;
             aking.postMessage('position fen ' + game.fen());
-            aking.postMessage('go depth 20');
+            aking.postMessage('go depth 18');
             aking.onmessage = function(e) {
                 if (e.data.includes('bestmove')) {
                     let moveStr = e.data.split(' ')[1];
                     game.move({ from: moveStr.substring(0,2), to: moveStr.substring(2,4), promotion: 'q' });
                     board.position(game.fen());
-                    updateStatus();
+                    if (game.in_checkmate()) endGame("Checkmate!");
                 }
             };
         }
 
-        function addRemark() {
-            let r = remarks[Math.floor(Math.random() * remarks.length)];
-            document.getElementById('chat').innerHTML = `<strong>AKING:</strong> "${r}"`;
-        }
-
         function offerDraw() {
-            document.getElementById('chat').innerHTML = `<strong>AKING:</strong> "A draw? A King never settles for half a victory! DECLINED!"`;
+            $('#chat').html(`<strong>AKING:</strong> "I don't even know what the word 'Draw' means! NO!"`);
         }
 
-        function resign() {
-            endGame("You resigned.");
-        }
-
-        function updateStatus() {
-            if (game.in_checkmate()) endGame("Checkmate!");
-            else if (game.in_draw()) endGame("Draw.");
-        }
+        function resign() { endGame("You surrendered to the crown."); }
 
         function endGame(reason) {
             clearInterval(timer);
-            let result = game.turn() === (playerColor === 'w' ? 'b' : 'w') ? "AKING WINS" : "YOU WIN";
-            if (reason.includes("resigned")) result = "AKING WINS";
-            
-            // TITLES
-            let titles = ["Grandmaster of the Cookie Jar", "The Chess Wizard", "Duke of Diagonals", "Slayer of Knights", "The Patient Pawn"];
-            let title = titles[Math.floor(Math.random() * titles.length)];
-            
-            alert(`${result}!\nReason: ${reason}\n\nBy Royal Decree, you are awarded the title:\n👑 ${title} 👑`);
+            const titles = ["Grandmaster of Sandwiches", "The Bold Bishop", "Knight of the Round Table", "The Chess Whisperer"];
+            const title = titles[Math.floor(Math.random() * titles.length)];
+            alert(`GAME OVER: ${reason}\n\nAKING grants you the title:\n👑 ${title} 👑`);
             location.reload();
         }
     </script>
