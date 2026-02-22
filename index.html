@@ -1,1 +1,159 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akingchess | Nigeria's Premier Chess Academy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --dark-blue: #1a2a6c;
+            --white: #ffffff;
+        }
+
+        body { 
+            font-family: 'Poppins', sans-serif; 
+            margin: 0; 
+            color: #333; 
+            /* Watermark Background */
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                        url('https://www.transparenttextures.com/patterns/cubes.png');
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Section with Carousel Feel */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .logo-area {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .chess-icon { width: 60px; height: 60px; filter: drop-shadow(2px 2px 5px rgba(0,0,0,0.5)); }
+
+        nav {
+            background: rgba(26, 42, 108, 0.95);
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        nav a:hover { color: var(--gold); }
+
+        .container { width: 90%; max-width: 1200px; margin: auto; padding: 3rem 0; }
+
+        /* Grid Cards */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 15px; 
+            text-align: center; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            border-bottom: 4px solid var(--dark-blue);
+        }
+        .card:hover { transform: translateY(-10px); border-bottom-color: var(--gold); }
+
+        .btn { 
+            display: inline-block; 
+            background: var(--dark-blue); 
+            color: white; 
+            padding: 12px 25px; 
+            text-decoration: none; 
+            border-radius: 30px; 
+            font-weight: 600;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        .btn:hover { background: var(--gold); transform: scale(1.05); }
+
+        footer { background: #111; color: white; padding: 3rem 1rem; text-align: center; }
+        .whatsapp-float { color: #25d366; font-size: 1.2rem; font-weight: bold; text-decoration: none; }
+
+        /* Small animation for the "Carousel" effect */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .hero h2, .hero p { animation: fadeIn 1.5s ease-out; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="lessons.html">Lessons</a>
+    <a href="play.html">Play</a>
+    <a href="purchase.html">Shop</a>
+</nav>
+
+<section class="hero">
+    <div class="logo-area">
+        <img src="https://img.icons8.com/ios-filled/100/ffffff/chess-knight.png" class="chess-icon" alt="Chess Logo">
+        <span>Akingchess</span>
+    </div>
+    <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem;">Master the Board with Akan Udoh</h2>
+    <p style="font-size: 1.2rem; max-width: 700px;">Nigeria's leading chess instructors. From school tournaments to professional coaching, we build the grandmasters of tomorrow.</p>
+    <a href="https://wa.me/2348108020946" class="btn" style="background: var(--gold); color: #000;">Contact Founder</a>
+</section>
+
+<div class="container">
+    <div class="grid">
+        <div class="card">
+            <h3>Academy Lessons</h3>
+            <p>Video lessons, strategic puzzles, and weekly assignments for students.</p>
+            <a href="lessons.html" class="btn">Start Learning</a>
+        </div>
+
+        <div class="card">
+            <h3>Lichess Class</h3>
+            <p>Connect with other kids and join Akan Udoh's official Lichess classroom.</p>
+            <a href="lichess.html" class="btn">Join Class</a>
+        </div>
+
+        <div class="card" style="background: #fdfaf0;">
+            <h3>Chess Shop</h3>
+            <p>Get high-quality demo boards, tournament sets, and bags at a discount.</p>
+            <a href="https://wa.me/2348108020946?text=Hello%20Akingchess,%20I%20am%20interested%20in%20buying%20chess%20materials" class="btn">Order on WhatsApp</a>
+        </div>
+
+        <div class="card">
+            <h3>Play Chess</h3>
+            <p>Practice against our AI or challenge a friend to a real-time match.</p>
+            <a href="play.html" class="btn">Play Now</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p><strong>Akingchess Nigeria</strong></p>
+    <p>Director: Akan Udoh | +234 810 802 0946</p>
+    <p><a href="https://wa.me/2348108020946" class="whatsapp-float">Chat with us on WhatsApp</a></p>
+    <p style="font-size: 0.8rem; opacity: 0.6; margin-top: 20px;">&copy; 2026 Akingchess. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
