@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,20 +9,14 @@
     <style>
         :root { --green: #064e3b; --gold: #fbbf24; --dark: #022c22; }
         body { background: var(--green); color: white; font-family: 'Poppins', sans-serif; text-align: center; margin: 0; }
-        
-        nav { background: var(--dark); border-bottom: 5px solid var(--gold); padding: 10px 0; }
+        nav { background: var(--dark); border-bottom: 5px solid var(--gold); padding: 15px 0; }
         nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; }
-
-        .game-container { max-width: 600px; margin: 20px auto; padding: 10px; }
+        .game-container { max-width: 500px; margin: 20px auto; padding: 10px; }
         #myBoard { width: 100%; border: 5px solid var(--gold); border-radius: 5px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        
-        .chat-box { background: var(--dark); border: 2px solid var(--gold); margin-top: 20px; padding: 15px; border-radius: 8px; min-height: 100px; }
-        #master-talk { font-style: italic; color: var(--gold); font-size: 1.1rem; }
-        
-        .controls { margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
-        button, select { background: var(--gold); border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; }
-        
-        .status { margin-bottom: 10px; font-weight: bold; }
+        .chat-box { background: var(--dark); border: 2px solid var(--gold); margin-top: 20px; padding: 15px; border-radius: 8px; min-height: 80px; }
+        #master-talk { font-style: italic; color: var(--gold); font-size: 1.1rem; line-height: 1.4; }
+        .controls { margin: 20px 0; display: flex; justify-content: center; gap: 10px; }
+        button, select { background: var(--gold); border: none; padding: 12px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; font-family: 'Poppins'; }
     </style>
 </head>
 <body>
@@ -35,22 +28,21 @@
 </nav>
 
 <div class="game-container">
-    <h2 style="font-family: 'Cinzel'; color: var(--gold);">Aking Chess Master</h2>
+    <h2 style="font-family: 'Cinzel'; color: var(--gold); letter-spacing: 2px;">AKING MASTER AI</h2>
     
     <div class="controls">
         <select id="timeControl">
-            <option value="3">3 Minutes (Blitz)</option>
-            <option value="10" selected>10 Minutes (Rapid)</option>
-            <option value="20">20 Minutes (Classical)</option>
+            <option value="3">3 Mins</option>
+            <option value="10" selected>10 Mins</option>
+            <option value="20">20 Mins</option>
         </select>
-        <button onclick="startGame()">New Game</button>
+        <button onclick="startGame()">Start Challenge</button>
     </div>
 
-    <div class="status" id="game-status">Enter your name to begin!</div>
     <div id="myBoard"></div>
     
     <div class="chat-box">
-        <p id="master-talk">"I'm waiting... are you scared of a little checkmate?"</p>
+        <p id="master-talk">"My Rooks are ready. Are yours still stuck in the corners?"</p>
     </div>
 </div>
 
@@ -62,82 +54,85 @@
     var board = null;
     var game = new Chess();
     var playerName = "";
-    var $status = $('#game-status');
     var $chat = $('#master-talk');
 
-    function onDragStart (source, piece, position, orientation) {
-        if (game.game_over()) return false;
-        if (piece.search(/^b/) !== -1) return false;
+    // Strategic Piece Values
+    var pieceValues = { p: 1, n: 3, b: 3, r: 5, q: 9, k: 900 };
+
+    function onDragStart (source, piece) {
+        if (game.game_over() || piece.search(/^b/) !== -1) return false;
     }
 
-    function makeRandomMove () {
-        var possibleMoves = game.moves();
-        if (game.game_over()) {
-            handleGameOver();
-            return;
-        }
-
-        // Simple "Aking Master" logic: Prioritize captures, then development
-        var move = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+    function evaluateMove(move) {
+        var score = 0;
         
-        // Basic priority for kids: Master tries to capture high value pieces
-        for(var i=0; i<possibleMoves.length; i++) {
-            if (possibleMoves[i].includes('xQ')) move = possibleMoves[i];
-            else if (possibleMoves[i].includes('xR')) move = possibleMoves[i];
+        // 1. Prioritize taking higher value pieces
+        if (move.captured) {
+            score += (pieceValues[move.captured] * 15);
         }
 
+        // 2. High Value Protection: Bonus for keeping Rooks and Queens safe
+        if (move.piece === 'q') score += 5;
+        if (move.piece === 'r') score += 4;
+        
+        // 3. Castling is a massive priority for the Master
+        if (move.san === 'O-O' || move.san === 'O-O-O') score += 25;
+        
+        // 4. Rook Development: Bonus for moving rooks to open files or connecting them
+        if (move.piece === 'r' && move.to[1] === '8') score += 3;
+
+        return score;
+    }
+
+    function makeAkingMove () {
+        var possibleMoves = game.moves({ verbose: true });
+        if (possibleMoves.length === 0) return handleGameOver();
+
+        // Sort moves by our new "Greedy Defense" logic
+        possibleMoves.sort((a, b) => evaluateMove(b) - evaluateMove(a));
+        
+        var move = possibleMoves[0];
         game.move(move);
         board.position(game.fen());
-        updateStatus();
         masterComments(move);
+        if (game.game_over()) handleGameOver();
     }
 
     function onDrop (source, target) {
-        var move = game.move({
-            from: source,
-            to: target,
-            promotion: 'q' 
-        });
-
+        var move = game.move({ from: source, to: target, promotion: 'q' });
         if (move === null) return 'snapback';
-
-        window.setTimeout(makeRandomMove, 250);
-        updateStatus();
-    }
-
-    function updateStatus () {
-        if (game.in_check()) {
-            $chat.text("Careful " + playerName + "! Your King is in trouble!");
-        }
+        window.setTimeout(makeAkingMove, 500);
     }
 
     function masterComments(move) {
         var lines = [
-            "Nice move, " + playerName + ", but have you considered castling? Safety first!",
-            "I'm hunting your Queen! Better keep her safe.",
-            "Development is key! Bring your pieces out to the party.",
-            "Are you trying to trick me? I've seen that move in Nigeria's biggest tournaments!",
-            "Connect those rooks, " + playerName + ". They are stronger together!",
-            "A bad trade is a sad trade. Watch your values!"
+            "My Rooks are like towers, " + playerName + ". You cannot pass!",
+            "Did you try to take my Rook? Nice try, but I'm too smart for that.",
+            "Protect your high-value pieces. A Rook is worth 5 Pawns!",
+            "I'm castled and my Rooks are connected. Total domination!",
+            "Don't trade your Rook for a Knight, " + playerName + ". That's a rookie mistake!",
+            "I'm hunting your heavy pieces. Keep your eyes open!"
         ];
-        if (Math.random() > 0.7) $chat.text(lines[Math.floor(Math.random() * lines.length)]);
-    }
-
-    function handleGameOver() {
-        if (game.in_checkmate()) {
-            var winner = game.turn() === 'b' ? playerName : "Aking Master";
-            var title = winner === playerName ? "Grandmaster Slayer" : "Chess Apprentice";
-            alert("CHECKMATE! Winner: " + winner + ". " + playerName + ", your title is: " + title);
+        
+        if (game.in_check()) {
+            $chat.text("CHECK! Careful " + playerName + ", the Master is closing in!");
+        } else if (Math.random() > 0.6) {
+            $chat.text(lines[Math.floor(Math.random() * lines.length)]);
         }
     }
 
+    function handleGameOver() {
+        var result = game.in_checkmate() ? (game.turn() === 'b' ? "YOU WON!" : "I WON!") : "DRAW!";
+        var title = (result === "YOU WON!") ? "GRANDMASTER SLAYER" : "AKING APPRENTICE";
+        alert("GAME OVER: " + result + "\nTitle Awarded: " + title);
+    }
+
     function startGame() {
-        playerName = prompt("Welcome to AKINGCHESS! What is your name, champion?");
-        if (!playerName) playerName = "Young Player";
+        playerName = prompt("Welcome to the Arena. What is your name, champion?");
+        if (!playerName) playerName = "Player One";
         game.reset();
         board.start();
-        $chat.text("Hello " + playerName + "! Let's see if you can handle my Ruy Lopez!");
-        $status.text("Game playing vs Aking Master");
+        $chat.text("Alright " + playerName + ", let's see if you can handle my heavy Rooks!");
     }
 
     var config = {
