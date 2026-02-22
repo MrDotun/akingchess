@@ -1,1 +1,75 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | AKINGCHESS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --green: #064e3b; --gold: #fbbf24; --dark: #022c22; }
+        body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: var(--green); color: white; line-height: 1.6; }
+
+        /* HEADER NAV */
+        nav { background: var(--dark); border-bottom: 5px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
+        nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
+        nav ul li { flex: 1; text-align: center; }
+        nav ul li a { display: block; padding: 20px 0; color: white; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; }
+
+        .header-section { padding: 60px 20px; text-align: center; background: linear-gradient(rgba(6,78,59,0.8), rgba(2,44,34,0.9)), url('https://images.unsplash.com/photo-1523398003113-cd264a1d31d5?auto=format&fit=crop&q=80&w=2000'); background-size: cover; }
+        h1 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 3rem; margin: 0; }
+
+        .content-container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        .profile-card { background: var(--dark); border: 2px solid var(--gold); padding: 30px; border-radius: 8px; margin-bottom: 30px; }
+        h2 { font-family: 'Cinzel', serif; color: var(--gold); border-bottom: 2px solid var(--gold); display: inline-block; padding-bottom: 5px; }
+        
+        .whatsapp-link { display: inline-block; background: var(--gold); color: var(--dark); padding: 15px 30px; text-decoration: none; font-weight: bold; border-radius: 50px; margin-top: 20px; text-transform: uppercase; }
+        
+        footer { text-align: center; padding: 40px; background: var(--dark); margin-top: 60px; border-top: 5px solid var(--gold); }
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="lessons.html">Lessons</a></li>
+        <li><a href="play.html">Play</a></li>
+    </ul>
+</nav>
+
+<div class="header-section">
+    <h1>Our Story</h1>
+    <p style="letter-spacing: 2px; text-transform: uppercase;">The Legend of AKINGCHESS</p>
+</div>
+
+<div class="content-container">
+    <div class="profile-card">
+        <h2>Founder: Akan Udoh</h2>
+        <p>AKINGCHESS was founded by Akan Udoh with a singular vision: to bring world-class chess instruction to every school in Nigeria. As a premier academy, we believe chess is more than a game—it is a tool for developing strategic minds and disciplined leaders.</p>
+    </div>
+
+    <h2>What We Do</h2>
+    <p>We provide comprehensive chess instruction services, working with a large network of trained instructors in schools across the nation. Our activities include:</p>
+    <ul>
+        <li>Professional School Coaching</li>
+        <li>Youth Chess Tournaments</li>
+        <li>Private Mentorship</li>
+        <li>Quality Chess Equipment Supply</li>
+    </ul>
+
+    <div class="profile-card" style="text-align: center; margin-top: 40px;">
+        <h2>Contact Us</h2>
+        <p>Have questions about our school programs or tournament schedules?</p>
+        <a href="https://wa.me/2348108020946" class="whatsapp-link">Chat on WhatsApp</a>
+    </div>
+</div>
+
+<footer>
+    <div style="font-size: 2rem; color: var(--gold);">♔</div>
+    <p>&copy; 2026 AKINGCHESS NIGERIA</p>
+</footer>
+
+</body>
+</html>
