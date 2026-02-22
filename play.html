@@ -1,1 +1,154 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play vs Aking Master | AKINGCHESS</title>
+    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --green: #064e3b; --gold: #fbbf24; --dark: #022c22; }
+        body { background: var(--green); color: white; font-family: 'Poppins', sans-serif; text-align: center; margin: 0; }
+        
+        nav { background: var(--dark); border-bottom: 5px solid var(--gold); padding: 10px 0; }
+        nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; }
+
+        .game-container { max-width: 600px; margin: 20px auto; padding: 10px; }
+        #myBoard { width: 100%; border: 5px solid var(--gold); border-radius: 5px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        .chat-box { background: var(--dark); border: 2px solid var(--gold); margin-top: 20px; padding: 15px; border-radius: 8px; min-height: 100px; }
+        #master-talk { font-style: italic; color: var(--gold); font-size: 1.1rem; }
+        
+        .controls { margin: 20px 0; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        button, select { background: var(--gold); border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 5px; }
+        
+        .status { margin-bottom: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="lichess.html">Lichess</a>
+</nav>
+
+<div class="game-container">
+    <h2 style="font-family: 'Cinzel'; color: var(--gold);">Aking Chess Master</h2>
+    
+    <div class="controls">
+        <select id="timeControl">
+            <option value="3">3 Minutes (Blitz)</option>
+            <option value="10" selected>10 Minutes (Rapid)</option>
+            <option value="20">20 Minutes (Classical)</option>
+        </select>
+        <button onclick="startGame()">New Game</button>
+    </div>
+
+    <div class="status" id="game-status">Enter your name to begin!</div>
+    <div id="myBoard"></div>
+    
+    <div class="chat-box">
+        <p id="master-talk">"I'm waiting... are you scared of a little checkmate?"</p>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+
+<script>
+    var board = null;
+    var game = new Chess();
+    var playerName = "";
+    var $status = $('#game-status');
+    var $chat = $('#master-talk');
+
+    function onDragStart (source, piece, position, orientation) {
+        if (game.game_over()) return false;
+        if (piece.search(/^b/) !== -1) return false;
+    }
+
+    function makeRandomMove () {
+        var possibleMoves = game.moves();
+        if (game.game_over()) {
+            handleGameOver();
+            return;
+        }
+
+        // Simple "Aking Master" logic: Prioritize captures, then development
+        var move = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+        
+        // Basic priority for kids: Master tries to capture high value pieces
+        for(var i=0; i<possibleMoves.length; i++) {
+            if (possibleMoves[i].includes('xQ')) move = possibleMoves[i];
+            else if (possibleMoves[i].includes('xR')) move = possibleMoves[i];
+        }
+
+        game.move(move);
+        board.position(game.fen());
+        updateStatus();
+        masterComments(move);
+    }
+
+    function onDrop (source, target) {
+        var move = game.move({
+            from: source,
+            to: target,
+            promotion: 'q' 
+        });
+
+        if (move === null) return 'snapback';
+
+        window.setTimeout(makeRandomMove, 250);
+        updateStatus();
+    }
+
+    function updateStatus () {
+        if (game.in_check()) {
+            $chat.text("Careful " + playerName + "! Your King is in trouble!");
+        }
+    }
+
+    function masterComments(move) {
+        var lines = [
+            "Nice move, " + playerName + ", but have you considered castling? Safety first!",
+            "I'm hunting your Queen! Better keep her safe.",
+            "Development is key! Bring your pieces out to the party.",
+            "Are you trying to trick me? I've seen that move in Nigeria's biggest tournaments!",
+            "Connect those rooks, " + playerName + ". They are stronger together!",
+            "A bad trade is a sad trade. Watch your values!"
+        ];
+        if (Math.random() > 0.7) $chat.text(lines[Math.floor(Math.random() * lines.length)]);
+    }
+
+    function handleGameOver() {
+        if (game.in_checkmate()) {
+            var winner = game.turn() === 'b' ? playerName : "Aking Master";
+            var title = winner === playerName ? "Grandmaster Slayer" : "Chess Apprentice";
+            alert("CHECKMATE! Winner: " + winner + ". " + playerName + ", your title is: " + title);
+        }
+    }
+
+    function startGame() {
+        playerName = prompt("Welcome to AKINGCHESS! What is your name, champion?");
+        if (!playerName) playerName = "Young Player";
+        game.reset();
+        board.start();
+        $chat.text("Hello " + playerName + "! Let's see if you can handle my Ruy Lopez!");
+        $status.text("Game playing vs Aking Master");
+    }
+
+    var config = {
+        draggable: true,
+        position: 'start',
+        onDragStart: onDragStart,
+        onDrop: onDrop,
+        pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png'
+    };
+    board = Chessboard('myBoard', config);
+</script>
+
+</body>
+</html>
