@@ -1,106 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Shop | AKINGCHESS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --emerald: #064e3b; 
+            --gold: #fbbf24; 
+            --deep-dark: #022c22; 
+            --soft-gold: #fef3c7;
+            --white: #ffffff;
+        }
+
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: #fdfdfd; color: var(--deep-dark); }
+
+        /* HEADER */
+        .shop-header { 
+            background: linear-gradient(rgba(2,44,34,0.9), rgba(2,44,34,0.95)), url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover; padding: 80px 20px; text-align: center; border-bottom: 5px solid var(--gold);
+        }
+        .shop-header h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: var(--gold); margin: 0; letter-spacing: 3px; }
+
+        /* GRID SYSTEM */
+        .container { max-width: 1200px; margin: 50px auto; padding: 0 20px; padding-bottom: 150px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+
+        /* PRODUCT CARD */
+        .product-card { 
+            background: white; border-radius: 20px; overflow: hidden; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08); border: 1px solid rgba(6,78,59,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative;
+        }
+        .product-card:hover { transform: translateY(-10px); border-color: var(--gold); }
+
+        .product-img { 
+            width: 100%; height: 300px; background-size: cover; background-position: center;
+            border-bottom: 2px solid var(--soft-gold);
+        }
+
+        /* SEXY PRICE TAG */
+        .price-float {
+            position: absolute; top: 20px; right: 20px;
+            background: rgba(2, 44, 34, 0.85); backdrop-filter: blur(8px);
+            color: var(--gold); padding: 10px 18px; border-radius: 50px;
+            font-weight: 700; font-size: 1.1rem; border: 1px solid var(--gold);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .product-info { padding: 25px; text-align: center; }
+        .product-info h3 { font-family: 'Cinzel', serif; margin: 0 0 12px 0; color: var(--emerald); font-size: 1.4rem; }
+        .product-info p { font-size: 0.9rem; color: #666; margin-bottom: 25px; line-height: 1.6; }
+
+        /* BUTTONS */
+        .btn-add { 
+            width: 100%; background: var(--emerald); color: var(--gold);
+            border: none; padding: 16px; border-radius: 12px; font-weight: 700;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+            transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px;
+        }
+        .btn-add:hover { background: var(--deep-dark); transform: scale(1.02); }
+
+        /* FIXED CHECKOUT BAR */
+        .checkout-bar {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: var(--deep-dark); color: white; padding: 20px 0;
+            display: flex; justify-content: space-around; align-items: center;
+            border-top: 4px solid var(--gold); z-index: 1000;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.3);
+        }
+        .total-box h2 { margin: 0; color: var(--gold); font-family: 'Cinzel'; font-size: 1.8rem; }
+        .btn-checkout {
+            background: var(--gold); color: var(--deep-dark);
+            padding: 15px 40px; border-radius: 50px; font-weight: 900;
+            border: none; cursor: pointer; text-transform: uppercase; transition: 0.3s;
+        }
+        .btn-checkout:hover { background: white; transform: scale(1.1); }
+    </style>
+</head>
+<body>
+
+<div class="shop-header">
+    <h1>AKINGCHESS</h1>
+    <p style="color: white; opacity: 0.8; font-weight: 300;">Luxury Equipment for the Modern Grandmaster</p>
+</div>
+
 <div class="container">
     <div class="grid">
         <div class="product-card">
-            <div class="badge">BEST FOR SCHOOLS</div>
-            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?auto=format&fit=crop&q=80&w=800');"></div>
-            <div class="product-info">
-                <h3>Silicon Chess Set</h3>
-                <p>Ultra-durable, untearable silicon board with triple-weighted pieces. Perfect for rigorous daily use by students.</p>
-                <span class="price-tag">₦15,000</span>
-                <button class="btn-add" onclick="addToCart('Silicon Chess Set', 15000)">Add to Cart 🛒</button>
-            </div>
-        </div>
-
-        <div class="product-card">
-            <div class="badge premium">PRO TOURNAMENT</div>
-            <div class="product-img" style="background-image: url('https://images.unsplash.com/photo-1610630650505-88547eb2c6dc?auto=format&fit=crop&q=80&w=800');"></div>
-            <div class="product-info">
-                <h3>DGT Electronic Set</h3>
-                <p>Official DGT smart board and digital chess clock. The absolute standard for professional rated tournaments.</p>
-                <span class="price-tag">₦450,000</span>
-                <button class="btn-add" onclick="addToCart('DGT Electronic Set', 450000)">Add to Cart 🛒</button>
-            </div>
-        </div>
-        <div class="product-card">
+            <div class="price-float">₦70,000</div>
             <div class="product-img" style="background-image: url('IMG-20260222-WA0135.jpg');"></div>
             <div class="product-info">
-                <h3>Premium Knight Series</h3>
-                <p>Exquisite craftsmanship for the discerning player. A centerpiece for any study.</p>
-                <span class="price-tag">₦70,000</span>
-                <button class="btn-add" onclick="addToCart('Premium Knight Series', 70000)">Add to Cart 🛒</button>
+                <h3>Grandmaster Ivory</h3>
+                <p>Elite weighted set designed for professional tournament standards.</p>
+                <button class="btn-add" onclick="addToCart('Grandmaster Ivory', 70000)">Add to Cart 🛒</button>
             </div>
         </div>
 
         <div class="product-card">
+            <div class="price-float">₦15,000</div>
             <div class="product-img" style="background-image: url('IMG-20260222-WA0136.jpg');"></div>
             <div class="product-info">
-                <h3>Club Standard Set</h3>
-                <p>The reliable choice for daily club matches and local tournaments.</p>
-                <span class="price-tag">₦15,000</span>
-                <button class="btn-add" onclick="addToCart('Club Standard Set', 15000)">Add to Cart 🛒</button>
+                <h3>Club Classic</h3>
+                <p>High-durability board and pieces for daily competitive play.</p>
+                <button class="btn-add" onclick="addToCart('Club Classic', 15000)">Add to Cart 🛒</button>
             </div>
         </div>
 
         <div class="product-card">
-            <div class="badge premium">COLLECTOR'S EDITION</div>
+            <div class="price-float">₦250,000</div>
             <div class="product-img" style="background-image: url('IMG-20260222-WA0137.jpg');"></div>
             <div class="product-info">
-                <h3>Grandmaster Rosewood</h3>
-                <p>Hand-carved rosewood pieces with a weighted core for a luxurious feel.</p>
-                <span class="price-tag">₦250,000</span>
-                <button class="btn-add" onclick="addToCart('Grandmaster Rosewood', 250000)">Add to Cart 🛒</button>
+                <h3>Royal Ebony</h3>
+                <p>Hand-carved premium ebony wood. A true collector's masterpiece.</p>
+                <button class="btn-add" onclick="addToCart('Royal Ebony', 250000)">Add to Cart 🛒</button>
             </div>
         </div>
 
         <div class="product-card">
-            <div class="badge premium">COLLECTOR'S EDITION</div>
+            <div class="price-float">₦250,000</div>
             <div class="product-img" style="background-image: url('IMG-20260222-WA0138.jpg');"></div>
             <div class="product-info">
-                <h3>Ebony Masterpiece</h3>
-                <p>Stunning contrast and impeccable weight. A true tournament heirloom.</p>
-                <span class="price-tag">₦250,000</span>
-                <button class="btn-add" onclick="addToCart('Ebony Masterpiece', 250000)">Add to Cart 🛒</button>
+                <h3>Golden Rosewood</h3>
+                <p>Exquisite rosewood craftsmanship with a heavy, professional feel.</p>
+                <button class="btn-add" onclick="addToCart('Golden Rosewood', 250000)">Add to Cart 🛒</button>
             </div>
         </div>
 
         <div class="product-card">
+            <div class="price-float">₦16,000</div>
             <div class="product-img" style="background-image: url('IMG-20260222-WA0139.jpg');"></div>
             <div class="product-info">
-                <h3>Speed Chess Pro</h3>
-                <p>Designed for blitz and bullet games. Sleek, fast, and durable.</p>
-                <span class="price-tag">₦16,000</span>
-                <button class="btn-add" onclick="addToCart('Speed Chess Pro', 16000)">Add to Cart 🛒</button>
+                <h3>Blitz Warrior</h3>
+                <p>Non-slip vinyl board optimized for speed and lightning chess.</p>
+                <button class="btn-add" onclick="addToCart('Blitz Warrior', 16000)">Add to Cart 🛒</button>
             </div>
         </div>
 
         <div class="product-card">
+            <div class="price-float">₦40,000</div>
             <div class="product-img" style="background-image: url('IMG-20260222-WA0140.jpg');"></div>
             <div class="product-info">
-                <h3>Ambassador Set</h3>
-                <p>Beautiful folding wooden set. Perfect for travel or a classy home display.</p>
-                <span class="price-tag">₦40,000</span>
-                <button class="btn-add" onclick="addToCart('Ambassador Set', 40000)">Add to Cart 🛒</button>
+                <h3>Ambassador Folder</h3>
+                <p>Classic folding wooden board. Elegant storage for the home player.</p>
+                <button class="btn-add" onclick="addToCart('Ambassador Folder', 40000)">Add to Cart 🛒</button>
             </div>
         </div>
 
         <div class="product-card">
+            <div class="price-float">₦16,000</div>
             <div class="product-img" style="background-image: url('IMG-20260222-WA0141.jpg');"></div>
             <div class="product-info">
-                <h3>Blitz Warrior Pack</h3>
-                <p>Includes a high-grip vinyl board and tournament-ready pieces.</p>
-                <span class="price-tag">₦16,000</span>
-                <button class="btn-add" onclick="addToCart('Blitz Warrior Pack', 16000)">Add to Cart 🛒</button>
+                <h3>Pro Tournament Bag</h3>
+                <p>Carry your entire arsenal in style. Padded for maximum protection.</p>
+                <button class="btn-add" onclick="addToCart('Pro Tournament Bag', 16000)">Add to Cart 🛒</button>
             </div>
         </div>
 
         <div class="product-card">
+            <div class="price-float">₦14,000</div>
             <div class="product-img" style="background-image: url('IMG-20260222-WA0142.jpg');"></div>
             <div class="product-info">
-                <h3>The Student Special</h3>
-                <p>Affordable, robust, and tournament-sized. Ideal for young champions.</p>
-                <span class="price-tag">₦14,000</span>
-                <button class="btn-add" onclick="addToCart('The Student Special', 14000)">Add to Cart 🛒</button>
+                <h3>Academy Starter</h3>
+                <p>The perfect entry point for students and young strategic thinkers.</p>
+                <button class="btn-add" onclick="addToCart('Academy Starter', 14000)">Add to Cart 🛒</button>
             </div>
         </div>
     </div>
 </div>
+
+<div class="checkout-bar">
+    <div class="total-box">
+        <h2 id="total-price">Total: ₦0</h2>
+        <span id="item-count" style="font-size: 0.9rem; opacity: 0.7;">0 Items in Cart</span>
+    </div>
+    <button class="btn-checkout" onclick="checkout()">Checkout on WhatsApp ➔</button>
+</div>
+
+<script>
+    let cart = [];
+
+    function addToCart(name, price) {
+        cart.push({ name, price });
+        updateUI();
+        
+        // Sexy feedback
+        const btn = event.target;
+        btn.innerText = "Added! ✅";
+        setTimeout(() => btn.innerText = "Add to Cart 🛒", 1000);
+    }
+
+    function updateUI() {
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        document.getElementById('total-price').innerText = `Total: ₦${total.toLocaleString()}`;
+        document.getElementById('item-count').innerText = `${cart.length} Items in Cart`;
+    }
+
+    function checkout() {
+        if (cart.length === 0) return alert("Please add items to your cart first!");
+        
+        let message = "Hello AKINGCHESS! I'd like to order:%0A";
+        cart.forEach(i => message += `- ${i.name} (₦${i.price.toLocaleString()})%0A`);
+        const total = cart.reduce((sum, item) => sum + item.price, 0);
+        message += `%0A*TOTAL: ₦${total.toLocaleString()}*`;
+        
+        window.open(`https://wa.me/2348108020946?text=${message}`, '_blank');
+    }
+</script>
+
+</body>
+</html>
