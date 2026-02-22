@@ -14,12 +14,19 @@
             --glass: rgba(2, 44, 34, 0.8);
         }
         
+        /* SMOOTH PAGE REVEAL */
+        @keyframes revealPage {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         body, html { 
             margin: 0; padding: 0; 
             font-family: 'Poppins', sans-serif; 
             background: var(--deep-green); 
             color: white; 
             overflow-x: hidden; 
+            animation: revealPage 1.2s ease-out;
         }
 
         /* MODERN NAV BAR */
@@ -29,16 +36,23 @@
             border-bottom: 2px solid var(--gold); 
             position: sticky; top: 0; z-index: 1000; 
         }
-        nav ul { list-style: none; display: flex; margin: 0; padding: 0; justify-content: center; }
+        nav ul { list-style: none; display: flex; margin: 0; padding: 0; justify-content: center; flex-wrap: wrap; }
         nav ul li a { 
             display: block; padding: 20px 25px; color: white; 
             text-decoration: none; font-weight: 700; 
             text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; 
-            transition: 0.3s;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        nav ul li a:hover { color: var(--gold); }
+        nav ul li a:hover { color: var(--gold); transform: scale(1.1); }
+        
+        nav ul li a.shop-link { color: var(--gold); position: relative; }
+        nav ul li a.shop-link::after {
+            content: ''; position: absolute; bottom: 15px; left: 25%; width: 50%;
+            height: 1px; background: var(--gold); transform: scaleX(0); transition: 0.3s;
+        }
+        nav ul li a.shop-link:hover::after { transform: scaleX(1); }
 
-        /* LIGHTER TOP HERO SECTION */
+        /* HERO SECTION */
         .hero { 
             position: relative; 
             height: 70vh; 
@@ -49,7 +63,6 @@
             background: var(--light-green);
         }
 
-        /* CAROUSEL IMAGES */
         .carousel-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .slide {
             position: absolute;
@@ -57,38 +70,42 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            filter: brightness(0.7);
+            filter: brightness(0.6) contrast(1.1);
             animation: carouselFade 15s infinite ease-in-out;
+            transform: scale(1.1); /* Subtle zoom effect */
+        }
+
+        @keyframes carouselFade {
+            0%, 20% { opacity: 0; transform: scale(1.1); }
+            30%, 50% { opacity: 1; transform: scale(1.0); }
+            60%, 100% { opacity: 0; transform: scale(1.1); }
         }
 
         .slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=2000'); animation-delay: 0s; }
         .slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?auto=format&fit=crop&q=80&w=2000'); animation-delay: 5s; }
         .slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1528819622765-d6bcf132f793?auto=format&fit=crop&q=80&w=2000'); animation-delay: 10s; }
 
-        @keyframes carouselFade {
-            0%, 20% { opacity: 0; }
-            30%, 50% { opacity: 1; }
-            60%, 100% { opacity: 0; }
-        }
-
-        .hero::after {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(16, 185, 129, 0.3), rgba(6, 78, 59, 0.9));
-            z-index: 2;
-        }
-
-        /* HERO CONTENT */
+        /* HERO CONTENT & SHIMMER */
         .hero-content { z-index: 10; text-align: center; padding: 0 20px; }
-        .king-logo { font-size: 4.5rem; color: var(--gold); margin-bottom: -10px; }
+        
+        @keyframes shimmer {
+            0% { background-position: -200%; }
+            100% { background-position: 200%; }
+        }
+
         h1 { 
             font-family: 'Cinzel', serif; 
             font-size: clamp(2.2rem, 9vw, 5rem); 
-            margin: 0; letter-spacing: 6px; color: var(--gold);
-            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            margin: 0; letter-spacing: 8px;
+            background: linear-gradient(90deg, #fbbf24, #fff, #fbbf24);
+            background-size: 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmer 5s infinite linear;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        .sub { letter-spacing: 5px; text-transform: uppercase; font-weight: 300; margin-top: 5px; font-size: 0.9rem; opacity: 0.9; }
 
-        /* REDESIGNED FLEXIBLE NAVIGATION BLOCKS */
+        /* GRID ANIMATIONS */
         .container { 
             max-width: 1200px; 
             margin: -80px auto 80px; 
@@ -108,19 +125,23 @@
             background: var(--glass);
             backdrop-filter: blur(15px);
             padding: 40px 30px; 
-            flex: 1 1 240px; /* Allows cards to grow and shrink naturally */
+            flex: 1 1 240px; 
             max-width: 280px;
             text-align: center; 
-            border-radius: 40px 10px 40px 10px; /* Unique asymmetrical organic shape */
-            border: 1px solid rgba(251, 191, 36, 0.3); 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 40px 10px 40px 10px; 
+            border: 1px solid rgba(251, 191, 36, 0.2); 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
             animation: float 6s ease-in-out infinite;
         }
 
-        /* Staggered floating animation for a "less rigid" feel */
-        .nav-card:nth-child(even) { animation-delay: 1s; }
-        .nav-card:nth-child(3) { animation-delay: 2s; }
+        /* STAGGERED ENTRANCE FOR CARDS */
+        .nav-card { opacity: 0; animation: revealPage 0.8s forwards; }
+        .nav-card:nth-child(1) { animation-delay: 0.2s; }
+        .nav-card:nth-child(2) { animation: float 6s ease-in-out infinite, revealPage 0.8s forwards; animation-delay: 0.4s; }
+        .nav-card:nth-child(3) { animation: float 6s ease-in-out infinite, revealPage 0.8s forwards; animation-delay: 0.6s; }
+        .nav-card:nth-child(4) { animation: float 6s ease-in-out infinite, revealPage 0.8s forwards; animation-delay: 0.8s; }
+        .nav-card:nth-child(5) { animation: float 6s ease-in-out infinite, revealPage 0.8s forwards; animation-delay: 1.0s; }
 
         @keyframes float {
             0%, 100% { transform: translateY(0); }
@@ -128,36 +149,32 @@
         }
 
         .nav-card:hover { 
-            transform: scale(1.05) translateY(-20px) !important;
+            transform: translateY(-25px) scale(1.03) !important;
             border-color: var(--gold);
-            background: rgba(2, 44, 34, 0.95);
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
-            animation-play-state: paused;
+            background: rgba(2, 44, 34, 0.98);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 20px rgba(251, 191, 36, 0.2);
         }
-
-        .nav-card h3 { 
-            font-family: 'Cinzel', serif; 
-            color: var(--gold); 
-            margin: 0 0 15px 0; 
-            font-size: 1.5rem; 
-            letter-spacing: 2px;
-        }
-
-        .nav-card p { font-size: 0.85rem; line-height: 1.6; opacity: 0.8; margin-bottom: 25px; }
 
         .btn-modern { 
+            display: inline-block;
             background: transparent; 
             color: var(--gold); 
-            padding: 12px 25px; 
+            padding: 12px 28px; 
             text-decoration: none; 
             font-weight: bold; 
             border-radius: 50px; 
             border: 2px solid var(--gold);
             text-transform: uppercase; 
-            font-size: 0.75rem; 
-            transition: 0.3s;
+            font-size: 0.7rem; 
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .nav-card:hover .btn-modern { background: var(--gold); color: var(--dark-background); }
+        
+        .nav-card:hover .btn-modern { 
+            background: var(--gold); 
+            color: var(--dark-background);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.4);
+        }
 
     </style>
 </head>
@@ -169,6 +186,7 @@
         <li><a href="about.html">About</a></li>
         <li><a href="lessons.html">Lessons</a></li>
         <li><a href="play.html">Play</a></li>
+        <li><a href="purchase.html" class="shop-link">🛒 Shop Now</a></li>
     </ul>
 </nav>
 
@@ -180,7 +198,7 @@
     </div>
     
     <div class="hero-content">
-        <div class="king-logo">♚</div>
+        <div class="king-logo" style="animation: float 4s infinite ease-in-out">♚</div>
         <h1>A - KING CHESS</h1>
         <p class="sub">Academy of Grandmasters</p>
     </div>
@@ -189,20 +207,29 @@
 <div class="container">
     <div class="nav-grid">
         <div class="nav-card">
+            <h3>Homework</h3>
+            <p>Kids' corner: Submit and track your online assignments here.</p>
+            <a href="assignments.html" class="btn-modern">Assignment Portal</a>
+        </div>
+        
+        <div class="nav-card">
             <h3>Training</h3>
             <p>Master the board with our elite Nigerian chess community.</p>
             <a href="lichess.html" class="btn-modern">Enter Class</a>
         </div>
+
         <div class="nav-card">
             <h3>Workbooks</h3>
             <p>Curated assignments designed for Grade 1 through 6.</p>
             <a href="lessons.html" class="btn-modern">Start Lessons</a>
         </div>
+
         <div class="nav-card">
             <h3>Boutique</h3>
             <p>Shop tournament-grade sets and luxury wooden boards.</p>
             <a href="purchase.html" class="btn-modern">Order Now</a>
         </div>
+
         <div class="nav-card">
             <h3>Arena</h3>
             <p>Test your strategy against our advanced chess engine.</p>
