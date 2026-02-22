@@ -1,46 +1,44 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lichess Classroom | AKINGCHESS</title>
+    <title>Lichess Portal | AKINGCHESS</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root { --green: #064e3b; --gold: #fbbf24; --dark: #022c22; }
         body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: var(--green); color: white; text-align: center; }
 
-        /* HEADER NAV */
+        /* NAVIGATION */
         nav { background: var(--dark); border-bottom: 5px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
         nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
         nav ul li { flex: 1; text-align: center; }
         nav ul li a { display: block; padding: 20px 0; color: white; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; }
 
-        .container { max-width: 800px; margin: 60px auto; padding: 20px; }
-        .lichess-card { background: var(--dark); border: 3px solid var(--gold); padding: 50px 30px; border-radius: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .container { max-width: 900px; margin: 50px auto; padding: 20px; }
+        .portal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         
-        h1 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 2.5rem; margin-bottom: 10px; }
-        p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; }
+        .card { background: var(--dark); border: 2px solid var(--gold); padding: 40px 20px; border-radius: 10px; box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+        
+        h1 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 2.2rem; margin-bottom: 30px; }
+        h3 { font-family: 'Cinzel', serif; color: var(--gold); }
 
-        .lichess-btn {
+        .btn {
             display: inline-block;
-            background: #ffffff; /* Lichess style white */
-            color: #1a1a1a;
-            padding: 20px 40px;
+            padding: 15px 30px;
             text-decoration: none;
             font-weight: 800;
-            font-size: 1.2rem;
             border-radius: 5px;
             text-transform: uppercase;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            margin-top: 20px;
             transition: 0.3s;
         }
-        .lichess-btn:hover { background: var(--gold); transform: scale(1.05); }
 
-        .instructions { text-align: left; margin-top: 40px; background: rgba(0,0,0,0.2); padding: 25px; border-radius: 5px; }
-        .instructions h3 { color: var(--gold); font-family: 'Cinzel'; }
+        .btn-class { background: var(--gold); color: var(--dark); }
+        .btn-login { background: #ffffff; color: #1a1a1a; border: 2px solid #ffffff; }
+        .btn:hover { opacity: 0.9; transform: translateY(-3px); }
 
-        footer { margin-top: 100px; padding: 40px; opacity: 0.7; }
+        footer { margin-top: 80px; padding: 40px; opacity: 0.6; font-size: 0.8rem; }
     </style>
 </head>
 <body>
@@ -55,28 +53,31 @@
 </nav>
 
 <div class="container">
-    <div class="lichess-card">
-        <div style="font-size: 4rem; margin-bottom: 10px;">♟️</div>
-        <h1>Lichess Classroom</h1>
-        <p>Welcome, Student! Click the button below to join the official AKINGCHESS Arena on Lichess.org.</p>
-        
-        <a href="https://lichess.org/class" target="_blank" class="lichess-btn">
-            Connect to Lichess
-        </a>
-
-        <div class="instructions">
-            <h3>How to Join:</h3>
-            <ol>
-                <li>Make sure you are logged into your Lichess account.</li>
-                <li>Click the button above to visit the Lichess Class page.</li>
-                <li>Enter the class code provided by <strong>Akan Udoh</strong> in your WhatsApp group.</li>
-            </ol>
+    <h1>Student Chess Portal</h1>
+    
+    <div class="portal-grid">
+        <div class="card">
+            <div style="font-size: 3rem;">🏫</div>
+            <h3>Join The Class</h3>
+            <p>Enter the AKINGCHESS virtual classroom using your student code.</p>
+            <a href="https://lichess.org/class" target="_blank" class="btn btn-class">Enter Classroom</a>
         </div>
+
+        <div class="card">
+            <div style="font-size: 3rem;">🔑</div>
+            <h3>Lichess Login</h3>
+            <p>Access your personal profile, play rated games, and view your stats.</p>
+            <a href="https://lichess.org/login" target="_blank" class="btn btn-login">Login to Lichess</a>
+        </div>
+    </div>
+
+    <div style="margin-top: 40px; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 8px; text-align: left;">
+        <p><strong>Note for Parents:</strong> Lichess is a free, open-source platform. AKINGCHESS uses this tool to provide a safe and professional environment for student tournaments.</p>
     </div>
 </div>
 
 <footer>
-    <p>&copy; 2026 AKINGCHESS ACADEMY</p>
+    <p>&copy; 2026 AKINGCHESS ACADEMY | Nigeria's Leading Chess Instruction</p>
 </footer>
 
 </body>
