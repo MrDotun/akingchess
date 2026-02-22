@@ -1,1 +1,83 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lichess Classroom | AKINGCHESS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --green: #064e3b; --gold: #fbbf24; --dark: #022c22; }
+        body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: var(--green); color: white; text-align: center; }
+
+        /* HEADER NAV */
+        nav { background: var(--dark); border-bottom: 5px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
+        nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
+        nav ul li { flex: 1; text-align: center; }
+        nav ul li a { display: block; padding: 20px 0; color: white; text-decoration: none; font-weight: 700; text-transform: uppercase; font-size: 0.75rem; }
+
+        .container { max-width: 800px; margin: 60px auto; padding: 20px; }
+        .lichess-card { background: var(--dark); border: 3px solid var(--gold); padding: 50px 30px; border-radius: 10px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        
+        h1 { font-family: 'Cinzel', serif; color: var(--gold); font-size: 2.5rem; margin-bottom: 10px; }
+        p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 30px; }
+
+        .lichess-btn {
+            display: inline-block;
+            background: #ffffff; /* Lichess style white */
+            color: #1a1a1a;
+            padding: 20px 40px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            text-transform: uppercase;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+        .lichess-btn:hover { background: var(--gold); transform: scale(1.05); }
+
+        .instructions { text-align: left; margin-top: 40px; background: rgba(0,0,0,0.2); padding: 25px; border-radius: 5px; }
+        .instructions h3 { color: var(--gold); font-family: 'Cinzel'; }
+
+        footer { margin-top: 100px; padding: 40px; opacity: 0.7; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="lessons.html">Lessons</a></li>
+        <li><a href="play.html">Play</a></li>
+    </ul>
+</nav>
+
+<div class="container">
+    <div class="lichess-card">
+        <div style="font-size: 4rem; margin-bottom: 10px;">♟️</div>
+        <h1>Lichess Classroom</h1>
+        <p>Welcome, Student! Click the button below to join the official AKINGCHESS Arena on Lichess.org.</p>
+        
+        <a href="https://lichess.org/class" target="_blank" class="lichess-btn">
+            Connect to Lichess
+        </a>
+
+        <div class="instructions">
+            <h3>How to Join:</h3>
+            <ol>
+                <li>Make sure you are logged into your Lichess account.</li>
+                <li>Click the button above to visit the Lichess Class page.</li>
+                <li>Enter the class code provided by <strong>Akan Udoh</strong> in your WhatsApp group.</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 AKINGCHESS ACADEMY</p>
+</footer>
+
+</body>
+</html>
