@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root { --green: #064e3b; --gold: #fbbf24; }
-        body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: var(--green); color: white; }
+        body, html { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background: var(--green); color: white; overflow-x: hidden; }
 
         /* HEADER NAV */
         nav { background: #022c22; border-bottom: 5px solid var(--gold); position: sticky; top: 0; z-index: 1000; }
@@ -28,20 +28,11 @@
         }
 
         /* IMAGE 1: African kids playing chess */
-        .slide:nth-child(1) { 
-            background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=2000'); 
-            animation-delay: 0s; 
-        }
+        .slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=2000'); animation-delay: 0s; }
         /* IMAGE 2: Close up of a move */
-        .slide:nth-child(2) { 
-            background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?auto=format&fit=crop&q=80&w=2000'); 
-            animation-delay: 4s; 
-        }
+        .slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?auto=format&fit=crop&q=80&w=2000'); animation-delay: 4s; }
         /* IMAGE 3: Focus and Strategy */
-        .slide:nth-child(3) { 
-            background-image: url('https://images.unsplash.com/photo-1523398003113-cd264a1d31d5?auto=format&fit=crop&q=80&w=2000'); 
-            animation-delay: 8s; 
-        }
+        .slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1523398003113-cd264a1d31d5?auto=format&fit=crop&q=80&w=2000'); animation-delay: 8s; }
 
         @keyframes fadeAnimation {
             0%, 10% { opacity: 0; }
@@ -55,15 +46,15 @@
         }
 
         /* TEXT DESIGN */
-        .hero-content { z-index: 10; text-align: center; }
-        h1 { font-family: 'Cinzel', serif; font-size: 4rem; margin: 0; letter-spacing: 6px; color: var(--gold); }
-        .sub { letter-spacing: 4px; text-transform: uppercase; font-weight: 300; margin-bottom: 20px; }
+        .hero-content { z-index: 10; text-align: center; padding: 0 10px; }
+        h1 { font-family: 'Cinzel', serif; font-size: clamp(2.5rem, 8vw, 4.5rem); margin: 0; letter-spacing: 4px; color: var(--gold); }
+        .sub { letter-spacing: 3px; text-transform: uppercase; font-weight: 300; margin-top: 5px; margin-bottom: 20px; font-size: 0.9rem; }
 
         /* ACTION CARDS */
         .container { max-width: 1200px; margin: -50px auto 50px; padding: 0 20px; position: relative; z-index: 20; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .card { background: #022c22; padding: 40px; border: 2px solid var(--gold); text-align: center; border-radius: 5px; }
-        .btn { background: var(--gold); color: #022c22; padding: 15px 30px; text-decoration: none; font-weight: bold; border-radius: 50px; display: inline-block; margin-top: 20px; }
+        .btn { background: var(--gold); color: #022c22; padding: 15px 35px; text-decoration: none; font-weight: bold; border-radius: 50px; display: inline-block; margin-top: 20px; text-transform: uppercase; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -82,7 +73,7 @@
     <div class="slide"></div>
     <div class="slide"></div>
     <div class="hero-content">
-        <div style="font-size: 4rem; color: var(--gold);">♔</div>
+        <div style="font-size: 3.5rem; color: var(--gold); line-height: 1;">♔</div>
         <h1>AKINGCHESS</h1>
         <p class="sub">Academy of Grandmasters</p>
         <a href="https://wa.me/2348108020946" class="btn">Message Akan Udoh</a>
@@ -92,17 +83,17 @@
 <div class="container">
     <div class="grid">
         <div class="card">
-            <h3 style="font-family: 'Cinzel'; color: var(--gold);">Training</h3>
+            <h3 style="font-family: 'Cinzel'; color: var(--gold); margin: 0;">Training</h3>
             <p>Join the Lichess classroom for Nigerian students.</p>
             <a href="lichess.html" class="btn">Enter Class</a>
         </div>
         <div class="card">
-            <h3 style="font-family: 'Cinzel'; color: var(--gold);">Shop</h3>
+            <h3 style="font-family: 'Cinzel'; color: var(--gold); margin: 0;">Shop</h3>
             <p>Quality boards and sets for school tournaments.</p>
             <a href="https://wa.me/2348108020946" class="btn">Order Now</a>
         </div>
         <div class="card">
-            <h3 style="font-family: 'Cinzel'; color: var(--gold);">Play</h3>
+            <h3 style="font-family: 'Cinzel'; color: var(--gold); margin: 0;">Play</h3>
             <p>Challenge the AKINGCHESS computer engine.</p>
             <a href="play.html" class="btn">Play Now</a>
         </div>
