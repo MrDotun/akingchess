@@ -13,10 +13,7 @@
         nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; text-transform: uppercase; font-size: 0.8rem; }
         .game-container { max-width: 500px; margin: 20px auto; padding: 10px; }
         #myBoard { width: 100%; border: 5px solid var(--gold); border-radius: 5px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        
-        /* Highlighting for selected square */
         .highlight-square { box-shadow: inset 0 0 3px 3px rgba(251, 191, 36, 0.8); }
-        
         .chat-box { background: var(--dark); border: 2px solid var(--gold); margin-top: 20px; padding: 15px; border-radius: 8px; min-height: 80px; }
         #master-talk { font-style: italic; color: var(--gold); font-size: 1.1rem; line-height: 1.4; }
         .controls { margin: 20px 0; display: flex; justify-content: center; gap: 10px; }
@@ -46,7 +43,7 @@
     <div id="myBoard"></div>
     
     <div class="chat-box">
-        <p id="master-talk">"My Rooks are ready. Are yours still stuck in the corners?"</p>
+        <p id="master-talk">"Scholar's Mate? Not on my watch, " + playerName + "!"</p>
     </div>
 </div>
 
@@ -69,11 +66,8 @@
 
     function onSquareClick(square) {
         if (game.game_over()) return;
-
-        // If no square is currently selected
         if (selectedSquare === null) {
             var piece = game.get(square);
-            // Only select if it's the player's piece (White)
             if (piece && piece.color === 'w') {
                 selectedSquare = square;
                 removeHighlights();
@@ -82,15 +76,9 @@
             return;
         }
 
-        // Try to move from the previously selected square to the new one
-        var move = game.move({
-            from: selectedSquare,
-            to: square,
-            promotion: 'q'
-        });
+        var move = game.move({ from: selectedSquare, to: square, promotion: 'q' });
 
         if (move === null) {
-            // If click is invalid, check if user clicked another of their own pieces instead
             var piece = game.get(square);
             if (piece && piece.color === 'w') {
                 selectedSquare = square;
@@ -101,7 +89,6 @@
                 removeHighlights();
             }
         } else {
-            // Successful Move
             selectedSquare = null;
             removeHighlights();
             board.position(game.fen());
@@ -111,13 +98,27 @@
 
     function evaluateMove(move) {
         var score = 0;
-        if (move.captured) {
-            score += (pieceValues[move.captured] * 15);
+        
+        // 1. Defend King (Massive bonus for preventing mate/checks)
+        game.move(move);
+        if (game.in_check()) score -= 50; // Don't walk into check
+        
+        // 2. Scholar's Mate Defense: Specifically watch the f7 square
+        if (move.to === 'f7' || move.to === 'f2') score += 10;
+        
+        // Check if the opponent can mate in the next move
+        var oppMoves = game.moves();
+        for(var i=0; i<oppMoves.length; i++) {
+            if (oppMoves[i].includes('#')) score -= 100; // RUN! This move leads to mate
         }
+        game.undo();
+
+        // Standard logic
+        if (move.captured) score += (pieceValues[move.captured] * 15);
         if (move.piece === 'q') score += 5;
         if (move.piece === 'r') score += 4;
         if (move.san === 'O-O' || move.san === 'O-O-O') score += 25;
-        if (move.piece === 'r' && move.to[1] === '8') score += 3;
+        
         return score;
     }
 
@@ -125,6 +126,7 @@
         var possibleMoves = game.moves({ verbose: true });
         if (possibleMoves.length === 0) return handleGameOver();
 
+        // Smart selection to avoid Scholars Mate
         possibleMoves.sort((a, b) => evaluateMove(b) - evaluateMove(a));
         
         var move = possibleMoves[0];
@@ -136,16 +138,15 @@
 
     function masterComments(move) {
         var lines = [
-            "My Rooks are like towers, " + playerName + ". You cannot pass!",
-            "Did you try to take my Rook? Nice try, but I'm too smart for that.",
-            "Protect your high-value pieces. A Rook is worth 5 Pawns!",
-            "I'm castled and my Rooks are connected. Total domination!",
-            "Don't trade your Rook for a Knight, " + playerName + ". That's a rookie mistake!",
-            "I'm hunting your heavy pieces. Keep your eyes open!"
+            "Nice try with that Queen, but I'm protecting my King!",
+            "You can't fool me with basic traps, " + playerName + ".",
+            "Development and safety—that's how a Master plays.",
+            "Scholar's Mate? That's for beginners. Try something else!",
+            "My pieces are standing guard. No easy wins here!"
         ];
         
         if (game.in_check()) {
-            $chat.text("CHECK! Careful " + playerName + ", the Master is closing in!");
+            $chat.text("CHECK! Not today, " + playerName + "!");
         } else if (Math.random() > 0.6) {
             $chat.text(lines[Math.floor(Math.random() * lines.length)]);
         }
@@ -158,26 +159,23 @@
     }
 
     function startGame() {
-        playerName = prompt("Welcome to the Arena. What is your name, champion?");
+        playerName = prompt("Your name, future Grandmaster?");
         if (!playerName) playerName = "Player One";
         game.reset();
         board.start();
-        $chat.text("Alright " + playerName + ", click a piece to begin!");
+        $chat.text("Ready " + playerName + "? Let's see your real strategy!");
     }
 
-    var config = {
+    board = Chessboard('myBoard', {
         position: 'start',
-        draggable: false, // Disables drag so click works better
+        draggable: false,
         pieceTheme: 'https://chessboardjs.com/img/chesspieces/wikipedia/{piece}.png'
-    };
-    board = Chessboard('myBoard', config);
+    });
 
-    // Event listener for clicks on squares
     $('#myBoard').on('click', '.square-55d63', function () {
         var square = $(this).attr('data-square');
         onSquareClick(square);
     });
-
 </script>
 
 </body>
