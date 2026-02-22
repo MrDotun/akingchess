@@ -8,9 +8,10 @@
     <style>
         :root { 
             --deep-green: #064e3b; 
-            --light-green: #10b981; /* Lighter emerald for top section */
+            --light-green: #10b981; 
             --gold: #fbbf24; 
             --dark-background: #022c22;
+            --glass: rgba(2, 44, 34, 0.8);
         }
         
         body, html { 
@@ -21,62 +22,48 @@
             overflow-x: hidden; 
         }
 
-        /* HEADER NAV */
+        /* MODERN NAV BAR */
         nav { 
-            background: var(--dark-background); 
-            border-bottom: 4px solid var(--gold); 
+            background: rgba(2, 44, 34, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--gold); 
             position: sticky; top: 0; z-index: 1000; 
         }
-        nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
-        nav ul li { flex: 1; text-align: center; }
+        nav ul { list-style: none; display: flex; margin: 0; padding: 0; justify-content: center; }
         nav ul li a { 
-            display: block; padding: 18px 0; color: white; 
+            display: block; padding: 20px 25px; color: white; 
             text-decoration: none; font-weight: 700; 
-            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; 
+            text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; 
+            transition: 0.3s;
         }
+        nav ul li a:hover { color: var(--gold); }
 
         /* LIGHTER TOP HERO SECTION */
         .hero { 
             position: relative; 
-            height: 75vh; 
+            height: 70vh; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             overflow: hidden;
-            background: var(--light-green); /* Lighter theme base */
+            background: var(--light-green);
         }
 
-        /* CAROUSEL IMAGES - African Kids Playing Chess */
-        .carousel-container {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            z-index: 1;
-        }
-
+        /* CAROUSEL IMAGES */
+        .carousel-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .slide {
             position: absolute;
             width: 100%; height: 100%;
             background-size: cover;
             background-position: center;
             opacity: 0;
-            filter: brightness(0.85);
+            filter: brightness(0.7);
             animation: carouselFade 15s infinite ease-in-out;
         }
 
-        /* Using high-quality tournament images of African children playing chess */
-        .slide:nth-child(1) { 
-            background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=2000'); 
-            animation-delay: 0s; 
-        }
-        .slide:nth-child(2) { 
-            background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?auto=format&fit=crop&q=80&w=2000'); 
-            animation-delay: 5s; 
-        }
-        .slide:nth-child(3) { 
-            background-image: url('https://images.unsplash.com/photo-1528819622765-d6bcf132f793?auto=format&fit=crop&q=80&w=2000'); 
-            animation-delay: 10s; 
-        }
+        .slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=2000'); animation-delay: 0s; }
+        .slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?auto=format&fit=crop&q=80&w=2000'); animation-delay: 5s; }
+        .slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1528819622765-d6bcf132f793?auto=format&fit=crop&q=80&w=2000'); animation-delay: 10s; }
 
         @keyframes carouselFade {
             0%, 20% { opacity: 0; }
@@ -84,64 +71,94 @@
             60%, 100% { opacity: 0; }
         }
 
-        /* LIGHT OVERLAY FOR CAROUSEL READABILITY */
         .hero::after {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(16, 185, 129, 0.4), rgba(6, 78, 59, 0.8));
+            background: linear-gradient(rgba(16, 185, 129, 0.3), rgba(6, 78, 59, 0.9));
             z-index: 2;
         }
 
-        /* AESTHETIC TEXT DESIGN */
-        .hero-content { 
-            z-index: 10; text-align: center; padding: 0 20px; 
-            max-width: 90%;
-        }
-        
-        .king-logo {
-            font-size: 4rem; color: var(--gold); margin-bottom: 0px;
-            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
-        }
-
+        /* HERO CONTENT */
+        .hero-content { z-index: 10; text-align: center; padding: 0 20px; }
+        .king-logo { font-size: 4.5rem; color: var(--gold); margin-bottom: -10px; }
         h1 { 
             font-family: 'Cinzel', serif; 
-            font-size: clamp(2.5rem, 8vw, 5rem); 
-            margin: 0; 
-            letter-spacing: 6px; 
-            color: var(--gold);
-            text-shadow: 2px 4px 10px rgba(0,0,0,0.4);
-            white-space: nowrap;
+            font-size: clamp(2.2rem, 9vw, 5rem); 
+            margin: 0; letter-spacing: 6px; color: var(--gold);
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .sub { letter-spacing: 5px; text-transform: uppercase; font-weight: 300; margin-top: 5px; font-size: 0.9rem; opacity: 0.9; }
+
+        /* REDESIGNED FLEXIBLE NAVIGATION BLOCKS */
+        .container { 
+            max-width: 1200px; 
+            margin: -80px auto 80px; 
+            padding: 0 20px; 
+            position: relative; 
+            z-index: 20; 
         }
 
-        .sub { 
-            letter-spacing: 4px; text-transform: uppercase; 
-            font-weight: 300; margin-top: 10px; margin-bottom: 30px; 
-            font-size: clamp(0.8rem, 2vw, 1.2rem); 
+        .nav-grid { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 25px; 
         }
 
-        /* ACTION CARDS */
-        .container { max-width: 1200px; margin: -60px auto 50px; padding: 0 20px; position: relative; z-index: 20; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .card { 
-            background: var(--dark-background); 
-            padding: 45px 30px; 
-            border: 2px solid var(--gold); 
+        .nav-card { 
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            padding: 40px 30px; 
+            flex: 1 1 240px; /* Allows cards to grow and shrink naturally */
+            max-width: 280px;
             text-align: center; 
-            border-radius: 15px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: transform 0.3s;
+            border-radius: 40px 10px 40px 10px; /* Unique asymmetrical organic shape */
+            border: 1px solid rgba(251, 191, 36, 0.3); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: float 6s ease-in-out infinite;
         }
-        .card:hover { transform: translateY(-10px); }
-        .card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin: 0 0 15px 0; font-size: 1.6rem; }
-        
-        .btn { 
-            background: var(--gold); color: #022c22; 
-            padding: 15px 35px; text-decoration: none; 
-            font-weight: bold; border-radius: 50px; 
-            display: inline-block; margin-top: 20px; 
-            text-transform: uppercase; font-size: 0.85rem; 
+
+        /* Staggered floating animation for a "less rigid" feel */
+        .nav-card:nth-child(even) { animation-delay: 1s; }
+        .nav-card:nth-child(3) { animation-delay: 2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .nav-card:hover { 
+            transform: scale(1.05) translateY(-20px) !important;
+            border-color: var(--gold);
+            background: rgba(2, 44, 34, 0.95);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+            animation-play-state: paused;
+        }
+
+        .nav-card h3 { 
+            font-family: 'Cinzel', serif; 
+            color: var(--gold); 
+            margin: 0 0 15px 0; 
+            font-size: 1.5rem; 
+            letter-spacing: 2px;
+        }
+
+        .nav-card p { font-size: 0.85rem; line-height: 1.6; opacity: 0.8; margin-bottom: 25px; }
+
+        .btn-modern { 
+            background: transparent; 
+            color: var(--gold); 
+            padding: 12px 25px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            border-radius: 50px; 
+            border: 2px solid var(--gold);
+            text-transform: uppercase; 
+            font-size: 0.75rem; 
             transition: 0.3s;
         }
-        .btn:hover { background: white; transform: scale(1.05); }
+        .nav-card:hover .btn-modern { background: var(--gold); color: var(--dark-background); }
+
     </style>
 </head>
 <body>
@@ -166,31 +183,30 @@
         <div class="king-logo">♚</div>
         <h1>A - KING CHESS</h1>
         <p class="sub">Academy of Grandmasters</p>
-        <a href="https://wa.me/2348108020946" class="btn">Message Akan Udoh</a>
     </div>
 </section>
 
 <div class="container">
-    <div class="grid">
-        <div class="card">
+    <div class="nav-grid">
+        <div class="nav-card">
             <h3>Training</h3>
-            <p>Join the Lichess classroom for Nigerian students.</p>
-            <a href="lichess.html" class="btn">Enter Class</a>
+            <p>Master the board with our elite Nigerian chess community.</p>
+            <a href="lichess.html" class="btn-modern">Enter Class</a>
         </div>
-        <div class="card">
+        <div class="nav-card">
             <h3>Workbooks</h3>
-            <p>Interactive chess assignments for Grades 1-6.</p>
-            <a href="lessons.html" class="btn">Start Lessons</a>
+            <p>Curated assignments designed for Grade 1 through 6.</p>
+            <a href="lessons.html" class="btn-modern">Start Lessons</a>
         </div>
-        <div class="card">
-            <h3>Shop</h3>
-            <p>Quality boards and sets for school tournaments.</p>
-            <a href="purchase.html" class="btn">Order Now</a>
+        <div class="nav-card">
+            <h3>Boutique</h3>
+            <p>Shop tournament-grade sets and luxury wooden boards.</p>
+            <a href="purchase.html" class="btn-modern">Order Now</a>
         </div>
-        <div class="card">
-            <h3>Play</h3>
-            <p>Challenge the A-KING CHESS computer engine.</p>
-            <a href="play.html" class="btn">Play Now</a>
+        <div class="nav-card">
+            <h3>Arena</h3>
+            <p>Test your strategy against our advanced chess engine.</p>
+            <a href="play.html" class="btn-modern">Play Now</a>
         </div>
     </div>
 </div>
