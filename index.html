@@ -61,7 +61,7 @@
             align-items: center; 
             justify-content: center; 
             overflow: hidden;
-            background: var(--light-green);
+            background: var(--dark-background);
         }
 
         .carousel-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
@@ -76,12 +76,13 @@
             transform: scale(1.1);
         }
 
+        /* Updated Keyframes: Start at 100% opacity to prevent empty background */
         @keyframes carouselFade {
-            0%, 15% { opacity: 0; transform: scale(1.1); }
-            20%, 35% { opacity: 1; transform: scale(1.0); }
-            40%, 100% { opacity: 0; transform: scale(1.1); }
+            0%, 20% { opacity: 1; transform: scale(1.0); }
+            25%, 100% { opacity: 0; transform: scale(1.1); }
         }
 
+        /* Staggered delays to ensure seamless transitions */
         .slide:nth-child(1) { background-image: url('Gemini_Generated_Image_x27k6hx27k6hx27k.png'); animation-delay: 0s; }
         .slide:nth-child(2) { background-image: url('1771803042489.jpg'); animation-delay: 5s; }
         .slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=2000'); animation-delay: 10s; }
@@ -100,168 +101,40 @@
             font-family: 'Cinzel', serif; 
             font-size: clamp(2.2rem, 8vw, 5.5rem); 
             margin: 0; 
-            letter-spacing: 18px; /* WIDER LETTERING */
+            letter-spacing: 18px; 
             text-transform: uppercase;
             background: linear-gradient(90deg, #fbbf24, #fff, #fbbf24);
             background-size: 200%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: shimmer 5s infinite linear;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            font-weight: 900;
         }
-
-        .sub {
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            font-weight: 300;
-            margin-top: 10px;
-            opacity: 0.9;
-        }
-
-        /* GRID ANIMATIONS */
-        .container { 
-            max-width: 1300px; 
-            margin: -60px auto 80px; 
-            padding: 0 20px; 
-            position: relative; 
-            z-index: 20; 
-        }
-
-        .nav-grid { 
-            display: flex; 
-            flex-wrap: wrap; 
-            justify-content: center; 
-            gap: 30px; 
-        }
-
-        .nav-card { 
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            padding: 45px 30px; 
-            flex: 1 1 260px; 
-            max-width: 300px;
-            text-align: center; 
-            border-radius: 40px 10px 40px 10px; 
-            border: 1px solid rgba(251, 191, 36, 0.15); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-            animation: float 6s ease-in-out infinite;
-            transform-style: preserve-3d;
-        }
-
-        /* STAGGERED ENTRANCE */
-        .nav-card { opacity: 0; animation: revealPage 0.8s forwards; }
-        .nav-card:nth-child(1) { animation-delay: 0.1s; }
-        .nav-card:nth-child(2) { animation: float 6.5s ease-in-out infinite, revealPage 0.8s forwards; animation-delay: 0.3s; }
-        .nav-card:nth-child(3) { animation: float 7s ease-in-out infinite, revealPage 0.8s forwards; animation-delay: 0.5s; }
-        .nav-card:nth-child(4) { animation: float 6.2s ease-in-out infinite, revealPage 0.8s forwards; animation-delay: 0.7s; }
-        .nav-card:nth-child(5) { animation: float 6.8s ease-in-out infinite, revealPage 0.8s forwards; animation-delay: 0.9s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotateX(0); }
-            50% { transform: translateY(-20px) rotateX(2deg); }
-        }
-
-        .nav-card:hover { 
-            transform: translateY(-30px) rotateY(5deg) scale(1.05) !important;
-            border-color: var(--gold);
-            background: rgba(2, 44, 34, 0.9);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4), 0 0 20px rgba(251, 191, 36, 0.1);
-        }
-
-        .btn-modern { 
-            display: inline-block;
-            background: transparent; 
-            color: var(--gold); 
-            padding: 12px 28px; 
-            text-decoration: none; 
-            font-weight: bold; 
-            border-radius: 50px; 
-            border: 2px solid var(--gold);
-            text-transform: uppercase; 
-            font-size: 0.7rem; 
-            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-top: 15px;
-        }
-        
-        .nav-card:hover .btn-modern { 
-            background: var(--gold); 
-            color: var(--dark-background);
-            transform: translateZ(20px); /* Pops the button forward */
-            box-shadow: 0 8px 20px rgba(251, 191, 36, 0.3);
-        }
-
-        h3 {
-            font-family: 'Cinzel', serif;
-            color: var(--gold);
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-        }
-
     </style>
 </head>
 <body>
 
-<nav>
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="lessons.html">Lessons</a></li>
-        <li><a href="play.html">Play</a></li>
-        <li><a href="purchase.html" class="shop-link">🛒 Shop Now</a></li>
-    </ul>
-</nav>
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#academy">Academy</a></li>
+            <li><a href="#shop" class="shop-link">Chess Essentials</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-<section class="hero">
-    <div class="carousel-container">
-        <div class="slide"></div>
-        <div class="slide"></div>
-        <div class="slide"></div>
-        <div class="slide"></div>
-        <div class="slide"></div>
-    </div>
-    
-    <div class="hero-content">
-        <div class="king-logo" style="font-size: 3rem; animation: float 4s infinite ease-in-out">♚</div>
-        <h1>A - King Chess</h1>
-        <p class="sub">Academy of Grandmasters</p>
-    </div>
-</section>
-
-<div class="container">
-    <div class="nav-grid">
-        <div class="nav-card">
-            <h3>Homework</h3>
-            <p>Kids' corner: Submit and track your online assignments here.</p>
-            <a href="lessons.html" class="btn-modern">Assignment Portal</a>
+    <section class="hero" id="home">
+        <div class="carousel-container">
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
+            <div class="slide"></div>
         </div>
-        
-        <div class="nav-card">
-            <h3>Training</h3>
-            <p>Master the board with our elite Nigerian chess community.</p>
-            <a href="lichess.html" class="btn-modern">Enter Class</a>
+        <div class="hero-content">
+            <h1>A-KING</h1>
+            <p style="letter-spacing: 5px; color: var(--gold); font-weight: 300;">STRATEGY • MASTERY • ROYALTY</p>
         </div>
-
-        <div class="nav-card">
-            <h3>Workbooks</h3>
-            <p>Curated assignments designed for Grade 1 through 6.</p>
-            <a href="lessons.html" class="btn-modern">Start Lessons</a>
-        </div>
-
-        <div class="nav-card">
-            <h3>Boutique</h3>
-            <p>Shop tournament-grade sets and luxury wooden boards.</p>
-            <a href="purchase.html" class="btn-modern">Order Now</a>
-        </div>
-
-        <div class="nav-card">
-            <h3>Arena</h3>
-            <p>Test your strategy against our advanced chess engine.</p>
-            <a href="play.html" class="btn-modern">Play Now</a>
-        </div>
-    </div>
-</div>
+    </section>
 
 </body>
 </html>
