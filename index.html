@@ -14,20 +14,12 @@
             --glass: rgba(2, 44, 34, 0.8);
         }
         
-        /* SMOOTH PAGE REVEAL */
-        @keyframes revealPage {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         body, html { 
             margin: 0; padding: 0; 
             font-family: 'Poppins', sans-serif; 
             background: var(--deep-green); 
             color: white; 
             overflow-x: hidden; 
-            animation: revealPage 1.2s ease-out;
-            perspective: 1000px; /* Enables 3D effects for cards */
         }
 
         /* MODERN NAV BAR */
@@ -37,23 +29,16 @@
             border-bottom: 2px solid var(--gold); 
             position: sticky; top: 0; z-index: 1000; 
         }
-        nav ul { list-style: none; display: flex; margin: 0; padding: 0; justify-content: center; flex-wrap: wrap; }
+        nav ul { list-style: none; display: flex; margin: 0; padding: 0; justify-content: center; }
         nav ul li a { 
             display: block; padding: 20px 25px; color: white; 
             text-decoration: none; font-weight: 700; 
             text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; 
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 0.3s;
         }
-        nav ul li a:hover { color: var(--gold); transform: scale(1.1); }
-        
-        nav ul li a.shop-link { color: var(--gold); position: relative; }
-        nav ul li a.shop-link::after {
-            content: ''; position: absolute; bottom: 15px; left: 25%; width: 50%;
-            height: 1px; background: var(--gold); transform: scaleX(0); transition: 0.3s;
-        }
-        nav ul li a.shop-link:hover::after { transform: scaleX(1); }
+        nav ul li a:hover { color: var(--gold); }
 
-        /* HERO SECTION */
+        /* LIGHTER TOP HERO SECTION */
         .hero { 
             position: relative; 
             height: 70vh; 
@@ -61,9 +46,10 @@
             align-items: center; 
             justify-content: center; 
             overflow: hidden;
-            background: var(--dark-background);
+            background: var(--light-green);
         }
 
+        /* CAROUSEL IMAGES */
         .carousel-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .slide {
             position: absolute;
@@ -71,70 +57,159 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            filter: brightness(0.6) contrast(1.1);
-            animation: carouselFade 25s infinite ease-in-out;
-            transform: scale(1.1);
+            filter: brightness(0.7);
+            animation: carouselFade 15s infinite ease-in-out;
         }
 
-        /* Updated Keyframes: Start at 100% opacity to prevent empty background */
+        .slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=2000'); animation-delay: 0s; }
+        .slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?auto=format&fit=crop&q=80&w=2000'); animation-delay: 5s; }
+        .slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1528819622765-d6bcf132f793?auto=format&fit=crop&q=80&w=2000'); animation-delay: 10s; }
+
         @keyframes carouselFade {
-            0%, 20% { opacity: 1; transform: scale(1.0); }
-            25%, 100% { opacity: 0; transform: scale(1.1); }
+            0%, 20% { opacity: 0; }
+            30%, 50% { opacity: 1; }
+            60%, 100% { opacity: 0; }
         }
 
-        /* Staggered delays to ensure seamless transitions */
-        .slide:nth-child(1) { background-image: url('Gemini_Generated_Image_x27k6hx27k6hx27k.png'); animation-delay: 0s; }
-        .slide:nth-child(2) { background-image: url('1771803042489.jpg'); animation-delay: 5s; }
-        .slide:nth-child(3) { background-image: url('https://images.unsplash.com/photo-1529699211952-734e80c4d42b?auto=format&fit=crop&q=80&w=2000'); animation-delay: 10s; }
-        .slide:nth-child(4) { background-image: url('https://images.unsplash.com/photo-1586165368502-1bad197a6461?auto=format&fit=crop&q=80&w=2000'); animation-delay: 15s; }
-        .slide:nth-child(5) { background-image: url('https://images.unsplash.com/photo-1528819622765-d6bcf132f793?auto=format&fit=crop&q=80&w=2000'); animation-delay: 20s; }
+        .hero::after {
+            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(16, 185, 129, 0.3), rgba(6, 78, 59, 0.9));
+            z-index: 2;
+        }
 
-        /* HERO CONTENT & SHIMMER */
+        /* HERO CONTENT */
         .hero-content { z-index: 10; text-align: center; padding: 0 20px; }
-        
-        @keyframes shimmer {
-            0% { background-position: -200%; }
-            100% { background-position: 200%; }
-        }
-
+        .king-logo { font-size: 4.5rem; color: var(--gold); margin-bottom: -10px; }
         h1 { 
             font-family: 'Cinzel', serif; 
-            font-size: clamp(2.2rem, 8vw, 5.5rem); 
-            margin: 0; 
-            letter-spacing: 18px; 
-            text-transform: uppercase;
-            background: linear-gradient(90deg, #fbbf24, #fff, #fbbf24);
-            background-size: 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: shimmer 5s infinite linear;
+            font-size: clamp(2.2rem, 9vw, 5rem); 
+            margin: 0; letter-spacing: 6px; color: var(--gold);
+            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
+        .sub { letter-spacing: 5px; text-transform: uppercase; font-weight: 300; margin-top: 5px; font-size: 0.9rem; opacity: 0.9; }
+
+        /* REDESIGNED FLEXIBLE NAVIGATION BLOCKS */
+        .container { 
+            max-width: 1200px; 
+            margin: -80px auto 80px; 
+            padding: 0 20px; 
+            position: relative; 
+            z-index: 20; 
+        }
+
+        .nav-grid { 
+            display: flex; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+            gap: 25px; 
+        }
+
+        .nav-card { 
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            padding: 40px 30px; 
+            flex: 1 1 240px; /* Allows cards to grow and shrink naturally */
+            max-width: 280px;
+            text-align: center; 
+            border-radius: 40px 10px 40px 10px; /* Unique asymmetrical organic shape */
+            border: 1px solid rgba(251, 191, 36, 0.3); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        /* Staggered floating animation for a "less rigid" feel */
+        .nav-card:nth-child(even) { animation-delay: 1s; }
+        .nav-card:nth-child(3) { animation-delay: 2s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .nav-card:hover { 
+            transform: scale(1.05) translateY(-20px) !important;
+            border-color: var(--gold);
+            background: rgba(2, 44, 34, 0.95);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+            animation-play-state: paused;
+        }
+
+        .nav-card h3 { 
+            font-family: 'Cinzel', serif; 
+            color: var(--gold); 
+            margin: 0 0 15px 0; 
+            font-size: 1.5rem; 
+            letter-spacing: 2px;
+        }
+
+        .nav-card p { font-size: 0.85rem; line-height: 1.6; opacity: 0.8; margin-bottom: 25px; }
+
+        .btn-modern { 
+            background: transparent; 
+            color: var(--gold); 
+            padding: 12px 25px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            border-radius: 50px; 
+            border: 2px solid var(--gold);
+            text-transform: uppercase; 
+            font-size: 0.75rem; 
+            transition: 0.3s;
+        }
+        .nav-card:hover .btn-modern { background: var(--gold); color: var(--dark-background); }
+
     </style>
 </head>
 <body>
 
-    <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#academy">Academy</a></li>
-            <li><a href="#shop" class="shop-link">Chess Essentials</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+<nav>
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="lessons.html">Lessons</a></li>
+        <li><a href="play.html">Play</a></li>
+    </ul>
+</nav>
 
-    <section class="hero" id="home">
-        <div class="carousel-container">
-            <div class="slide"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
-            <div class="slide"></div>
+<section class="hero">
+    <div class="carousel-container">
+        <div class="slide"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+    </div>
+    
+    <div class="hero-content">
+        <div class="king-logo">♚</div>
+        <h1>A - KING CHESS</h1>
+        <p class="sub">Academy of Grandmasters</p>
+    </div>
+</section>
+
+<div class="container">
+    <div class="nav-grid">
+        <div class="nav-card">
+            <h3>Training</h3>
+            <p>Master the board with our elite Nigerian chess community.</p>
+            <a href="lichess.html" class="btn-modern">Enter Class</a>
         </div>
-        <div class="hero-content">
-            <h1>A-KING</h1>
-            <p style="letter-spacing: 5px; color: var(--gold); font-weight: 300;">STRATEGY • MASTERY • ROYALTY</p>
+        <div class="nav-card">
+            <h3>Workbooks</h3>
+            <p>Curated assignments designed for Grade 1 through 6.</p>
+            <a href="lessons.html" class="btn-modern">Start Lessons</a>
         </div>
-    </section>
+        <div class="nav-card">
+            <h3>Boutique</h3>
+            <p>Shop tournament-grade sets and luxury wooden boards.</p>
+            <a href="purchase.html" class="btn-modern">Order Now</a>
+        </div>
+        <div class="nav-card">
+            <h3>Arena</h3>
+            <p>Test your strategy against our advanced chess engine.</p>
+            <a href="play.html" class="btn-modern">Play Now</a>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
