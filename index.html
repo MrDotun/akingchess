@@ -34,8 +34,9 @@
             padding: 0 5%;
         }
         .nav-logo-small {
-            height: 40px;
+            height: 50px; /* Slightly larger for better visibility in the corner */
             padding: 5px 0;
+            filter: drop-shadow(0 0 5px rgba(251, 191, 36, 0.3));
         }
         nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
         nav ul li a { 
@@ -115,32 +116,26 @@
 
         .hero::after {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(16, 185, 129, 0.2), rgba(6, 78, 59, 0.8));
+            background: linear-gradient(rgba(16, 185, 129, 0.1), rgba(6, 78, 59, 0.7));
             z-index: 2;
         }
 
         /* HERO CONTENT */
         .hero-content { z-index: 10; text-align: center; padding: 0 20px; }
         
-        .main-brand-logo {
-            width: 220px;
-            max-width: 80%;
-            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.5));
-            margin-bottom: 15px;
-            animation: logoEntrance 1.5s ease-out;
-        }
-
-        @keyframes logoEntrance {
-            from { opacity: 0; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
         h1 { 
             font-family: 'Cinzel', serif; 
             font-size: clamp(2rem, 8vw, 4.5rem); 
             margin: 0; letter-spacing: 6px; color: var(--gold);
             text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+            animation: textEntrance 1.5s ease-out;
         }
+
+        @keyframes textEntrance {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .sub { letter-spacing: 6px; text-transform: uppercase; font-weight: 700; margin-top: 10px; font-size: 1rem; color: #fff; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); }
 
         /* CONTAINER & GRID */
@@ -275,7 +270,9 @@
 <body>
 
 <nav>
-    <img src="Gemini_Generated_Image_ij6a1dij6a1dij6a_1.png" alt="A-King logo" class="nav-logo-small">
+    <a href="index.html">
+        <img src="Gemini_Generated_Image_ij6a1dij6a1dij6a_1.png" alt="A-King logo" class="nav-logo-small">
+    </a>
     <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
@@ -294,7 +291,6 @@
     </div>
     
     <div class="hero-content">
-        <img src="Gemini_Generated_Image_ij6a1dij6a1dij6a_1.png" alt="A-King Chess Academy Logo" class="main-brand-logo">
         <h1>A - KING CHESS</h1>
         <p class="sub">Master the Strategy</p>
     </div>
