@@ -22,6 +22,25 @@
             overflow-x: hidden; 
         }
 
+        /* --- LOGO ANIMATION --- */
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .card-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .section-logo {
+            width: 45px;
+            height: auto;
+            animation: floatLogo 3s ease-in-out infinite;
+        }
+
         /* MODERN NAV BAR */
         nav { 
             background: rgba(2, 44, 34, 0.95);
@@ -30,7 +49,6 @@
             position: sticky; top: 0; z-index: 1000; 
             display: flex;
             align-items: center;
-            /* Updated to center navigation when logo is gone */
             justify-content: center;
             padding: 0 5%;
         }
@@ -184,14 +202,15 @@
         .nav-card h3 { 
             font-family: 'Cinzel', serif; 
             color: var(--gold); 
-            margin: 0 0 15px 0; 
+            margin: 0; 
             font-size: 1.5rem; 
             letter-spacing: 2px;
         }
 
-        .nav-card p { font-size: 0.85rem; line-height: 1.6; opacity: 0.9; margin-bottom: 25px; }
+        .nav-card p { font-size: 0.85rem; line-height: 1.6; opacity: 0.9; margin-bottom: 25px; text-align: left; }
 
         .btn-modern { 
+            display: inline-block;
             background: transparent; 
             color: var(--gold); 
             padding: 12px 25px; 
@@ -306,17 +325,26 @@
 <div class="container">
     <div class="nav-grid">
         <div class="nav-card">
-            <h3>Training</h3>
+            <div class="card-header-flex">
+                <h3>Training</h3>
+                <img src="Screenshot_20260223-104439.jpg" class="section-logo" alt="logo">
+            </div>
             <p>Master the board with our elite Nigerian chess community.</p>
             <a href="lichess.html" class="btn-modern">Enter Class</a>
         </div>
         <div class="nav-card">
-            <h3>Workbooks</h3>
+            <div class="card-header-flex">
+                <h3>Workbooks</h3>
+                <img src="Screenshot_20260223-104439.jpg" class="section-logo" alt="logo">
+            </div>
             <p>Curated assignments designed for Grade 1 through 6.</p>
             <a href="lessons.html" class="btn-modern">Start Lessons</a>
         </div>
         <div class="nav-card">
-            <h3>Pro Shop</h3>
+            <div class="card-header-flex">
+                <h3>Pro Shop</h3>
+                <img src="Screenshot_20260223-104439.jpg" class="section-logo" alt="logo">
+            </div>
             <p>Shop tournament-grade sets and professional equipment.</p>
             <a href="purchase.html" class="btn-modern">Order Now</a>
         </div>
