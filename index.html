@@ -38,6 +38,30 @@
         }
         nav ul li a:hover { color: var(--gold); }
 
+        /* FLOATING SHOP BADGE */
+        .shop-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--dark-background);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            z-index: 100;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            animation: badgeFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes badgeFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+
         /* LIGHTER TOP HERO SECTION */
         .hero { 
             position: relative; 
@@ -49,19 +73,18 @@
             background: var(--light-green);
         }
 
-        /* CAROUSEL IMAGES */
+        /* CAROUSEL IMAGES - Visible & Clear */
         .carousel-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .slide {
             position: absolute;
             width: 100%; height: 100%;
             background-size: cover;
             background-position: center;
-            opacity: 0; /* Default hidden */
-            filter: brightness(0.7);
-            animation: carouselFade 10s infinite ease-in-out;
+            opacity: 0;
+            filter: brightness(0.9);
+            animation: carouselFade 15s infinite ease-in-out; /* Adjusted to 15s for 3 slides */
         }
 
-        /* Forced visibility for first image on load */
         .slide:nth-child(1) { 
             background-image: url('Gemini_Generated_Image_x27k6hx27k6hx27k.png'); 
             animation-delay: 0s; 
@@ -71,16 +94,22 @@
             background-image: url('1771803042489.jpg'); 
             animation-delay: 5s; 
         }
+        /* New third slide: Professional Chess Image */
+        .slide:nth-child(3) { 
+            background-image: url('https://images.unsplash.com/photo-1528819622765-d6bcf132f793?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'); 
+            animation-delay: 10s; 
+        }
 
         @keyframes carouselFade {
-            0%, 45% { opacity: 1; } /* Stay visible for nearly half the duration */
-            50%, 95% { opacity: 0; }
+            0%, 26% { opacity: 1; } 
+            33%, 93% { opacity: 0; }
             100% { opacity: 1; }
         }
 
+        /* Lightened Overlay for Clarity */
         .hero::after {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(16, 185, 129, 0.3), rgba(6, 78, 59, 0.9));
+            background: linear-gradient(rgba(16, 185, 129, 0.1), rgba(6, 78, 59, 0.6));
             z-index: 2;
         }
 
@@ -91,9 +120,9 @@
             font-family: 'Cinzel', serif; 
             font-size: clamp(2.2rem, 9vw, 5rem); 
             margin: 0; letter-spacing: 6px; color: var(--gold);
-            text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
-        .sub { letter-spacing: 5px; text-transform: uppercase; font-weight: 300; margin-top: 5px; font-size: 0.9rem; opacity: 0.9; }
+        .sub { letter-spacing: 5px; text-transform: uppercase; font-weight: 400; margin-top: 5px; font-size: 0.9rem; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
 
         /* REDESIGNED FLEXIBLE NAVIGATION BLOCKS */
         .container { 
@@ -149,7 +178,7 @@
             letter-spacing: 2px;
         }
 
-        .nav-card p { font-size: 0.85rem; line-height: 1.6; opacity: 0.8; margin-bottom: 25px; }
+        .nav-card p { font-size: 0.85rem; line-height: 1.6; opacity: 0.9; margin-bottom: 25px; }
 
         .btn-modern { 
             background: transparent; 
@@ -179,7 +208,10 @@
 </nav>
 
 <section class="hero">
+    <a href="purchase.html" class="shop-badge">Buy Your Chess Sets →</a>
+
     <div class="carousel-container">
+        <div class="slide"></div>
         <div class="slide"></div>
         <div class="slide"></div>
     </div>
