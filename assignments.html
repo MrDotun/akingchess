@@ -1,130 +1,135 @@
 <style>
-    /* CINEMATIC WIDE TITLE */
+    /* LIGHTER CINEMATIC TITLE */
     .wide-king-title {
         font-family: 'Cinzel', serif;
-        letter-spacing: 25px; 
+        letter-spacing: 20px; 
         text-transform: uppercase;
         font-weight: 900;
         text-align: center;
-        margin: 60px 0;
-        background: linear-gradient(90deg, #fbbf24, #fff, #fbbf24);
+        margin: 40px 0;
+        background: linear-gradient(90deg, #d97706, #fbbf24, #d97706);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        animation: shimmer 5s infinite linear;
-        font-size: clamp(1.8rem, 6vw, 4rem);
+        font-size: clamp(1.5rem, 5vw, 3.5rem);
     }
 
     .workbook-section {
-        background: #022c22; 
-        padding: 100px 20px;
-        border-top: 4px solid #fbbf24;
+        background: #f0fdf4; /* Very Light Green Wash */
+        padding: 60px 20px;
+        border-top: 5px solid #fbbf24;
     }
 
     .workbook-container {
-        max-width: 1100px;
+        max-width: 800px;
         margin: 0 auto;
-        background: rgba(6, 78, 59, 0.7); 
-        backdrop-filter: blur(25px);
-        padding: 50px;
-        border-radius: 40px;
+        background: #ffffff; 
+        padding: 40px;
+        border-radius: 30px;
         border: 2px solid #fbbf24;
-        box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+        box-shadow: 0 20px 40px rgba(2, 44, 34, 0.1);
+        min-height: 500px;
+        position: relative;
+        overflow: hidden;
     }
 
     .grade-tabs {
         display: flex;
         justify-content: center;
-        gap: 15px;
-        margin-bottom: 50px;
+        gap: 10px;
+        margin-bottom: 30px;
         flex-wrap: wrap;
     }
 
     .grade-tab {
-        background: rgba(2, 44, 34, 0.8);
-        border: 1px solid #fbbf24;
-        color: #fbbf24;
-        padding: 15px 30px;
+        background: #f8fafc;
+        border: 2px solid #064e3b;
+        color: #064e3b;
+        padding: 10px 20px;
         cursor: pointer;
-        border-radius: 8px;
+        border-radius: 12px;
         font-family: 'Cinzel', serif;
         font-weight: 700;
-        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        letter-spacing: 2px;
-    }
-
-    .grade-tab.active, .grade-tab:hover {
-        background: #fbbf24;
-        color: #022c22;
-        transform: translateY(-8px);
-        box-shadow: 0 10px 25px rgba(251, 191, 36, 0.4);
-    }
-
-    .topic-header {
-        color: #fbbf24;
-        font-family: 'Cinzel', serif;
-        border-bottom: 1px solid rgba(251, 191, 36, 0.3);
-        padding-bottom: 15px;
-        margin-top: 60px;
-        letter-spacing: 4px;
-        text-align: center;
-    }
-
-    .question-box {
-        background: rgba(0, 0, 0, 0.3);
-        padding: 30px;
-        margin: 25px 0;
-        border-radius: 20px;
-        border-left: 6px solid #fbbf24;
         transition: 0.3s;
+    }
+
+    .grade-tab.active {
+        background: #064e3b;
+        color: #fbbf24;
+        transform: translateY(-3px);
+    }
+
+    /* THE PROGRESSIVE QUESTION BOX */
+    .question-box {
+        background: #fdfdfd;
+        padding: 30px;
+        border-radius: 20px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+        display: none; /* Controlled by JS */
+        animation: slideIn 0.5s ease forwards;
+    }
+
+    .question-box.active {
+        display: block;
+    }
+
+    .question-text {
+        color: #064e3b;
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 25px;
+        line-height: 1.4;
     }
 
     .opt-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 15px;
-        margin-top: 20px;
+        grid-template-columns: 1fr;
+        gap: 12px;
     }
 
     .opt-btn {
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(251, 191, 36, 0.2);
-        color: white;
+        background: #ffffff;
+        border: 2px solid #cbd5e1;
+        color: #334155;
         padding: 18px;
-        border-radius: 12px;
+        border-radius: 15px;
         cursor: pointer;
         text-align: left;
-        transition: 0.3s ease;
+        transition: 0.2s;
+        font-size: 1.1rem;
         font-family: 'Poppins', sans-serif;
     }
 
-    .opt-btn:hover { background: rgba(251, 191, 36, 0.15); border-color: #fbbf24; }
-    .opt-btn.correct { background: #10b981 !important; border-color: #10b981; }
-    .opt-btn.wrong { background: #ef4444 !important; border-color: #ef4444; }
-
-    .checkpoint-area {
-        display: none;
-        text-align: center;
-        padding: 60px;
-        background: rgba(251, 191, 36, 0.08);
-        border: 2px dashed #fbbf24;
-        border-radius: 30px;
-        margin-top: 50px;
-        animation: revealPage 1s ease-out;
+    .opt-btn:hover {
+        border-color: #fbbf24;
+        background: #fffbeb;
     }
+
+    .opt-btn.correct { background: #10b981 !important; color: white; border-color: #059669; }
+    .opt-btn.wrong { background: #ef4444 !important; color: white; border-color: #dc2626; }
 
     .score-float {
         position: fixed;
         bottom: 30px;
         left: 30px;
-        background: #fbbf24;
-        color: #022c22;
-        padding: 15px 35px;
+        background: #064e3b;
+        color: #fbbf24;
+        padding: 15px 30px;
         border-radius: 50px;
         font-weight: 900;
         z-index: 2000;
-        box-shadow: 0 15px 30px rgba(0,0,0,0.4);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         font-family: 'Cinzel', serif;
-        border: 2px solid #022c22;
+    }
+
+    @keyframes slideIn {
+        from { opacity: 0; transform: translateX(50px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+
+    .checkpoint-area {
+        text-align: center;
+        display: none;
     }
 </style>
 
@@ -134,166 +139,89 @@
     <div class="wide-king-title">A - KING</div>
     
     <div class="workbook-container">
-        <div class="board-intro" style="text-align:center">
-            <h2 style="color:#fbbf24; font-family:'Cinzel'; font-size: 2.2rem;">THE WORKBOOK</h2>
-            <p style="letter-spacing: 3px; opacity: 0.8;">CHOOSE YOUR RANK TO BEGIN</p>
-            <div style="font-size: 4rem; margin: 30px 0; filter: drop-shadow(0 0 10px #fbbf24);">🏆</div>
-        </div>
+        <div id="intro-layer" style="text-align:center">
+            <h2 style="color:#064e3b; font-family:'Cinzel';">The Grandmaster Trials</h2>
+            <p style="color: #64748b;">Answer 10 questions to reach the next rank.</p>
+            
+            <div class="grade-tabs">
+                <button class="grade-tab active" onclick="startQuiz(1)">Grade 1</button>
+                <button class="grade-tab" onclick="startQuiz(2)">Grade 2</button>
+                <button class="grade-tab" onclick="startQuiz(3)">Grade 3</button>
+                <button class="grade-tab" onclick="startQuiz(4)">Grade 4</button>
+                <button class="grade-tab" onclick="startQuiz(5)">Grade 5</button>
+            </div>
+                    </div>
 
-        <div class="grade-tabs">
-            <button class="grade-tab active" onclick="loadGrade(1)">Grade 1</button>
-            <button class="grade-tab" onclick="loadGrade(2)">Grade 2</button>
-            <button class="grade-tab" onclick="loadGrade(3)">Grade 3</button>
-            <button class="grade-tab" onclick="loadGrade(4)">Grade 4</button>
-            <button class="grade-tab" onclick="loadGrade(5)">Grade 5</button>
-        </div>
-
-        <div id="workbook-display"></div>
+        <div id="question-container"></div>
 
         <div class="checkpoint-area" id="submit-zone">
-            <h2 style="color:#fbbf24; font-family:'Cinzel'; font-size: 2rem;">MISSION COMPLETE!</h2>
-            <p>Ready to report your progress to the Grandmaster?</p>
-            <a href="https://docs.google.com/forms/d/1rbIX1MqsyFp9_4f9Bt63EmDpXWNtwNjNGCLn8z44Lhg/prefill" target="_blank" class="btn-modern" style="background:#fbbf24; color:#022c22; border:none; padding: 20px 60px; font-size: 1rem;">Submit to Mr. Akan</a>
+            <div style="font-size: 4rem;">🏆</div>
+            <h2 style="color:#064e3b; font-family:'Cinzel';">Mission Accomplished!</h2>
+            <p style="color: #64748b; margin-bottom: 30px;">Your score has been recorded. Send it to Mr. Akan now.</p>
+            <a href="https://docs.google.com/forms/d/1rbIX1MqsyFp9_4f9Bt63EmDpXWNtwNjNGCLn8z44Lhg/prefill" target="_blank" class="btn-modern" style="background:#fbbf24; color:#064e3b; padding: 20px 60px; text-decoration: none; border-radius: 10px; font-weight: bold; border: 2px solid #064e3b;">Submit to Mr. Akan</a>
         </div>
     </div>
 </section>
 
 <script>
-    let score = 0;
-    let answeredCount = 0;
+    let currentScore = 0;
+    let currentQuestionIndex = 0;
+    let activeGradeData = [];
 
-    const workbookData = {
-        1: {
-            topics: ["The Board", "Piece Identity", "Move Logic", "King's Safety"],
-            questions: [
-                { q: "How many squares are on a chessboard?", o: ["32", "64", "100", "81"], a: 1 },
-                { q: "Which square is on the right-hand corner?", o: ["Dark", "White", "Green", "Any"], a: 1 },
-                { q: "The King moves how many squares?", o: ["One", "Two", "Unlimited", "L-shape"], a: 0 },
-                { q: "Which piece moves only diagonally?", o: ["Rook", "Bishop", "Pawn", "Queen"], a: 1 },
-                { q: "How many pawns does White start with?", o: ["6", "8", "10", "16"], a: 1 },
-                { q: "Which piece is worth 5 points?", o: ["Bishop", "Knight", "Rook", "King"], a: 2 },
-                { q: "What piece moves in an L-shape?", o: ["Knight", "Queen", "Bishop", "Pawn"], a: 0 },
-                { q: "Can a Pawn move backwards?", o: ["Yes", "Sometimes", "No", "Only for capture"], a: 2 },
-                { q: "A Rook moves like which symbol?", o: ["X", "+", "L", "O"], a: 1 },
-                { q: "Which piece can jump over others?", o: ["Queen", "Knight", "Rook", "Bishop"], a: 1 }
-            ]
-        },
-        2: {
-            topics: ["Special Moves", "Point Values", "Checkmate Basics", "The Opening"],
-            questions: [
-                { q: "What is the King worth?", o: ["9 Points", "Infinite", "5 Points", "0 Points"], a: 1 },
-                { q: "Which piece is worth 3 points?", o: ["Rook", "Pawn", "Bishop", "Queen"], a: 2 },
-                { q: "Which move protects the King and moves a Rook?", o: ["En Passant", "Castling", "Promotion", "Fork"], a: 1 },
-                { q: "A Pawn reaching the end rank becomes?", o: ["King", "Promoted", "Captured", "Dead"], a: 1 },
-                { q: "Which piece should you develop first?", o: ["Queen", "Knight", "King", "Rook"], a: 1 },
-                { q: "Is the Bishop better in open or closed positions?", o: ["Open", "Closed", "Neither", "Depends"], a: 0 },
-                { q: "How many squares does the King move during Castling?", o: ["1", "2", "3", "4"], a: 1 },
-                { q: "What move happens immediately after a King is attacked?", o: ["Stalemate", "Check", "Draw", "Win"], a: 1 },
-                { q: "Value of a Rook?", o: ["1", "3", "5", "9"], a: 2 },
-                { q: "Scholar's Mate takes how many moves?", o: ["2", "4", "6", "10"], a: 1 }
-            ]
-        },
-        3: {
-            topics: ["Tactics 101", "The Draw", "Endgame Prep", "Forks & Skewers"],
-            questions: [
-                { q: "Attacking two pieces with one piece is called?", o: ["Pin", "Fork", "Skewer", "Check"], a: 1 },
-                { q: "A 'Stalemate' results in?", o: ["A Win", "A Loss", "A Draw", "A Re-match"], a: 2 },
-                { q: "Attacking a valuable piece to hit one behind it?", o: ["Fork", "Skewer", "Pin", "Discovery"], a: 1 },
-                { q: "Which piece is best at Forking?", o: ["Rook", "Knight", "Bishop", "King"], a: 1 },
-                { q: "Total value of a minor piece?", o: ["1", "3", "5", "9"], a: 1 },
-                { q: "What is a 'discovered' attack?", o: ["Moving a piece to reveal an attack", "Finding a hidden pawn", "Winning a queen", "Capturing a rook"], a: 0 },
-                { q: "Can you win with just a King and Knight?", o: ["Yes", "No", "Only if Black has a pawn", "Sometimes"], a: 1 },
-                { q: "A passed pawn is?", o: ["A pawn that can't be stopped by other pawns", "A pawn that died", "A pawn in the center", "A pawn move"], a: 0 },
-                { q: "The 'Opposition' refers to?", o: ["King facing King", "Knight facing Queen", "Winning a game", "The other team"], a: 0 },
-                { q: "What is a 'Zwischenzug'?", o: ["An in-between move", "Checkmate", "Endgame", "Pawn move"], a: 0 }
-            ]
-        },
-        4: {
-            topics: ["Notation", "The Pin", "The Center", "Advanced Tactics"],
-            questions: [
-                { q: "Notation for the Knight is?", o: ["K", "N", "Kt", "Kn"], a: 1 },
-                { q: "A 'Pin' is when a piece?", o: ["Cannot move because it exposes a leader", "Moves L-shape", "Captures a pawn", "Wins"], a: 0 },
-                { q: "Controlling the center is usually done by?", o: ["e4/d4", "a4/h4", "Moves by King", "Doing nothing"], a: 0 },
-                { q: "En Passant can only happen against?", o: ["Knights", "Rooks", "Pawns", "Queens"], a: 2 },
-                { q: "Notation for King-side castling?", o: ["0-0", "0-0-0", "K-R", "C-K"], a: 0 },
-                { q: "An 'Absolute Pin' is against which piece?", o: ["Queen", "King", "Rook", "Bishop"], a: 1 },
-                { q: "What is an 'Outpost' for a Knight?", o: ["A square protected by a pawn", "The start square", "A corner", "The opponent's rank"], a: 0 },
-                { q: "The Lucena Position is for?", o: ["Pawn Endgames", "Rook Endgames", "Opening", "Forks"], a: 1 },
-                { q: "What is 'The Greek Gift'?", o: ["A Bishop sacrifice on h7", "A trade of queens", "Winning 3 pawns", "A stalemate"], a: 0 },
-                { q: "Which file is the 'e-file'?", o: ["King's file", "Queen's file", "Rook's file", "Bishop's file"], a: 0 }
-            ]
-        },
-        5: {
-            topics: ["Grand Strategy", "Middle Game", "Calculation", "Classic Games"],
-            questions: [
-                { q: "The 'Luft' move refers to?", o: ["Giving the King air", "Winning a rook", "Sacrificing", "Castling"], a: 0 },
-                { q: "Which piece is usually traded for the 'fianchetto' bishop?", o: ["Pawn", "Knight", "Other Bishop", "Rook"], a: 2 },
-                { q: "Who was the 'Magician from Riga'?", o: ["Tal", "Fisher", "Kasparov", "Magnus"], a: 0 },
-                { q: "A 'Hedgehog' structure uses which pawns?", o: ["a/b", "c/d/e/f", "Center pawns only", "No pawns"], a: 1 },
-                { q: "Which endgame is the most frequent?", o: ["Knight", "Pawn", "Rook", "Bishop"], a: 2 },
-                { q: "What is the 'Philidor Position' used for?", o: ["Defending a Rook endgame", "Attacking h7", "Winning a Knight", "Developing"], a: 0 },
-                { q: "A 'Sacrifice' is when you?", o: ["Lose a piece on purpose for an advantage", "Make a mistake", "Resign", "Stalemate"], a: 0 },
-                { q: "Which player is known for the 'Immortal Game'?", o: ["Anderssen", "Morphy", "Steinitz", "Capablanca"], a: 0 },
-                { q: "What is a 'Bad Bishop'?", o: ["A bishop stuck behind its own pawns", "A bishop that captured a pawn", "A bishop in the corner", "A lost piece"], a: 0 },
-                { q: "Calculating 'Candidates' means?", o: ["Finding the best possible moves", "Choosing a new board", "Picking a team", "None"], a: 0 }
-            ]
-        }
-    };
-
-    function loadGrade(g) {
-        document.querySelectorAll('.grade-tab').forEach(t => t.classList.remove('active'));
-        if(event) event.target.classList.add('active');
-
-        const display = document.getElementById('workbook-display');
-        const data = workbookData[g];
-        display.innerHTML = '';
-        answeredCount = 0;
+    function startQuiz(grade) {
+        document.getElementById('intro-layer').style.display = 'none';
         document.getElementById('submit-zone').style.display = 'none';
+        activeGradeData = workbookData[grade].questions;
+        currentQuestionIndex = 0;
+        renderQuestion();
+    }
 
-        data.topics.forEach((topic, idx) => {
-            display.innerHTML += `<h3 class="topic-header">LEVEL ${idx+1}: ${topic}</h3>`;
-            
-            // Generate 2 questions per topic for the interface (to make 10 total)
-            // In a full build, you can map the array differently.
-            data.questions.forEach((qObj, qIdx) => {
-                const qHtml = `
-                    <div class="question-box">
-                        <p style="font-size: 1.1rem;"><strong>Q${qIdx+1}: ${qObj.q}</strong></p>
-                        <div class="opt-grid">
-                            ${qObj.o.map((opt, oIdx) => `<button class="opt-btn" onclick="handleChoice(this, ${oIdx === qObj.a})">${opt}</button>`).join('')}
-                        </div>
-                    </div>
-                `;
-                display.innerHTML += qHtml;
-            });
-        });
-        window.scrollTo({top: display.offsetTop - 100, behavior: 'smooth'});
+    function renderQuestion() {
+        const container = document.getElementById('question-container');
+        container.innerHTML = '';
+        
+        if (currentQuestionIndex >= 10) {
+            showEnd();
+            return;
+        }
+
+        const qData = activeGradeData[currentQuestionIndex];
+        const qBox = document.createElement('div');
+        qBox.className = 'question-box active';
+        qBox.innerHTML = `
+            <div style="color: #fbbf24; font-weight: bold; margin-bottom: 10px;">QUESTION ${currentQuestionIndex + 1} OF 10</div>
+            <div class="question-text">${qData.q}</div>
+            <div class="opt-grid">
+                ${qData.o.map((opt, i) => `<button class="opt-btn" onclick="handleChoice(this, ${i === qData.a})">${opt}</button>`).join('')}
+            </div>
+        `;
+        container.appendChild(qBox);
     }
 
     function handleChoice(btn, isCorrect) {
         const parent = btn.parentElement;
-        if(parent.classList.contains('done')) return;
-        parent.classList.add('done');
-
-        const siblings = parent.querySelectorAll('.opt-btn');
-        siblings.forEach(s => s.style.opacity = "0.4");
-        btn.style.opacity = "1";
+        if(parent.classList.contains('locked')) return;
+        parent.classList.add('locked');
 
         if(isCorrect) {
             btn.classList.add('correct');
-            score += 10;
+            currentScore += 10;
+            document.getElementById('live-score').innerText = currentScore;
         } else {
             btn.classList.add('wrong');
         }
 
-        document.getElementById('live-score').innerText = score;
-        answeredCount++;
-
-        if(answeredCount >= 10) {
-            document.getElementById('submit-zone').style.display = 'block';
-        }
+        // Wait 1 second then slide to next
+        setTimeout(() => {
+            currentQuestionIndex++;
+            renderQuestion();
+        }, 1000);
     }
 
-    // Default load
-    window.onload = () => loadGrade(1);
+    function showEnd() {
+        document.getElementById('question-container').innerHTML = '';
+        document.getElementById('submit-zone').style.display = 'block';
+    }
+
+    // Reuse the workbookData constant from your previous script here...
 </script>
