@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A-KING CHESS | Academy of Grandmasters</title>
+    <title>A-KING CHESS | Master the Strategy</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root { 
@@ -28,10 +28,18 @@
             backdrop-filter: blur(10px);
             border-bottom: 2px solid var(--gold); 
             position: sticky; top: 0; z-index: 1000; 
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
         }
-        nav ul { list-style: none; display: flex; margin: 0; padding: 0; justify-content: center; }
+        .nav-logo-small {
+            height: 40px;
+            padding: 5px 0;
+        }
+        nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
         nav ul li a { 
-            display: block; padding: 20px 25px; color: white; 
+            display: block; padding: 20px 15px; color: white; 
             text-decoration: none; font-weight: 700; 
             text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; 
             transition: 0.3s;
@@ -65,7 +73,7 @@
         /* LIGHTER TOP HERO SECTION */
         .hero { 
             position: relative; 
-            height: 70vh; 
+            height: 75vh; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -73,7 +81,7 @@
             background: var(--light-green);
         }
 
-        /* CAROUSEL IMAGES - Visible & Clear */
+        /* CAROUSEL IMAGES */
         .carousel-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .slide {
             position: absolute;
@@ -81,8 +89,8 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            filter: brightness(0.9);
-            animation: carouselFade 15s infinite ease-in-out; /* Adjusted to 15s for 3 slides */
+            filter: brightness(0.7);
+            animation: carouselFade 15s infinite ease-in-out; 
         }
 
         .slide:nth-child(1) { 
@@ -94,7 +102,6 @@
             background-image: url('1771803042489.jpg'); 
             animation-delay: 5s; 
         }
-        /* New third slide: Professional Chess Image */
         .slide:nth-child(3) { 
             background-image: url('https://images.unsplash.com/photo-1528819622765-d6bcf132f793?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'); 
             animation-delay: 10s; 
@@ -106,28 +113,40 @@
             100% { opacity: 1; }
         }
 
-        /* Lightened Overlay for Clarity */
         .hero::after {
             content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(16, 185, 129, 0.1), rgba(6, 78, 59, 0.6));
+            background: linear-gradient(rgba(16, 185, 129, 0.2), rgba(6, 78, 59, 0.8));
             z-index: 2;
         }
 
         /* HERO CONTENT */
         .hero-content { z-index: 10; text-align: center; padding: 0 20px; }
-        .king-logo { font-size: 4.5rem; color: var(--gold); margin-bottom: -10px; }
+        
+        .main-brand-logo {
+            width: 220px;
+            max-width: 80%;
+            filter: drop-shadow(0 0 15px rgba(251, 191, 36, 0.5));
+            margin-bottom: 15px;
+            animation: logoEntrance 1.5s ease-out;
+        }
+
+        @keyframes logoEntrance {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
         h1 { 
             font-family: 'Cinzel', serif; 
-            font-size: clamp(2.2rem, 9vw, 5rem); 
+            font-size: clamp(2rem, 8vw, 4.5rem); 
             margin: 0; letter-spacing: 6px; color: var(--gold);
             text-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
-        .sub { letter-spacing: 5px; text-transform: uppercase; font-weight: 400; margin-top: 5px; font-size: 0.9rem; text-shadow: 1px 1px 5px rgba(0,0,0,0.5); }
+        .sub { letter-spacing: 6px; text-transform: uppercase; font-weight: 700; margin-top: 10px; font-size: 1rem; color: #fff; text-shadow: 1px 1px 5px rgba(0,0,0,0.8); }
 
-        /* REDESIGNED FLEXIBLE NAVIGATION BLOCKS */
+        /* CONTAINER & GRID */
         .container { 
             max-width: 1200px; 
-            margin: -80px auto 80px; 
+            margin: -80px auto 40px; 
             padding: 0 20px; 
             position: relative; 
             z-index: 20; 
@@ -194,11 +213,69 @@
         }
         .nav-card:hover .btn-modern { background: var(--gold); color: var(--dark-background); }
 
+        /* CONTACT FOOTER SECTION */
+        footer {
+            background: var(--dark-background);
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 2px solid var(--gold);
+        }
+
+        .contact-container h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            letter-spacing: 4px;
+            margin-bottom: 30px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .contact-item {
+            flex: 1 1 200px;
+            max-width: 300px;
+        }
+
+        .contact-item h4 {
+            color: var(--gold);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .contact-item p, .contact-item a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            transition: 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--gold);
+            opacity: 1;
+        }
+
+        .copyright {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.5;
+            margin-top: 20px;
+        }
+
     </style>
 </head>
 <body>
 
 <nav>
+    <img src="Gemini_Generated_Image_ij6a1dij6a1dij6a_1.png" alt="A-King logo" class="nav-logo-small">
     <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
@@ -217,9 +294,9 @@
     </div>
     
     <div class="hero-content">
-        <div class="king-logo">♚</div>
+        <img src="Gemini_Generated_Image_ij6a1dij6a1dij6a_1.png" alt="A-King Chess Academy Logo" class="main-brand-logo">
         <h1>A - KING CHESS</h1>
-        <p class="sub">Academy of Grandmasters</p>
+        <p class="sub">Master the Strategy</p>
     </div>
 </section>
 
@@ -247,6 +324,27 @@
         </div>
     </div>
 </div>
+
+<footer>
+    <div class="contact-container">
+        <h2>Contact Us</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <h4>Location</h4>
+                <p>Lagos, Nigeria</p>
+            </div>
+            <div class="contact-item">
+                <h4>Email</h4>
+                <a href="mailto:dotunakinseye@gmail.com">dotunakinseye@gmail.com</a>
+            </div>
+            <div class="contact-item">
+                <h4>WhatsApp</h4>
+                <a href="https://wa.me/2348100989094" target="_blank">+234 810 098 9094</a>
+            </div>
+        </div>
+        <p class="copyright">&copy; 2026 A-KING CHESS ACADEMY. All Rights Reserved.</p>
+    </div>
+</footer>
 
 </body>
 </html>
