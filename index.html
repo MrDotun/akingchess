@@ -30,18 +30,9 @@
             position: sticky; top: 0; z-index: 1000; 
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            /* Updated to center navigation when logo is gone */
+            justify-content: center;
             padding: 0 5%;
-        }
-
-        /* CROPPED & 2.5X LARGER LOGO */
-        .nav-logo-small {
-            height: 125px; 
-            width: 110px;  
-            padding: 5px 0;
-            filter: drop-shadow(0 0 10px rgba(251, 191, 36, 0.5));
-            object-fit: cover; 
-            object-position: 50% 60%; 
         }
         
         nav ul { list-style: none; display: flex; margin: 0; padding: 0; }
@@ -289,9 +280,6 @@
 <body>
 
 <nav>
-    <a href="index.html">
-        <img src="Gemini_Generated_Image_ij6a1dij6a1dij6a_1.png" alt="A-King logo" class="nav-logo-small">
-    </a>
     <ul>
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
