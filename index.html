@@ -6,7 +6,6 @@
     <title>A-KING CHESS | Master the Strategy</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        /* --- YOUR ORIGINAL VARIABLES & STYLES (UNALTERED) --- */
         :root { 
             --deep-green: #064e3b; 
             --light-green: #10b981; 
@@ -23,102 +22,7 @@
             overflow-x: hidden; 
         }
 
-        /* --- NEW WELCOME PAGE STYLES (OVERLAY) --- */
-        #grand-welcome {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: radial-gradient(circle at center, var(--deep-green), var(--dark-background));
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: transform 1s cubic-bezier(0.85, 0, 0.15, 1), opacity 0.8s ease;
-        }
-
-        .welcome-content {
-            text-align: center;
-            animation: fadeIn 2s ease-out;
-        }
-
-        /* Profound Animated Founder Image */
-        .founder-container {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            border: 4px solid var(--gold);
-            overflow: hidden;
-            margin-bottom: 25px;
-            box-shadow: 0 0 40px rgba(251, 191, 36, 0.4);
-            position: relative;
-        }
-
-        .founder-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            /* The "Profound" Ken Burns Animation */
-            animation: profoundZoom 12s infinite alternate ease-in-out;
-        }
-
-        .academy-name {
-            font-family: 'Cinzel', serif;
-            font-size: 2.8rem;
-            color: var(--gold);
-            margin-bottom: 5px;
-            letter-spacing: 5px;
-        }
-
-        .founder-title {
-            font-size: 1rem;
-            letter-spacing: 3px;
-            color: white;
-            opacity: 0.9;
-            margin-bottom: 40px;
-            text-transform: uppercase;
-        }
-
-        .enter-button {
-            background: transparent;
-            border: 2px solid var(--gold);
-            color: var(--gold);
-            padding: 15px 45px;
-            font-family: 'Cinzel', serif;
-            font-weight: 900;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .enter-button:hover {
-            background: var(--gold);
-            color: var(--dark-background);
-            box-shadow: 0 0 25px var(--gold);
-        }
-
-        /* Hiding the overlay */
-        .exit-welcome {
-            transform: translateY(-100%);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        @keyframes profoundZoom {
-            from { transform: scale(1); }
-            to { transform: scale(1.2); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- YOUR ORIGINAL COMPONENT STYLES --- */
+        /* --- LOGO ANIMATION & MAGNIFIED SIZE --- */
         @keyframes floatLogo {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-12px); }
@@ -132,11 +36,12 @@
         }
 
         .section-logo {
-            width: 112px; 
+            width: 112px; /* Magnified 2.5x from 45px */
             height: auto;
             animation: floatLogo 3s ease-in-out infinite;
         }
 
+        /* MODERN NAV BAR */
         nav { 
             background: rgba(2, 44, 34, 0.95);
             backdrop-filter: blur(10px);
@@ -157,6 +62,31 @@
         }
         nav ul li a:hover { color: var(--gold); }
 
+        /* FLOATING SHOP BADGE */
+        .shop-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--gold);
+            color: var(--dark-background);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            z-index: 100;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            animation: badgeFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes badgeFloat {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        /* LIGHTER TOP HERO SECTION */
         .hero { 
             position: relative; 
             height: 75vh; 
@@ -167,6 +97,7 @@
             background: var(--light-green);
         }
 
+        /* CAROUSEL IMAGES */
         .carousel-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
         .slide {
             position: absolute;
@@ -175,56 +106,16 @@
             background-position: center;
             opacity: 0;
             filter: brightness(0.7);
+            animation: carouselFade 15s infinite ease-in-out; 
         }
-        .slide:nth-child(1) { opacity: 1; }
-    </style>
-</head>
-<body>
 
-    <div id="grand-welcome">
-        <div class="welcome-content">
-            <div style="margin-bottom: 20px;">
-                <img src="logo.png" alt="A-KING LOGO" style="width: 120px; filter: drop-shadow(0 0 10px gold);" onerror="this.style.display='none'">
-            </div>
-
-            <div class="founder-container">
-                <img src="IMG-20260224-WA0051.jpg" alt="Akan Udoh" class="founder-img">
-            </div>
-
-            <h1 class="academy-name">A-KING CHESS</h1>
-            <p class="founder-title">Akan Udoh | Founder</p>
-
-            <button class="enter-button" onclick="launchSite()">Enter Academy</button>
-        </div>
-    </div>
-
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Academy</a></li>
-            <li><a href="#">Equipment</a></li>
-            <li><a href="#">Schools</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
-
-    <div class="hero">
-        <div class="carousel-container">
-            <div class="slide" style="background-image: url('Gemini_Generated_Image_x27k6hx27k6hx27k.png');"></div>
-        </div>
-        <div style="z-index: 10; text-align: center;">
-            <h1 style="font-family: 'Cinzel'; font-size: 3.5rem; color: var(--gold); text-shadow: 2px 2px 15px rgba(0,0,0,0.5);">MASTER THE STRATEGY</h1>
-        </div>
-    </div>
-
-    <script>
-        function launchSite() {
-            document.getElementById('grand-welcome').classList.add('exit-welcome');
-            // Allow time for animation before allowing scroll
-            setTimeout(() => {
-                document.getElementById('grand-welcome').style.display = 'none';
-            }, 1000);
+        .slide:nth-child(1) { 
+            background-image: url('Gemini_Generated_Image_x27k6hx27k6hx27k.png'); 
+            animation-delay: 0s; 
+            opacity: 1; 
         }
-    </script>
-</body>
-</html>
+        .slide:nth-child(2) { 
+            background-image: url('1771803042489.jpg'); 
+            animation-delay: 5s; 
+        }
+        .slide:nth-child(3) {
