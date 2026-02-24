@@ -23,6 +23,74 @@
             overflow-x: hidden;
         }
 
+        /* --- WELCOME PAGE STYLES --- */
+        #welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, var(--deep-green), var(--dark-background));
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.5s;
+        }
+
+        .welcome-content {
+            text-align: center;
+            max-width: 600px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .ceo-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--gold);
+            margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+        }
+
+        .welcome-content h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            margin: 10px 0;
+        }
+
+        .welcome-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: #e2e8f0;
+        }
+
+        .enter-btn {
+            background: var(--gold);
+            color: var(--dark-background);
+            padding: 15px 45px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .enter-btn:hover {
+            transform: scale(1.05);
+            background: white;
+        }
+
         /* --- LOGO ANIMATION & MAGNIFIED SIZE --- */
         @keyframes floatLogo {
             0%, 100% { transform: translateY(0); }
@@ -37,7 +105,7 @@
         }
 
         .section-logo {
-            width: 112px; /* Magnified 2.5x from original 45px */
+            width: 112px; 
             height: auto;
             animation: floatLogo 3s ease-in-out infinite;
         }
@@ -168,7 +236,6 @@
             letter-spacing: 6px;
             color: var(--gold);
             text-shadow: 0 4px 15px rgba(0,0,0,0.6);
-            animation: textEntrance 1.5s ease-out;
         }
 
         .sub {
@@ -269,47 +336,6 @@
             border-top: 2px solid var(--gold);
         }
 
-        .contact-container h2 {
-            font-family: 'Cinzel', serif;
-            color: var(--gold);
-            letter-spacing: 4px;
-            margin-bottom: 30px;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .contact-item {
-            flex: 1 1 200px;
-            max-width: 300px;
-        }
-
-        .contact-item h4 {
-            color: var(--gold);
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
-
-        .contact-item p, .contact-item a {
-            color: white;
-            text-decoration: none;
-            font-size: 0.9rem;
-            opacity: 0.8;
-            transition: 0.3s;
-        }
-
-        .contact-item a:hover {
-            color: var(--gold);
-            opacity: 1;
-        }
-
         .whatsapp-btn {
             display: inline-block;
             background: #25d366;
@@ -320,19 +346,23 @@
             margin-top: 10px;
             text-transform: uppercase;
             font-size: 0.8rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .copyright {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            opacity: 0.5;
-            margin-top: 20px;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
+
+    <div id="welcome-overlay">
+        <div class="welcome-content">
+            <img src="IMG-20260224-WA0051.jpg" alt="CEO" class="ceo-image">
+            <h2>Welcome to A-King Chess</h2>
+            <p class="welcome-text">
+                I am the CEO of A-King Chess Academy. We are proud to have chess instructors in <strong>over 30 schools in Nigeria</strong>. 
+                Beyond training, we provide world-class equipment including chess clocks, professional boards, and premium pieces.
+            </p>
+            <button class="enter-btn" onclick="enterSite()">Enter Academy</button>
+        </div>
+    </div>
 
     <nav>
         <ul>
@@ -348,7 +378,7 @@
         <div class="carousel-container">
             <div class="slide"></div>
             <div class="slide"></div>
-            <div class="slide)</div>
+            <div class="slide"></div>
         </div>
         <div class="hero-content">
             <h1>A - KING CHESS</h1>
@@ -398,22 +428,33 @@
 
     <footer>
         <div class="contact-container">
-            <h2>Contact Us</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <h4>Academy Director</h4>
+            <h2 style="font-family: 'Cinzel'; color: var(--gold);">Contact Us</h2>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; margin-bottom: 40px;">
+                <div>
+                    <h4 style="color: var(--gold); text-transform: uppercase; font-size: 0.8rem;">Academy Director</h4>
                     <p>Udoh Akan</p>
                 </div>
-                <div class="contact-item">
-                    <h4>Direct WhatsApp</h4>
-                    <a href="https://wa.me/2348108020946?text=Hello%20A-King%20Chess%20Academy,%20I%20am%20interested%20in%20joining%20your%20classes." target="_blank" class="whatsapp-btn">
+                <div>
+                    <h4 style="color: var(--gold); text-transform: uppercase; font-size: 0.8rem;">Direct WhatsApp</h4>
+                    <a href="https://wa.me/2348108020946?text=Hello%20A-King%20Chess%20Academy" target="_blank" class="whatsapp-btn">
                         Chat +234 810 802 0946
                     </a>
                 </div>
             </div>
-            <p class="copyright">&copy; 2026 A-KING CHESS ACADEMY. All Rights Reserved.</p>
+            <p style="font-size: 0.7rem; opacity: 0.5;">&copy; 2026 A-KING CHESS ACADEMY. All Rights Reserved.</p>
         </div>
     </footer>
+
+    <script>
+        function enterSite() {
+            const overlay = document.getElementById('welcome-overlay');
+            overlay.style.opacity = '0';
+            overlay.style.transform = 'translateY(-100%)';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 800);
+        }
+    </script>
 
 </body>
 </html>
